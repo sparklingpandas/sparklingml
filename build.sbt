@@ -30,14 +30,16 @@ coverageHighlighting := true
 
 javaOptions ++= Seq("-Xms512M", "-Xmx2048M", "-XX:MaxPermSize=2048M", "-XX:+CMSClassUnloadingEnabled")
 
-libraryDependencies ++= Seq(
-  "com.lucidwords.spark" % "spark-solr" % "3.0.2")
 
-// additional libraries
 libraryDependencies ++= Seq(
+  // algorithm providers
+  "com.lucidworks.spark" % "spark-solr" % "3.0.2",
+  // internals
+  "org.scala-lang" % "scala-reflect" % "2.11.7",
+  // testing libraries
   "org.scalatest" %% "scalatest" % "3.0.1",
   "org.scalacheck" %% "scalacheck" % "1.13.4",
-  "com.holdenkarau" %% "spark-testing-base_2.1.1" % "0.7.0")
+  "com.holdenkarau" %% "spark-testing-base" % "2.1.1_0.7.0")
 
 
 scalacOptions ++= Seq("-deprecation", "-unchecked")
@@ -49,7 +51,9 @@ resolvers ++= Seq(
   "Typesafe repository" at "http://repo.typesafe.com/typesafe/releases/",
   "Second Typesafe repo" at "http://repo.typesafe.com/typesafe/maven-releases/",
   "Mesosphere Public Repository" at "http://downloads.mesosphere.io/maven",
-  Resolver.sonatypeRepo("public")
+  Resolver.sonatypeRepo("public"),
+  // restlet has a seperate maven repo because idk
+  "restlet" at "http://maven.restlet.com"
 )
 
 // publish settings

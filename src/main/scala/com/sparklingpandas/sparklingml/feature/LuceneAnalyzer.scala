@@ -1,17 +1,24 @@
 package com.sparklingpandas.sparklingml
 
+import org.apache.spark.annotation.DeveloperApi
+import org.apache.spark.ml.UnaryTransformer
+import org.apache.spark.sql.Dataset
+import org.apache.spark.sql.types._
+
 import org.apache.lucene.analysis.Analyzer
+import org.apache.lucene.analysis.tokenattributes.CharTermAttribute
 
 /**
  * Abstract trait for Lucene Transformer. An alternative option is to
  * use LuceneTextAnalyzerTransformer from the spark-solr project.
  */
+@DeveloperApi
 trait LuceneTransformer extends UnaryTransformer[String, Array[String], LuceneTransformer] {
 
   // Implement this function to construct an analyzer based on the provided settings.
   def buildAnalyzer(): Analyzer
 
-  override def outputDataType: DataType = ArrayType[StringType]
+  override def outputDataType: DataType = ArrayType(StringType)
 
   override def validateInputType(inputType: DataType): Unit = {
     require(inputType.isInstanceOf[StringType],
@@ -20,8 +27,15 @@ trait LuceneTransformer extends UnaryTransformer[String, Array[String], LuceneTr
 
   override def createTransformFunc: String => Array[String] = {
     val analyzer = buildAnalyzer()
-    (input: String) => {
-      analyzer.analyze($(inputCol), input)
+      (inputText: String) => {
+      val inputStream = analyzer.tokenStream($(inputCol), inputText)
+      val builder = Array.newBuilder[String]
+      val charTermAttr = inputStream.addAttribute(classOf[CharTermAttribute])
+      inputStream.reset()
+      while (inputStream.incrementToken) builder += charTermAttr.toString
+      inputStream.end()
+      inputStream.close()
+      builder.result()
     }
   }
 }

@@ -1,4 +1,4 @@
-package com.sparklingpandas.sparklingml
+package com.sparklingpandas.sparklingml.feature
 
 import org.apache.spark.annotation.DeveloperApi
 import org.apache.spark.ml.UnaryTransformer

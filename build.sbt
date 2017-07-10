@@ -30,11 +30,14 @@ coverageHighlighting := true
 
 javaOptions ++= Seq("-Xms512M", "-Xmx2048M", "-XX:MaxPermSize=2048M", "-XX:+CMSClassUnloadingEnabled")
 
+libraryDependencies ++= Seq(
+  "com.lucidwords.spark" % "spark-solr" % "3.0.2")
+
 // additional libraries
 libraryDependencies ++= Seq(
   "org.scalatest" %% "scalatest" % "3.0.1",
   "org.scalacheck" %% "scalacheck" % "1.13.4",
-  "com.holdenkarau" %% "spark-testing-base_2.1.1" % "0.6.0")
+  "com.holdenkarau" %% "spark-testing-base_2.1.1" % "0.7.0")
 
 
 scalacOptions ++= Seq("-deprecation", "-unchecked")

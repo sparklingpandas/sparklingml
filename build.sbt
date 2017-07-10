@@ -36,6 +36,7 @@ libraryDependencies ++= Seq(
   "com.lucidworks.spark" % "spark-solr" % "3.0.2",
   // internals
   "org.scala-lang" % "scala-reflect" % "2.11.7",
+  "org.reflections" % "reflections" % "0.9.11",
   // testing libraries
   "org.scalatest" %% "scalatest" % "3.0.1",
   "org.scalacheck" %% "scalacheck" % "1.13.4",

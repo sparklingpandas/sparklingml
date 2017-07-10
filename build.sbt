@@ -4,35 +4,13 @@ name := "sparklingml"
 
 publishMavenStyle := true
 
-version := "0.1.0"
+version := "0.0.1"
 
 sparkVersion := "2.1.1"
 
-scalaVersion := {
-  if (sparkVersion.value >= "2.0.0") {
-    "2.11.8"
-  } else {
-    "2.10.6"
-  }
-}
+scalaVersion := "2.11.8"
 
-// See https://github.com/scala/scala/pull/3799
-coverageHighlighting := {
-  if (sparkVersion.value >= "2.0.0") {
-    true
-  } else {
-    false
-  }
-}
-
-
-crossScalaVersions := {
-  if (sparkVersion.value > "2.0.0") {
-    Seq("2.11.11")
-  } else {
-    Seq("2.10.6", "2.11.11")
-  }
-}
+coverageHighlighting := true
 
 javacOptions ++= Seq("-source", "1.8", "-target", "1.8")
 
@@ -46,10 +24,7 @@ parallelExecution in Test := false
 fork := true
 
 
-coverageHighlighting := {
-  if (scalaBinaryVersion.value == "2.10") false
-  else true
-}
+coverageHighlighting := true
 
 
 
@@ -67,14 +42,6 @@ scalacOptions ++= Seq("-deprecation", "-unchecked")
 pomIncludeRepository := { x => false }
 
 resolvers ++= Seq(
-  "JBoss Repository" at "http://repository.jboss.org/nexus/content/repositories/releases/",
-  "Spray Repository" at "http://repo.spray.cc/",
-  "Cloudera Repository" at "https://repository.cloudera.com/artifactory/cloudera-repos/",
-  "Akka Repository" at "http://repo.akka.io/releases/",
-  "Twitter4J Repository" at "http://twitter4j.org/maven2/",
-  "Apache HBase" at "https://repository.apache.org/content/repositories/releases",
-  "Twitter Maven Repo" at "http://maven.twttr.com/",
-  "scala-tools" at "https://oss.sonatype.org/content/groups/scala-tools",
   "sonatype-releases" at "https://oss.sonatype.org/content/repositories/releases/",
   "Typesafe repository" at "http://repo.typesafe.com/typesafe/releases/",
   "Second Typesafe repo" at "http://repo.typesafe.com/typesafe/maven-releases/",

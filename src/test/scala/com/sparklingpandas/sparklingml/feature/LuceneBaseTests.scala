@@ -52,7 +52,7 @@ abstract class LuceneStopwordTransformerTest[T <: LuceneTransformer[_]] extends
     val thst = transformer.asInstanceOf[HasStopwords]
     thst.set(thst.stopwords, Array("boo"))
     thst.setStopwords(Array("boop"))
-    transformer.asInstanceOf[FinnishAnalyzerLucene].setInputCol("input")
+    transformer.asInstanceOf[T].setInputCol("input")
     val result = transformer.transform(input).collect()
     assert(result.size === 3)
     assert(result(2).getSeq(1).isEmpty)

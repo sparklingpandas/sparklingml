@@ -68,7 +68,7 @@ private[sparklingpandas] object LuceneAnalyzerGenerators {
 
   def generate(): (String, String) = {
     val reflections = new Reflections("org.apache.lucene");
-    val generalAnalyzers = reflections.getSubTypesOf(classOf[org.apache.lucene.analysis.Analyzer]).asScala
+    val generalAnalyzers = reflections.getSubTypesOf(classOf[org.apache.lucene.analysis.Analyzer]).asScala.toList.sortBy(_.toString)
     val concreteAnalyzers = generalAnalyzers.filter(cls => !Modifier.isAbstract(cls.getModifiers))
     // A bit of a hack but strip out the factories and such
     val relevantAnalyzers = concreteAnalyzers.filter(cls =>

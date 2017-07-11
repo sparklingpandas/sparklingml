@@ -48,6 +48,7 @@ private[sparklingpandas] object LuceneAnalyzerGenerators {
         |package com.sparklingpandas.sparklingml.feature
         |
         |import org.apache.spark.ml.param._
+        |import org.apache.spark.ml.util.Identifiable
         |
         |import org.apache.lucene.analysis.Analyzer
         |
@@ -138,7 +139,9 @@ private[sparklingpandas] object LuceneAnalyzerGenerators {
         |/**
         | * A super simple test
         | */
-        | class ${clsShortName}LuceneTest extends LuceneStopwordTransformerTest {}
+        |class ${clsShortName}LuceneTest extends LuceneStopwordTransformerTest[${clsShortName}Lucene] {
+        |    val transformer = new ${clsShortName}Lucene()
+        |}
         """.stripMargin('|')
       val code =
         s"""
@@ -146,7 +149,11 @@ private[sparklingpandas] object LuceneAnalyzerGenerators {
         | * A basic Transformer based on ${clsFullName}. Supports configuring stopwords.${warning}
         | */
         |
-        |class ${clsShortName}Lucene extends LuceneTransformer with HasStopwords with HasStopwordCase {
+        |class ${clsShortName}Lucene(override val uid: String) extends LuceneTransformer[${clsShortName}Lucene]
+        |    with HasStopwords with HasStopwordCase {
+        |
+        |  def this() = this(Identifiable.randomUID("${clsShortName}"))
+        |
         |  def buildAnalyzer(): Analyzer = {
         |    // In the future we can use getDefaultStopWords here to allow people to control
         |    // the snowball stemmer distinctly from the stopwords.
@@ -168,7 +175,9 @@ private[sparklingpandas] object LuceneAnalyzerGenerators {
         |/**
         | * A super simple test
         | */
-        | class ${clsShortName}LuceneTest extends LuceneTransformerTest {}
+        |class ${clsShortName}LuceneTest extends LuceneTransformerTest[${clsShortName}Lucene] {
+        |    val transformer = new ${clsShortName}Lucene()
+        |}
         """.stripMargin('|')
       val code =
         s"""
@@ -179,7 +188,11 @@ private[sparklingpandas] object LuceneAnalyzerGenerators {
         | * for details.
         | */
         |
-        |class ${clsShortName}Lucene extends LuceneTransformer {
+        |class ${clsShortName}Lucene(override val uid: String)
+        |    extends LuceneTransformer[${clsShortName}Lucene] {
+        |
+        |  def this() = this(Identifiable.randomUID("${clsShortName}"))
+        |
         |  def buildAnalyzer(): Analyzer = {
         |    new ${clsFullName}()
         |  }
@@ -189,7 +202,7 @@ private[sparklingpandas] object LuceneAnalyzerGenerators {
     } else {
       ("", s"""
         |/// There is no default zero arg constructor for ${clsFullName}
-        """.stripMargin('|'))
+        |""".stripMargin('|'))
     }
   }
 }

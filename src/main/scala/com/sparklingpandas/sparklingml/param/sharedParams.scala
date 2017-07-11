@@ -38,6 +38,8 @@ trait HasStopwordCase extends Params {
 
   /** @group getParam */
   final def getStopwordCase: Boolean = $(stopwordCase)
+
+  final def setStopwordCase(value: Boolean): this.type = set(this.stopwordCase, value)
 }
 
 /**
@@ -53,6 +55,8 @@ trait HasStopwords extends Params {
 
   /** @group getParam */
   final def getStopwords: Array[String] = $(stopwords)
+
+  final def setStopwords(value: Array[String]): this.type = set(this.stopwords, value)
 }
 
 /**
@@ -68,6 +72,8 @@ trait HasRegParam extends Params {
 
   /** @group getParam */
   final def getRegParam: Double = $(regParam)
+
+  final def setRegParam(value: Double): this.type = set(this.regParam, value)
 }
 
 /**
@@ -83,6 +89,8 @@ trait HasMaxIter extends Params {
 
   /** @group getParam */
   final def getMaxIter: Int = $(maxIter)
+
+  final def setMaxIter(value: Int): this.type = set(this.maxIter, value)
 }
 
 /**
@@ -100,6 +108,8 @@ trait HasFeaturesCol extends Params {
 
   /** @group getParam */
   final def getFeaturesCol: String = $(featuresCol)
+
+  final def setFeaturesCol(value: String): this.type = set(this.featuresCol, value)
 }
 
 /**
@@ -117,6 +127,8 @@ trait HasLabelCol extends Params {
 
   /** @group getParam */
   final def getLabelCol: String = $(labelCol)
+
+  final def setLabelCol(value: String): this.type = set(this.labelCol, value)
 }
 
 /**
@@ -134,6 +146,8 @@ trait HasPredictionCol extends Params {
 
   /** @group getParam */
   final def getPredictionCol: String = $(predictionCol)
+
+  final def setPredictionCol(value: String): this.type = set(this.predictionCol, value)
 }
 
 /**
@@ -151,6 +165,8 @@ trait HasRawPredictionCol extends Params {
 
   /** @group getParam */
   final def getRawPredictionCol: String = $(rawPredictionCol)
+
+  final def setRawPredictionCol(value: String): this.type = set(this.rawPredictionCol, value)
 }
 
 /**
@@ -168,6 +184,8 @@ trait HasProbabilityCol extends Params {
 
   /** @group getParam */
   final def getProbabilityCol: String = $(probabilityCol)
+
+  final def setProbabilityCol(value: String): this.type = set(this.probabilityCol, value)
 }
 
 /**
@@ -183,6 +201,8 @@ trait HasVarianceCol extends Params {
 
   /** @group getParam */
   final def getVarianceCol: String = $(varianceCol)
+
+  final def setVarianceCol(value: String): this.type = set(this.varianceCol, value)
 }
 
 /**
@@ -200,6 +220,8 @@ trait HasThreshold extends Params {
 
   /** @group getParam */
   def getThreshold: Double = $(threshold)
+
+  def setThreshold(value: Double): this.type = set(this.threshold, value)
 }
 
 /**
@@ -215,6 +237,8 @@ trait HasThresholds extends Params {
 
   /** @group getParam */
   def getThresholds: Array[Double] = $(thresholds)
+
+  def setThresholds(value: Array[Double]): this.type = set(this.thresholds, value)
 }
 
 /**
@@ -230,6 +254,8 @@ trait HasInputCol extends Params {
 
   /** @group getParam */
   final def getInputCol: String = $(inputCol)
+
+  final def setInputCol(value: String): this.type = set(this.inputCol, value)
 }
 
 /**
@@ -245,6 +271,8 @@ trait HasInputCols extends Params {
 
   /** @group getParam */
   final def getInputCols: Array[String] = $(inputCols)
+
+  final def setInputCols(value: Array[String]): this.type = set(this.inputCols, value)
 }
 
 /**
@@ -262,6 +290,8 @@ trait HasOutputCol extends Params {
 
   /** @group getParam */
   final def getOutputCol: String = $(outputCol)
+
+  final def setOutputCol(value: String): this.type = set(this.outputCol, value)
 }
 
 /**
@@ -277,6 +307,8 @@ trait HasCheckpointInterval extends Params {
 
   /** @group getParam */
   final def getCheckpointInterval: Int = $(checkpointInterval)
+
+  final def setCheckpointInterval(value: Int): this.type = set(this.checkpointInterval, value)
 }
 
 /**
@@ -294,6 +326,8 @@ trait HasFitIntercept extends Params {
 
   /** @group getParam */
   final def getFitIntercept: Boolean = $(fitIntercept)
+
+  final def setFitIntercept(value: Boolean): this.type = set(this.fitIntercept, value)
 }
 
 /**
@@ -309,6 +343,8 @@ trait HasHandleInvalid extends Params {
 
   /** @group getParam */
   final def getHandleInvalid: String = $(handleInvalid)
+
+  final def setHandleInvalid(value: String): this.type = set(this.handleInvalid, value)
 }
 
 /**
@@ -326,6 +362,8 @@ trait HasStandardization extends Params {
 
   /** @group getParam */
   final def getStandardization: Boolean = $(standardization)
+
+  final def setStandardization(value: Boolean): this.type = set(this.standardization, value)
 }
 
 /**
@@ -343,6 +381,8 @@ trait HasSeed extends Params {
 
   /** @group getParam */
   final def getSeed: Long = $(seed)
+
+  final def setSeed(value: Long): this.type = set(this.seed, value)
 }
 
 /**
@@ -358,6 +398,8 @@ trait HasElasticNetParam extends Params {
 
   /** @group getParam */
   final def getElasticNetParam: Double = $(elasticNetParam)
+
+  final def setElasticNetParam(value: Double): this.type = set(this.elasticNetParam, value)
 }
 
 /**
@@ -373,6 +415,8 @@ trait HasTol extends Params {
 
   /** @group getParam */
   final def getTol: Double = $(tol)
+
+  final def setTol(value: Double): this.type = set(this.tol, value)
 }
 
 /**
@@ -388,6 +432,8 @@ trait HasStepSize extends Params {
 
   /** @group getParam */
   final def getStepSize: Double = $(stepSize)
+
+  final def setStepSize(value: Double): this.type = set(this.stepSize, value)
 }
 
 /**
@@ -403,6 +449,8 @@ trait HasWeightCol extends Params {
 
   /** @group getParam */
   final def getWeightCol: String = $(weightCol)
+
+  final def setWeightCol(value: String): this.type = set(this.weightCol, value)
 }
 
 /**
@@ -418,6 +466,8 @@ trait HasSolver extends Params {
 
   /** @group getParam */
   final def getSolver: String = $(solver)
+
+  final def setSolver(value: String): this.type = set(this.solver, value)
 }
 
 /**
@@ -435,5 +485,7 @@ trait HasAggregationDepth extends Params {
 
   /** @group expertGetParam */
   final def getAggregationDepth: Int = $(aggregationDepth)
+
+  final def setAggregationDepth(value: Int): this.type = set(this.aggregationDepth, value)
 }
 // scalastyle:on

@@ -196,6 +196,8 @@ private[sparklingpandas] object SharedParamsCodeGen {
       |$setDefault
       |  /** @group ${groupStr(1)} */
       |  $methodStr get$Name: $T = $$($name)
+      |
+      |  $methodStr set$Name(value: $T): this.type = set(this.$name, value)
       |}
       |""".stripMargin
   }

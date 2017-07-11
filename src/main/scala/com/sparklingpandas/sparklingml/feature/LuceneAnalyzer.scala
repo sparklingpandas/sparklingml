@@ -2,7 +2,6 @@ package com.sparklingpandas.sparklingml.feature
 
 import org.apache.spark.annotation.DeveloperApi
 import org.apache.spark.ml.UnaryTransformer
-import org.apache.spark.ml.util.Identifiable
 import org.apache.spark.sql.Dataset
 import org.apache.spark.sql.types._
 
@@ -14,9 +13,8 @@ import org.apache.lucene.analysis.tokenattributes.CharTermAttribute
  * use LuceneTextAnalyzerTransformer from the spark-solr project.
  */
 @DeveloperApi
-trait LuceneTransformer extends UnaryTransformer[String, Array[String], LuceneTransformer] {
-
-  override val uid = Identifiable.randomUID(this.getClass.getName)
+trait LuceneTransformer[T <:LuceneTransformer[T]]
+    extends UnaryTransformer[String, Array[String], T] {
 
   // Implement this function to construct an analyzer based on the provided settings.
   def buildAnalyzer(): Analyzer

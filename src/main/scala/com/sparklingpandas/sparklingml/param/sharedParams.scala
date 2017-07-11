@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package com.sparklingpandas.sparkml.params
+package com.sparklingpandas.sparklingml.param
 
 import org.apache.spark.ml.param._
 

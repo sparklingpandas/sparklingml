@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package com.sparklingpandas.sparkml.params
+package com.sparklingpandas.sparklingml.param
 
 import java.io.PrintWriter
 
@@ -23,14 +23,14 @@ import scala.reflect.ClassTag
 import scala.xml.Utility
 
 /**
- * Code generator for shared params (sharedParams.scala). Run under the Spark folder with
+ * Code generator for shared params (sharedParams.scala). Run with
  * {{{
- *   build/sbt "runMain com.sparklingpandas.sparkml.params.SharedParamsCodeGen"
+ *   build/sbt "runMain com.sparklingpandas.sparklingml.param.SharedParamsCodeGen"
  * }}}.
  *
  * Based on the same param generators in Spark, but with extra params.
  */
-private object SharedParamsCodeGen {
+private[sparklingpandas] object SharedParamsCodeGen {
 
   def main(args: Array[String]): Unit = {
     val params = Seq(
@@ -92,7 +92,7 @@ private object SharedParamsCodeGen {
         isValid = "ParamValidators.gtEq(2)", isExpertParam = true))
 
     val code = genSharedParams(params)
-    val file = "src/main/scala/com/sparklingpandas/sparklingml/params/sharedParams.scala"
+    val file = "src/main/scala/com/sparklingpandas/sparklingml/param/sharedParams.scala"
     val writer = new PrintWriter(file)
     writer.write(code)
     writer.close()
@@ -220,7 +220,7 @@ private object SharedParamsCodeGen {
         | * limitations under the License.
         | */
         |
-        |package com.sparklingpandas.sparkml.params
+        |package com.sparklingpandas.sparklingml.param
         |
         |import org.apache.spark.ml.param._
         |

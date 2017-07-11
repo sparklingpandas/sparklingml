@@ -41,18 +41,18 @@ trait HasStopwordCase extends Params {
 }
 
 /**
- * Trait for shared param stopdwords.
+ * Trait for shared param stopwords.
  */
-trait HasStopdwords extends Params {
+trait HasStopwords extends Params {
 
   /**
    * Param for Stopwords to be filtered. Default value depends on underlying transformer.
    * @group param
    */
-  final val stopdwords: StringArrayParam = new StringArrayParam(this, "stopdwords", "Stopwords to be filtered. Default value depends on underlying transformer")
+  final val stopwords: StringArrayParam = new StringArrayParam(this, "stopwords", "Stopwords to be filtered. Default value depends on underlying transformer")
 
   /** @group getParam */
-  final def getStopdwords: Array[String] = $(stopdwords)
+  final def getStopwords: Array[String] = $(stopwords)
 }
 
 /**

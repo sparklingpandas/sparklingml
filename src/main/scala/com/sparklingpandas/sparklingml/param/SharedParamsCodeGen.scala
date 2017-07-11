@@ -36,7 +36,7 @@ private[sparklingpandas] object SharedParamsCodeGen {
     val params = Seq(
       // SparklingML Params
       ParamDesc[Boolean]("stopwordCase", "If the case should be considered when filtering stopwords", Some("false")),
-      ParamDesc[Array[String]]("stopdwords",
+      ParamDesc[Array[String]]("stopwords",
         "Stopwords to be filtered. Default value depends on underlying transformer"),
       // Spark Params
       ParamDesc[Double]("regParam", "regularization parameter (>= 0)",

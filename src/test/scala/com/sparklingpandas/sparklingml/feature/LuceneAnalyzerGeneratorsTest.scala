@@ -19,15 +19,15 @@ package com.sparklingpandas.sparklingml.feature
 
 import sys.process._
 
-import org.scalatest.FunSuite
+import org.scalatest._
 
-class LuceneAnalyzerGeneratorsTest extends FunSuite {
+class LuceneAnalyzerGeneratorsTest extends FunSuite with Matchers{
   test("verify the generated code is up to date") {
     LuceneAnalyzerGenerators.main(Array[String]())
     val basePath = "scala/com/sparklingpandas/sparklingml/feature/"
     val testResult = s"git diff -q ./src/test/${basePath}LuceneAnalyzersTests.scala".!
     val transformResult = s"git diff -q ./src/main/${basePath}LuceneAnalyzers.scala".!
-    assert(testResult === 0)
-    assert(transformResult === 0)
+    testResult shouldBe 0
+    transformResult shouldBe 0
   }
 }

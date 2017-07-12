@@ -21,7 +21,7 @@ import org.apache.spark.ml.param._
 
 import org.apache.lucene.analysis.Analyzer
 
-import org.scalatest.FunSuite
+import org.scalatest._
 
 import com.holdenkarau.spark.testing.DataFrameSuiteBase
 
@@ -30,7 +30,7 @@ import com.sparklingpandas.sparklingml.param._
 case class InputData(input: String)
 
 abstract class LuceneTransformerTest[T <: LuceneTransformer[_]] extends
-    FunSuite with DataFrameSuiteBase {
+    FunSuite with DataFrameSuiteBase with Matchers {
   val transformer: T
 
   test("verify that the transformer runs") {
@@ -39,7 +39,7 @@ abstract class LuceneTransformerTest[T <: LuceneTransformer[_]] extends
       List(InputData("hi"), InputData("boo"), InputData("boop")))
     transformer.setInputCol("input")
     val result = transformer.transform(input).collect()
-    assert(result.size === 3)
+    result.size shouldBe 3
   }
 }
 
@@ -54,7 +54,7 @@ abstract class LuceneStopwordTransformerTest[T <: LuceneTransformer[_]] extends
     thst.setStopwords(Array("boop"))
     transformer.asInstanceOf[T].setInputCol("input")
     val result = transformer.transform(input).collect()
-    assert(result.size === 3)
-    assert(result(2).getSeq(1).isEmpty)
+    result.size shouldBe 3
+    result(2).getSeq(1) shouldBe empty
   }
 }

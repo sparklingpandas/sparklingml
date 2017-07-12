@@ -19,13 +19,13 @@ package com.sparklingpandas.sparklingml.param
 
 import sys.process._
 
-import org.scalatest.FunSuite
+import org.scalatest._
 
-class SharedParamsCodeGenTest extends FunSuite {
+class SharedParamsCodeGenTest extends FunSuite with Matchers {
   test("verify the generated code is up to date") {
     SharedParamsCodeGen.main(Array[String]())
     val basePath = "scala/com/sparklingpandas/sparklingml/param/"
     val result = s"git diff -q ./src/main/${basePath}/sharedParams.scala".!
-    assert(result === 0)
+    result shouldBe 0
   }
 }

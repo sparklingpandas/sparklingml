@@ -7,11 +7,12 @@ cache:
     - $HOME/.sbt/boot/
     - $HOME/.sbt/launchers
     - $HOME/build
-
 jdk:
   - oraclejdk8
 scala:
   - 2.11.8
 after_success:
   - bash <(curl -s https://codecov.io/bash)
+script:
+  - ./sbt/sbt clean coverage compile test
 sudo: false

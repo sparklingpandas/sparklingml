@@ -6,7 +6,7 @@ publishMavenStyle := true
 
 version := "0.0.1"
 
-sparkVersion := "2.1.1"
+sparkVersion := "2.2.0"
 
 scalaVersion := "2.11.8"
 
@@ -40,7 +40,7 @@ libraryDependencies ++= Seq(
   // testing libraries
   "org.scalatest" %% "scalatest" % "3.0.1",
   "org.scalacheck" %% "scalacheck" % "1.13.4",
-  "com.holdenkarau" %% "spark-testing-base" % "2.1.1_0.7.0")
+  "com.holdenkarau" %% "spark-testing-base" % "2.2.0_0.7.1")
 
 
 scalacOptions ++= Seq("-deprecation", "-unchecked")

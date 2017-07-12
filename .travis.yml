@@ -14,5 +14,5 @@ scala:
 after_success:
   - bash <(curl -s https://codecov.io/bash)
 script:
-  - ./sbt/sbt clean coverage compile test
+  - ./build/sbt clean coverage compile test
 sudo: false

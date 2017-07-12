@@ -90,3 +90,5 @@ credentials ++= Seq(Credentials(Path.userHome / ".ivy2" / ".sbtcredentials"), Cr
 spIncludeMaven := true
 
 useGpg := true
+
+testOptions += Tests.Argument(TestFrameworks.JUnit, "-v", "-a")

@@ -44,6 +44,10 @@ abstract class LuceneTransformerTest[T <: LuceneTransformer[_]] extends
     val result = transformer.transform(input).collect()
     result.size shouldBe 3
   }
+
+  // Don't shut down the SparkContext after each test suite.
+  override def afterAll() = {
+  }
 }
 
 abstract class LuceneStopwordTransformerTest[T <: LuceneTransformer[_]] extends

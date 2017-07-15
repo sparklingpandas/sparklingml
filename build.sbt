@@ -25,7 +25,7 @@ fork := true
 
 
 coverageHighlighting := true
-
+coverageEnabled := true
 
 
 javaOptions ++= Seq("-Xms1G", "-Xmx3G", "-XX:MaxPermSize=2048M", "-XX:+CMSClassUnloadingEnabled")

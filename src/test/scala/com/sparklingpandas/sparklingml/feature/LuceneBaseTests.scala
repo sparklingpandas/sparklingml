@@ -34,6 +34,8 @@ abstract class LuceneTransformerTest[T <: LuceneTransformer[_]] extends
 
   override implicit def enableHiveSupport: Boolean = false
 
+  override implicit def reuseContextIfPossible: Boolean = true
+
   val transformer: T
 
   test("verify that the transformer runs") {
@@ -43,10 +45,6 @@ abstract class LuceneTransformerTest[T <: LuceneTransformer[_]] extends
     transformer.setInputCol("input")
     val result = transformer.transform(input).collect()
     result.size shouldBe 3
-  }
-
-  // Don't shut down the SparkContext after each test suite.
-  override def afterAll() = {
   }
 }
 

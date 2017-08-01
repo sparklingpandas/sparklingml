@@ -40,7 +40,7 @@ libraryDependencies ++= Seq(
   // testing libraries
   "org.scalatest" %% "scalatest" % "3.0.1",
   "org.scalacheck" %% "scalacheck" % "1.13.4",
-  "com.holdenkarau" %% "spark-testing-base" % "0.7.2")
+  "com.holdenkarau" %% "spark-testing-base" % "0.7.2" % "test")
 
 
 scalacOptions ++= Seq("-deprecation", "-unchecked")

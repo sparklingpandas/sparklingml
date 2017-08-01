@@ -12,6 +12,8 @@ SparklingML's goal is to expose additional machine learning stages for Spark wit
 
 Super early! Come join!
 
+Dev mailing list: https://groups.google.com/forum/#!forum/sparklingml-dev
+
 ## Including in your build
 
 SparklingML is not yet ready for production use.

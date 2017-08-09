@@ -27,7 +27,6 @@ class PythonRegistrationProvider(object):
             jsparkConf = ssc.conf()
             sparkConf = SparkConf(_jconf=jsparkConf)
             self._sc = SparkContext(master=master, conf=sparkConf, gateway=self.gateway, jsc=jsc)
-        sc = self._sc
         if not self._session:
             self._session = SparkSession.builder.getOrCreate()
         if function_name in functions_info:

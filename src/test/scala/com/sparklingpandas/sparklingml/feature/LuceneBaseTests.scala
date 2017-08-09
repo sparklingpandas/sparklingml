@@ -32,9 +32,9 @@ case class InputData(input: String)
 abstract class LuceneTransformerTest[T <: LuceneTransformer[_]] extends
     FunSuite with DataFrameSuiteBase with Matchers {
 
-  override implicit def enableHiveSupport: Boolean = false
-
   override implicit def reuseContextIfPossible: Boolean = true
+
+  override implicit def enableHiveSupport: Boolean = false
 
   val transformer: T
 

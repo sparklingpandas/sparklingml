@@ -1,0 +1,5 @@
+pyspark>=2.2.0
+pypandoc
+pandas
+scipy
+numpy

@@ -75,24 +75,22 @@ private[python] class RedirectThread(
    * exception from the original `out.write` call.
    */
   def tryWithSafeFinally[T](block: => T)(finallyBlock: => Unit): T = {
-    var originalThrowable: Throwable = null
-    try {
+    val ret = try {
       block
     } catch {
       case t: Throwable =>
         // Purposefully not using NonFatal, because even fatal exceptions
         // we don't want to have our finallyBlock suppress
-        originalThrowable = t
-        throw originalThrowable
-    } finally {
-      try {
-        finallyBlock
-      } catch {
-        case t: Throwable if (originalThrowable != null && originalThrowable != t) =>
-          originalThrowable.addSuppressed(t)
-          throw originalThrowable
-      }
+        try {
+          finallyBlock
+        } catch {
+          case t2: Throwable =>
+            t.addSuppressed(t2)
+        }
+        throw t
     }
+    finallyBlock
+    ret
   }
 }
 

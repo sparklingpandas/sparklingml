@@ -7,6 +7,7 @@ cache:
     - $HOME/.sbt/boot/
     - $HOME/.sbt/launchers
     - $HOME/build
+    - $HOME/myenv
 jdk:
   - oraclejdk8
 scala:
@@ -14,6 +15,8 @@ scala:
 after_success:
   - bash <(curl -s https://codecov.io/bash) -cF scala
 install:
+  - [[ -d myenv ]] || virtualenv myenv
+  - source myenv/bin/activate
   - pip install --upgrade pip
   - pip install -r requirements.txt
 script:

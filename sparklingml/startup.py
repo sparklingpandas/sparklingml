@@ -9,10 +9,14 @@ from py4j.java_gateway import *
 # Internal imports
 from transformation_functions import *
 
+
 # This class is used to allow the Scala process to call into Python
 # It may not run in the same Python process as your regular Python
 # shell if you are running PySpark normally.
 class PythonRegistrationProvider(object):
+    """
+    Provide an entry point for Scala to call to register functions.
+    """
 
     def __init__(self, gateway):
         self.gateway = gateway
@@ -21,12 +25,17 @@ class PythonRegistrationProvider(object):
         self._count = 0
 
     def registerFunction(self, ssc, jsession, function_name, params):
+        jvm = self.gateway.jvm
         if not self._sc:
             master = ssc.master()
-            jsc = self.gateway.jvm.org.apache.spark.api.java.JavaSparkContext(ssc)
+            jsc = jvm.org.apache.spark.api.java.JavaSparkContext(ssc)
             jsparkConf = ssc.conf()
             sparkConf = SparkConf(_jconf=jsparkConf)
-            self._sc = SparkContext(master=master, conf=sparkConf, gateway=self.gateway, jsc=jsc)
+            self._sc = SparkContext(
+                master=master,
+                conf=sparkConf,
+                gateway=self.gateway,
+                jsc=jsc)
         if not self._session:
             self._session = SparkSession.builder.getOrCreate()
         if function_name in functions_info:
@@ -46,7 +55,9 @@ class PythonRegistrationProvider(object):
             return None
 
     class Java:
-        implements = ["com.sparklingpandas.sparklingml.util.python.PythonRegisterationProvider"]
+        package = "com.sparklingpandas.sparklingml.util.python"
+        className = "PythonRegisterationProvider"
+        implements = [package + "." + className]
 
 if __name__ == "__main__":
     def spark_jvm_imports(jvm):
@@ -65,7 +76,6 @@ if __name__ == "__main__":
     if "SPARKLING_ML_SPECIFIC" in os.environ:
         gateway_port = int(os.environ["PYSPARK_GATEWAY_PORT"])
         gateway = JavaGateway(
-#            GatewayClient(port=gateway_port), callback_server_parameters=CallbackServerParameters())
             GatewayClient(port=gateway_port),
             # TODO: handle dynamic port binding here correctly.
             callback_server_parameters=CallbackServerParameters(),
@@ -77,7 +87,8 @@ if __name__ == "__main__":
         java_import(jvm, "com.sparklingpandas.sparklingml.util.python")
         # We need to re-do the Spark gateway imports as well
         spark_jvm_imports(jvm)
-        pythonRegistrationObj = jvm.com.sparklingpandas.sparklingml.util.python.PythonRegistration
+        python_utils = jvm.com.sparklingpandas.sparklingml.util.python
+        pythonRegistrationObj = python_utils.PythonRegistration
         boople = jvm.org.apache.spark.SparkConf(False)
         pythonRegistrationObj.register(provider)
         # Busy loop so we don't exit. This is also kind of a hack.

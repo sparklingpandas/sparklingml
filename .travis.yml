@@ -20,6 +20,8 @@ before_install:
   - source myenv/bin/activate
   - pip install --upgrade pip
   - pip install -r requirements.txt
+  - pip install pep8 pylint sphinx
 script:
   - ./build/sbt clean coverage compile test coverageReport
+  - "pep8 --ignore=E402 sparklingml/"
 sudo: false

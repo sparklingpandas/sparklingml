@@ -11,8 +11,7 @@ import org.reflections.Reflections
 
 import org.apache.spark.annotation.DeveloperApi
 
-import org.apache.lucene.analysis.Analyzer
-import org.apache.lucene.analysis.CharArraySet
+import org.apache.lucene.analysis.{Analyzer, CharArraySet}
 
 
 /**

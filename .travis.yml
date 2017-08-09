@@ -13,6 +13,8 @@ scala:
   - 2.11.8
 after_success:
   - bash <(curl -s https://codecov.io/bash) -cF scala
+install:
+  - pip install pyspark
 script:
   - ./build/sbt clean coverage compile test coverageReport
 sudo: false

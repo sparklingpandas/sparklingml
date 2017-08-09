@@ -96,7 +96,7 @@ private[python] class RedirectThread(
 
 
 object PythonRegistration {
-  val pythonFile = "./python/sparklingml/startup.py"
+  val pythonFile = "./sparklingml/startup.py"
   val pyFiles = ""
   // TODO(holden): Use reflection to determine if we've got an existing gateway server
   // to hijack instead.

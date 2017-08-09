@@ -12,8 +12,7 @@ class TransformationFunction(object):
     def func(cls, args):
         """Returns a function constructed using the args."""
         return None
-    
-    
+
 
 class StrLenPlusK(TransformationFunction):
     """
@@ -23,9 +22,9 @@ class StrLenPlusK(TransformationFunction):
     """
     @classmethod
     def func(cls, k):
-        def inner(str):
+        def inner(inputString):
             """Compute the string length plus K (based on parameters)."""
-            return len(str) + k
+            return len(inputString) + k
         return inner
 
     @classmethod

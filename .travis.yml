@@ -15,7 +15,7 @@ scala:
 after_success:
   - bash <(curl -s https://codecov.io/bash) -cF scala
 before_install:
-  - pip install virtualenv
+  - pip install --user virtualenv
   - virtualenv myenv
   - source myenv/bin/activate
   - pip install --upgrade pip

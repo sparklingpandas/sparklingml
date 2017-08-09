@@ -10,6 +10,7 @@ import java.io._
 
 import scala.concurrent.Promise
 import scala.collection.mutable.ArrayBuffer
+import scala.collection.Iterator
 import scala.collection.JavaConverters._
 import scala.util.Success
 
@@ -50,11 +51,11 @@ private[python] class RedirectThread(
       // FIXME: We copy the stream on the level of bytes to avoid encoding problems.
       tryWithSafeFinally {
         val buf = new Array[Byte](1024)
-        var len = in.read(buf)
-        while (len != -1) {
+        Iterator.continually(in.read(buf))
+          .takeWhile(_ != -1)
+          .foreach{len =>
           out.write(buf, 0, len)
           out.flush()
-          len = in.read(buf)
         }
       } {
         if (propagateEof) {
@@ -102,7 +103,6 @@ object PythonRegistration {
   // TODO(holden): Use reflection to determine if we've got an existing gateway server
   // to hijack instead.
   val gatewayServer: GatewayServer = {
-    println("Starting gatewayServer")
     // Based on PythonUtils
     def sparkPythonPath: String = {
       val pythonPath = new ArrayBuffer[String]
@@ -131,7 +131,7 @@ object PythonRegistration {
       .getOrElse("python")
     // Launch a Py4J gateway server for the process to connect to; this will let it see our
     // Java system properties and such
-    val gatewayServer = new py4j.GatewayServer(null, 0)
+    val gatewayServer = new py4j.GatewayServer(PythonRegistration, 0)
     val thread = new Thread(new Runnable() {
       override def run(): Unit = {
         gatewayServer.start(true)
@@ -139,7 +139,6 @@ object PythonRegistration {
     })
     thread.setName("py4j-gateway-init")
     thread.setDaemon(true)
-    println("Gateway kicking off")
     thread.start()
 
     // Wait until the gateway server has started, so that we know which port is it bound to.
@@ -169,7 +168,6 @@ object PythonRegistration {
     env.put("PYSPARK_PYTHON", pythonExec)
     sys.env.get("PYTHONHASHSEED").foreach(env.put("PYTHONHASHSEED", _))
     builder.redirectErrorStream(true) // Ugly but needed for stdout and stderr to synchronize
-    println("Starting python process")
     val pythonThread = new Thread(new Runnable() {
       override def run(): Unit = {
         try {
@@ -188,10 +186,7 @@ object PythonRegistration {
     })
     pythonThread.setName("python-udf-registrationProvider-thread")
     pythonThread.setDaemon(true)
-    println("Starting python thread")
     pythonThread.start()
-    println("Returning gateway server.")
-    //Thread.sleep(200000)
     gatewayServer
   }
 

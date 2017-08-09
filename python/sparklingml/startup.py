@@ -1,3 +1,4 @@
+import ast
 # Spark imports
 from pyspark.conf import SparkConf
 from pyspark.context import SparkContext
@@ -19,21 +20,20 @@ class PythonRegistrationProvider(object):
         self._session = None
         self._count = 0
 
-    def registerFunction(self, sc, jsession, function_name, params):
+    def registerFunction(self, ssc, jsession, function_name, params):
         if not self._sc:
-            master = sc.master()
-            jsc = self.gateway.jvm.org.apache.spark.api.java.JavaSparkContext(sc)
-            jsparkConf = sc.conf()
+            master = ssc.master()
+            jsc = self.gateway.jvm.org.apache.spark.api.java.JavaSparkContext(ssc)
+            jsparkConf = ssc.conf()
             sparkConf = SparkConf(_jconf=jsparkConf)
             self._sc = SparkContext(master=master, conf=sparkConf, gateway=self.gateway, jsc=jsc)
         sc = self._sc
         if not self._session:
             self._session = SparkSession.builder.getOrCreate()
-        session = self._session
         if function_name in functions_info:
             function_info = functions_info[function_name]
             if params:
-                evaledParams = eval(params)
+                evaledParams = ast.literal_eval(params)
             else:
                 evaledParams = []
             func = function_info.func(*evaledParams)

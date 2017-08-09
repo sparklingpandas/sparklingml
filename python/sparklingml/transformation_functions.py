@@ -9,7 +9,7 @@ class TransformationFunction(object):
         return None
 
     @classmethod
-    def func(cls, args):
+    def func(cls, *args):
         """Returns a function constructed using the args."""
         return None
 
@@ -21,7 +21,8 @@ class StrLenPlusK(TransformationFunction):
     to make a Python stage usable from Scala, not for actual usage.
     """
     @classmethod
-    def func(cls, k):
+    def func(cls, *args):
+        k = args[0]
         def inner(inputString):
             """Compute the string length plus K (based on parameters)."""
             return len(inputString) + k

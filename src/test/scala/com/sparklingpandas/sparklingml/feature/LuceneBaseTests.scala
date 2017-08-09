@@ -36,8 +36,6 @@ abstract class LuceneTransformerTest[T <: LuceneTransformer[_]] extends
 
   override implicit def enableHiveSupport: Boolean = false
 
-  override implicit def reuseContextIfPossible: Boolean = true
-
   val transformer: T
 
   test("verify that the transformer runs") {

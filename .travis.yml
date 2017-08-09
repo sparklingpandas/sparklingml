@@ -14,8 +14,9 @@ scala:
   - 2.11.8
 after_success:
   - bash <(curl -s https://codecov.io/bash) -cF scala
-install:
-  - \[\[ -d myenv \]\] || virtualenv myenv
+before_install:
+  - pip install virtualenv
+  - virtualenv myenv
   - source myenv/bin/activate
   - pip install --upgrade pip
   - pip install -r requirements.txt

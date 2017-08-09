@@ -189,7 +189,6 @@ object PythonRegistration {
   }
 
   def register(provider: PythonRegisterationProvider) = {
-    println("JVM side registering....")
     pythonRegistrationProvider.complete(Success(provider))
   }
 

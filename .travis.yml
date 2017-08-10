@@ -12,22 +12,21 @@ jdk:
   - oraclejdk8
 scala:
   - 2.11.8
-after_success:
-  - bash <(curl -s https://codecov.io/bash) -cF scala
-  - bash <(curl -s https://codecov.io/bash) -cF python
 before_install:
   - pip install --user virtualenv
   - virtualenv myenv
   - source myenv/bin/activate
-  - export PATH=$PATH:myenv/bin/
+  - export PATH=myenv/bin/:$PATH
   - pip install --upgrade pip
-  - pip install nose
+  - pip install nose codecov coverage
   - pip install -r requirements.txt
   - pip install pep8 pylint sphinx
 script:
   - ./build/sbt clean coverage compile package test coverageReport
+  - bash <(curl -s https://codecov.io/bash) -cF scala || echo "No Scala report uploaded"
   - "pep8 --ignore=E402 sparklingml/"
 # At some point we might need to build the assembly jar for testing,
 # for now we can skip it.
   - "nosetests --logging-level=INFO --detailed-errors --verbosity=2 --with-coverage --cover-html-dir=./htmlcov --cover-package=sparklingml --with-doctest"
+  - bash <(curl -s https://codecov.io/bash) -cF python || echo "No Python report uploaded"
 sudo: false

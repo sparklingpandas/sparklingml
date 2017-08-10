@@ -1,0 +1,3 @@
+coverage:
+  ignore: #things we ignore
+    - "sparklingml/statup.py" # This is tested from Java so doesn't show up in coverage #s

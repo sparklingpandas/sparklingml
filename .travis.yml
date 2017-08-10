@@ -19,10 +19,13 @@ before_install:
   - pip install --user virtualenv
   - virtualenv myenv
   - source myenv/bin/activate
+  - export PATH=$PATH:myenv/bin/
   - pip install --upgrade pip
   - pip install nose
   - pip install -r requirements.txt
   - pip install pep8 pylint sphinx
+# Debugging
+  - find ./
 script:
   - ./build/sbt clean coverage compile test coverageReport
   - "pep8 --ignore=E402 sparklingml/"

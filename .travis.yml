@@ -24,8 +24,6 @@ before_install:
   - pip install nose
   - pip install -r requirements.txt
   - pip install pep8 pylint sphinx
-# Debugging
-  - find ./
 script:
   - ./build/sbt clean coverage compile package test coverageReport
   - "pep8 --ignore=E402 sparklingml/"

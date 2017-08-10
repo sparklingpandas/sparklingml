@@ -4,7 +4,7 @@ name := "sparklingml"
 
 publishMavenStyle := true
 
-version := "0.0.1"
+version := "0.0.1-SNAPSHOT"
 
 sparkVersion := "2.2.0"
 

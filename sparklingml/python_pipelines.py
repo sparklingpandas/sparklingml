@@ -4,8 +4,6 @@ from pyspark.ml import Model
 from pyspark.ml.param import *
 from pyspark.ml.param.shared import *
 from pyspark.ml.util import *
-from pyspark.ml.common import inherit_doc
-from pyspark.sql import DataFrame
 from pyspark.sql.functions import UserDefinedFunction
 from transformation_functions import *
 

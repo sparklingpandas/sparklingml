@@ -14,7 +14,7 @@ scala:
   - 2.11.8
 before_install:
   - pip install --user virtualenv
-  - virtualenv myenv --python python3
+  - virtualenv myenv
   - source myenv/bin/activate
   - export PATH=myenv/bin/:$PATH
   - pip install --upgrade pip

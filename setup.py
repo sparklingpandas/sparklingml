@@ -15,7 +15,8 @@ setup(
     description='Add additional ML algorithms to Spark',
     long_description=open('README.md').read(),
     install_requires=[
-        'pyspark>=2.2.0'
+        'pyspark>=2.2.0',
+        'spacy'
     ],
     test_requires=[
         'nose==1.3.7',

@@ -5,7 +5,7 @@ from pyspark.ml.param import *
 from pyspark.ml.param.shared import *
 from pyspark.ml.util import *
 from pyspark.sql.functions import UserDefinedFunction
-from transformation_functions import *
+from .transformation_functions import *
 
 # Most of the Python models are wrappers of JavaModels, and we will need those
 # as well. For now this simple example shows how to expose a simple Python only
@@ -21,8 +21,14 @@ class StrLenPlusKTransformer(Model, HasInputCol, HasOutputCol):
     >>> spark = SparkSession.builder.master("local[2]").getOrCreate()
     >>> df = spark.createDataFrame([("hi",), ("boo",)], ["values"])
     >>> tr = StrLenPlusKTransformer(inputCol="values", outputCol="c", k=2)
+    >>> tr.getK()
+    2
     >>> tr.transform(df).head().c
     4
+    >>> tr.setK(1)
+    StrLenPlusKTransformer_...
+    >>> tr.transform(df).head().c
+    3
     """
 
     # We need a parameter to configure k
@@ -65,6 +71,142 @@ class StrLenPlusKTransformer(Model, HasInputCol, HasOutputCol):
         )
 
 
+class SpacyTokenizeTransformer(Model, HasInputCol, HasOutputCol):
+    """
+    Tokenize the provided input using Spacy.
+    >>> from pyspark.sql import SparkSession
+    >>> spark = SparkSession.builder.master("local[2]").getOrCreate()
+    >>> df = spark.createDataFrame([("hi boo",), ("bye boo",)], ["vals"])
+    >>> tr = SpacyTokenizeTransformer(inputCol="vals", outputCol="c")
+    >>> str(tr.getLang())
+    'en'
+    >>> tr.transform(df).head().c
+    ['hi', 'boo']
+    """
+
+    # We need a parameter to configure k
+    lang = Param(Params._dummy(),
+                 "lang", "language",
+                 typeConverter=TypeConverters.toString)
+
+    @keyword_only
+    def __init__(self, lang="en", inputCol=None, outputCol=None):
+        super(SpacyTokenizeTransformer, self).__init__()
+        self._setDefault(lang="en")
+        kwargs = self._input_kwargs
+        self.setParams(**kwargs)
+
+    @keyword_only
+    def setParams(self, lang="en", inputCol=None, outputCol=None):
+        """
+        setParams(self, lang="en", inputCol=None, outputCol=None):
+        """
+        kwargs = self._input_kwargs
+        return self._set(**kwargs)
+
+    def setLang(self, value):
+        """
+        Sets the value of :py:attr:`lang`.
+        """
+        return self._set(lang=value)
+
+    def getLang(self):
+        """
+        Gets the value of lang or its default value.
+        """
+        return self.getOrDefault(self.lang)
+
+    def _transform(self, dataset):
+        SpacyTokenize.setup(dataset._sc, dataset.sql_ctx, self.getLang())
+        func = SpacyTokenize.func(self.getLang())
+        retType = SpacyTokenize.returnType()
+        udf = UserDefinedFunction(func, retType)
+        return dataset.withColumn(
+            self.getOutputCol(), udf(self.getInputCol())
+        )
+
+
+class SpacyAdvancedTokenizeTransformer(Model, HasInputCol, HasOutputCol):
+    """
+    Tokenize the provided input using Spacy.
+    >>> from pyspark.sql import SparkSession
+    >>> spark = SparkSession.builder.master("local[2]").getOrCreate()
+    >>> df = spark.createDataFrame([("hi boo",), ("bye boo",)], ["vals"])
+    >>> tr = SpacyAdvancedTokenizeTransformer(inputCol="vals", outputCol="c")
+    >>> str(tr.getLang())
+    'en'
+    >>> tr.getFields()
+    ['ancestors', ...
+    >>> tr.setFields(["text", "lang_"])
+    SpacyAdvancedTokenizeTransformer_...
+    >>> tr.transform(df).head().c
+    [{'lang_': 'en', 'text': 'hi'}, {'lang_': 'en', 'text': 'boo'}]
+    """
+
+    lang = Param(Params._dummy(),
+                 "lang", "language",
+                 typeConverter=TypeConverters.toString)
+
+    fields = Param(Params._dummy(),
+                   "fields", "fields of token to keep",
+                   typeConverter=TypeConverters.toListString)
+
+    @keyword_only
+    def __init__(self, lang=None,
+                 fields=SpacyAdvancedTokenize.default_fields,
+                 inputCol=None, outputCol=None):
+        super(SpacyAdvancedTokenizeTransformer, self).__init__()
+        self._setDefault(lang="en",
+                         fields=SpacyAdvancedTokenize.default_fields)
+        kwargs = self._input_kwargs
+        self.setParams(**kwargs)
+
+    @keyword_only
+    def setParams(self, lang="en", fields=SpacyAdvancedTokenize.default_fields,
+                  inputCol=None, outputCol=None):
+        """
+        setParams(self, lang="en", SpacyAdvancedTokenize.default_fields,
+                  inputCol=None, outputCol=None):
+        """
+        kwargs = self._input_kwargs
+        return self._set(**kwargs)
+
+    def setLang(self, value):
+        """
+        Sets the value of :py:attr:`lang`.
+        """
+        return self._set(lang=value)
+
+    def getLang(self):
+        """
+        Gets the value of lang or its default value.
+        """
+        return self.getOrDefault(self.lang)
+
+    def setFields(self, value):
+        """
+        Sets the value of :py:attr:`fields`.
+        """
+        return self._set(fields=value)
+
+    def getFields(self):
+        """
+        Gets the value of lang or its default value.
+        """
+        return self.getOrDefault(self.fields)
+
+    def _transform(self, dataset):
+        SpacyAdvancedTokenize.setup(
+            dataset._sc, dataset.sql_ctx, self.getLang())
+        func = SpacyAdvancedTokenize.func(self.getLang(), self.getFields())
+        retType = SpacyAdvancedTokenize.returnType(
+            self.getLang(), self.getFields())
+        udf = UserDefinedFunction(func, retType)
+        return dataset.withColumn(
+            self.getOutputCol(), udf(self.getInputCol())
+        )
+
+
 if __name__ == '__main__':
     import doctest
-    doctest.testmod()
+    doctest.testmod(optionflags=doctest.ELLIPSIS)

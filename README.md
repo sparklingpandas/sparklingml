@@ -14,6 +14,21 @@ Super early! Come join!
 
 Dev mailing list: https://groups.google.com/forum/#!forum/sparklingml-dev
 
+### Tests
+
+Are your DocTests failing with
+
+Expected nothing
+Got:
+    <BLANKLINE>
+        Warning: no model found for 'en'
+    <BLANKLINE>
+        Only loading the 'en' tokenizer.
+    <BLANKLINE>
+
+
+Make sure you've installed spacy & the en language pack (`python -m spacy download en`)
+
 ## Including in your build
 
 SparklingML is not yet ready for production use.

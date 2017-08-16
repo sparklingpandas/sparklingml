@@ -7,7 +7,7 @@ from pyspark.sql.functions import UserDefinedFunction
 # python bridge imports
 from py4j.java_gateway import *
 # Internal imports
-from transformation_functions import *
+from .transformation_functions import *
 
 
 # This class is used to allow the Scala process to call into Python

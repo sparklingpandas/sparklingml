@@ -100,13 +100,13 @@ class SpacyAdvancedTokenize(TransformationFunction):
     """
     Tokenize input text using spacy and return the extra information.
     >>> spta = SpacyAdvancedTokenize()
-    >>> spa = spta.func("en", ["lower_", "text", "lang"])
+    >>> spa = spta.func("en", ["lower_", "text", "lang", "a"])
     >>> r = spa("Hi boo")
     >>> l = list(map(lambda d: sorted(d.items()), r))
     >>> l[0]
-    [('lang', '500'), ('lower_', 'hi'), ('text', 'Hi')]
+    [('a', None), ('lang', '500'), ('lower_', 'hi'), ('text', 'Hi')]
     >>> l[1]
-    [('lang', '500'), ('lower_', 'boo'), ('text', 'boo')]
+    [('a', None), ('lang', '500'), ('lower_', 'boo'), ('text', 'boo')]
     """
 
     default_fields = [

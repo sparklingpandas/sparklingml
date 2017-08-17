@@ -8,7 +8,13 @@ from pyspark.sql.functions import UserDefinedFunction
 from py4j.java_gateway import *
 # Internal imports
 from .transformation_functions import *
-
+# Hack to allow people to hook in more easily
+from exceptions import ImportError
+try:
+    from user_functions import *
+    setup_user()
+except ImportError:
+    pass
 
 # This class is used to allow the Scala process to call into Python
 # It may not run in the same Python process as your regular Python

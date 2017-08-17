@@ -34,3 +34,31 @@ class StrLenPlusKPython(override val uid: String) extends PythonTransformer {
     "[" + $(k) + "]"
   }
 }
+
+class SpacyTokenizePython(override val uid: String) extends PythonTransformer {
+
+  final val lang = new Param[String](this, "lang", "language for tokenization")
+
+  /** @group getParam */
+  final def getLang: String = $(lang)
+
+  final def setLang(value: String): this.type = set(this.lang, value)
+
+  def this() = this(Identifiable.randomUID("StrLenPlusKPython"))
+
+  override val pythonFunctionName = "spacytokenize"
+  override protected def outputDataType = ArrayType(StringType)
+  override protected def validateInputType(inputType: DataType): Unit = {
+    if (inputType != StringType) {
+      throw new IllegalArgumentException("Expected input type StringType instead found ${inputType}")
+    }
+  }
+
+  override def copy(extra: ParamMap) = {
+    defaultCopy(extra)
+  }
+
+  def miniSerializeParams() = {
+    "[" + $(lang) + "]"
+  }
+}

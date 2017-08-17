@@ -38,10 +38,10 @@ class SpacyTokenizePythonSuite extends FunSuite with DataFrameSuiteBase with Mat
 
   override implicit def enableHiveSupport: Boolean = false
 
-  test("verify that the transformer runs") {
+  test("verify spacy tokenization works") {
     import spark.implicits._
-    val transformer = new StrLenPlusKPython()
-    transformer.setK(1)
+    val transformer = new SpacyTokenizePython()
+    transformer.setLang("en")
     val input = spark.createDataset(
       List(InputData("hi boo"), InputData("boo")))
     transformer.setInputCol("input")

@@ -3,7 +3,6 @@ pypandoc
 scipy
 numpy
 nose
-coverage>3.7.0
 unittest2>=1.0.0
 pandas>=0.13
 spacy

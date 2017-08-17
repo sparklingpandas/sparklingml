@@ -44,7 +44,7 @@ class SpacyTokenizePython(override val uid: String) extends PythonTransformer {
 
   final def setLang(value: String): this.type = set(this.lang, value)
 
-  def this() = this(Identifiable.randomUID("StrLenPlusKPython"))
+  def this() = this(Identifiable.randomUID("SpacyTokenizePython"))
 
   override val pythonFunctionName = "spacytokenize"
   override protected def outputDataType = ArrayType(StringType)
@@ -59,6 +59,6 @@ class SpacyTokenizePython(override val uid: String) extends PythonTransformer {
   }
 
   def miniSerializeParams() = {
-    "[" + $(lang) + "]"
+    "[\"" + $(lang) + "\"]"
   }
 }

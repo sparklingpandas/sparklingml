@@ -1,4 +1,3 @@
-import spacy
 from pyspark.sql.types import *
 
 functions_info = dict()
@@ -84,9 +83,9 @@ class SpacyTokenize(TransformationFunction):
         lang = args[0]
 
         def inner(inputString):
-            nlp = SpacyMagic.get(lang)
             """Tokenize the inputString using spacy for
             the provided language."""
+            nlp = SpacyMagic.get(lang)
             return list(map(lambda x: x.text, list(nlp(inputString))))
         return inner
 

@@ -135,9 +135,9 @@ class SpacyAdvancedTokenizeTransformer(Model, HasInputCol, HasOutputCol):
     >>> tr = SpacyAdvancedTokenizeTransformer(inputCol="vals", outputCol="c")
     >>> str(tr.getLang())
     'en'
-    >>> tr.getFields()
+    >>> tr.getSpacyFields()
     ['ancestors', ...
-    >>> tr.setFields(["text", "lang_"])
+    >>> tr.setSpacyFields(["text", "lang_"])
     SpacyAdvancedTokenizeTransformer_...
     >>> tr.transform(df).head().c
     [{'lang_': 'en', 'text': 'hi'}, {'lang_': 'en', 'text': 'boo'}]
@@ -147,22 +147,22 @@ class SpacyAdvancedTokenizeTransformer(Model, HasInputCol, HasOutputCol):
                  "lang", "language",
                  typeConverter=TypeConverters.toString)
 
-    fields = Param(Params._dummy(),
-                   "fields", "fields of token to keep",
+    spacyFields = Param(Params._dummy(),
+                   "spacyFields", "fields of token to keep",
                    typeConverter=TypeConverters.toListString)
 
     @keyword_only
     def __init__(self, lang=None,
-                 fields=SpacyAdvancedTokenize.default_fields,
+                 spacyFields=SpacyAdvancedTokenize.default_fields,
                  inputCol=None, outputCol=None):
         super(SpacyAdvancedTokenizeTransformer, self).__init__()
         self._setDefault(lang="en",
-                         fields=SpacyAdvancedTokenize.default_fields)
+                         spacyFields=SpacyAdvancedTokenize.default_fields)
         kwargs = self._input_kwargs
         self.setParams(**kwargs)
 
     @keyword_only
-    def setParams(self, lang="en", fields=SpacyAdvancedTokenize.default_fields,
+    def setParams(self, lang="en", spacyFields=SpacyAdvancedTokenize.default_fields,
                   inputCol=None, outputCol=None):
         """
         setParams(self, lang="en", SpacyAdvancedTokenize.default_fields,
@@ -183,24 +183,24 @@ class SpacyAdvancedTokenizeTransformer(Model, HasInputCol, HasOutputCol):
         """
         return self.getOrDefault(self.lang)
 
-    def setFields(self, value):
+    def setSpacyFields(self, value):
         """
-        Sets the value of :py:attr:`fields`.
+        Sets the value of :py:attr:`spacyFields`.
         """
-        return self._set(fields=value)
+        return self._set(spacyFields=value)
 
-    def getFields(self):
+    def getSpacyFields(self):
         """
         Gets the value of lang or its default value.
         """
-        return self.getOrDefault(self.fields)
+        return self.getOrDefault(self.spacyFields)
 
     def _transform(self, dataset):
         SpacyAdvancedTokenize.setup(
             dataset._sc, dataset.sql_ctx, self.getLang())
-        func = SpacyAdvancedTokenize.func(self.getLang(), self.getFields())
+        func = SpacyAdvancedTokenize.func(self.getLang(), self.getSpacyFields())
         retType = SpacyAdvancedTokenize.returnType(
-            self.getLang(), self.getFields())
+            self.getLang(), self.getSpacyFields())
         udf = UserDefinedFunction(func, retType)
         return dataset.withColumn(
             self.getOutputCol(), udf(self.getInputCol())

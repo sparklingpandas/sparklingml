@@ -45,7 +45,8 @@ private[sparklingpandas] object SharedParamsCodeGen extends CodeGenerator {
       ParamDesc[String]("labelCol", "label column name", Some("\"label\"")),
       ParamDesc[String]("inputCol", "input column name"),
       ParamDesc[Array[String]]("inputCols", "input column names"),
-      ParamDesc[String]("outputCol", "output column name", Some("uid + \"__output\"")))
+      ParamDesc[String]("outputCol", "output column name", Some("uid + \"__output\"")
+      ))
 
     val code = genSharedParams(params)
     val file = "src/main/scala/com/sparklingpandas/sparklingml/param/sharedParams.scala"

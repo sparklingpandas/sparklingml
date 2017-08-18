@@ -96,7 +96,6 @@ private[python] class RedirectThread(
 
 
 object PythonRegistration {
-  val pythonFile = "./sparklingml/startup.py"
   val pyFiles = ""
   // TODO(holden): Use reflection to determine if we've got an existing gateway server
   // to hijack instead.
@@ -116,7 +115,6 @@ object PythonRegistration {
     }
 
     // Format python file paths before adding them to the PYTHONPATH
-    val formattedPythonFile = formatPath(pythonFile)
     val formattedPyFiles = formatPaths(pyFiles)
 
     // Launch a gatewayserver to handle registration, based on PythonRunner.scala
@@ -154,7 +152,7 @@ object PythonRegistration {
     val pythonPath = mergePythonPaths(pathElements: _*)
 
     // Launch Python process
-    val builder = new ProcessBuilder((Seq(pythonExec, formattedPythonFile)).asJava)
+    val builder = new ProcessBuilder((Seq(pythonExec, "-m", "sparklingml.startup")).asJava)
     val env = builder.environment()
     env.put("SPARKLING_ML_SPECIFIC", "YES")
     env.put("PYTHONPATH", pythonPath)

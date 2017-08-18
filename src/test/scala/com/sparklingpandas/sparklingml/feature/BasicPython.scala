@@ -31,3 +31,24 @@ class StrLenPlusKPythonSuite extends FunSuite with DataFrameSuiteBase with Match
   }
 
 }
+
+class SpacyTokenizePythonSuite extends FunSuite with DataFrameSuiteBase with Matchers {
+
+  override implicit def reuseContextIfPossible: Boolean = true
+
+  override implicit def enableHiveSupport: Boolean = false
+
+  test("verify spacy tokenization works") {
+    import spark.implicits._
+    val transformer = new SpacyTokenizePython()
+    transformer.setLang("en")
+    val input = spark.createDataset(
+      List(InputData("hi boo"), InputData("boo")))
+    transformer.setInputCol("input")
+    transformer.setOutputCol("output")
+    val result = transformer.transform(input).collect()
+    result.size shouldBe 2
+    result(0)(1) shouldBe Array("hi", "boo")
+  }
+
+}

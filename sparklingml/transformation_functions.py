@@ -1,3 +1,6 @@
+from __future__ import unicode_literals
+
+from pyspark.rdd import ignore_unicode_prefix
 from pyspark.sql.types import *
 
 functions_info = dict()
@@ -20,6 +23,7 @@ class TransformationFunction(object):
         return None
 
 
+@ignore_unicode_prefix
 class StrLenPlusK(TransformationFunction):
     """
     strLenPlusK takes one parameter it is k and returns
@@ -47,6 +51,7 @@ functions_info["strlenplusk"] = StrLenPlusK
 
 
 # Spacy isn't serializable but loading it is semi-expensive
+@ignore_unicode_prefix
 class SpacyMagic(object):
     """
     Simple Spacy Magic to minimize loading time.
@@ -71,7 +76,7 @@ class SpacyTokenize(TransformationFunction):
     >>> r = sp("hi boo")
     ...
     >>> r
-    ['hi', 'boo']
+    [u'hi', u'boo']
     """
     @classmethod
     def setup(cls, sc, session, *args):
@@ -79,7 +84,6 @@ class SpacyTokenize(TransformationFunction):
 
     @classmethod
     def func(cls, *args):
-        import spacy
         lang = args[0]
 
         def inner(inputString):
@@ -96,6 +100,7 @@ class SpacyTokenize(TransformationFunction):
 functions_info["spacytokenize"] = SpacyTokenize
 
 
+@ignore_unicode_prefix
 class SpacyAdvancedTokenize(TransformationFunction):
     """
     Tokenize input text using spacy and return the extra information.
@@ -104,9 +109,9 @@ class SpacyAdvancedTokenize(TransformationFunction):
     >>> r = spa("Hi boo")
     >>> l = list(map(lambda d: sorted(d.items()), r))
     >>> l[0]
-    [('a', None), ('lang', '500'), ('lower_', 'hi'), ('text', 'Hi')]
+    [(u'a', None), (u'lang', '5...'), (u'lower_', 'hi'), (u'text', 'Hi')]
     >>> l[1]
-    [('a', None), ('lang', '500'), ('lower_', 'boo'), ('text', 'boo')]
+    [(u'a', None), (u'lang', '5...'), (u'lower_', 'boo'), (u'text', 'boo')]
     """
 
     default_fields = [

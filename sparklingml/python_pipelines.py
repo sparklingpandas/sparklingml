@@ -1,10 +1,14 @@
-# The shared params aren't really intended to be public currently..
+from __future__ import unicode_literals
+
 from pyspark import keyword_only
+from pyspark.rdd import ignore_unicode_prefix
 from pyspark.ml import Model
 from pyspark.ml.param import *
+# The shared params aren't really intended to be public currently..
 from pyspark.ml.param.shared import *
 from pyspark.ml.util import *
 from pyspark.sql.functions import UserDefinedFunction
+
 from .transformation_functions import *
 
 # Most of the Python models are wrappers of JavaModels, and we will need those
@@ -12,6 +16,7 @@ from .transformation_functions import *
 # UDF. Look in Spark for exposing Java examples.
 
 
+@ignore_unicode_prefix
 class StrLenPlusKTransformer(Model, HasInputCol, HasOutputCol):
     """
     strLenPlusK takes one parameter it is k and returns
@@ -71,6 +76,7 @@ class StrLenPlusKTransformer(Model, HasInputCol, HasOutputCol):
         )
 
 
+@ignore_unicode_prefix
 class SpacyTokenizeTransformer(Model, HasInputCol, HasOutputCol):
     """
     Tokenize the provided input using Spacy.
@@ -81,7 +87,7 @@ class SpacyTokenizeTransformer(Model, HasInputCol, HasOutputCol):
     >>> str(tr.getLang())
     'en'
     >>> tr.transform(df).head().c
-    ['hi', 'boo']
+    [u'hi', u'boo']
     """
 
     # We need a parameter to configure k
@@ -126,6 +132,7 @@ class SpacyTokenizeTransformer(Model, HasInputCol, HasOutputCol):
         )
 
 
+@ignore_unicode_prefix
 class SpacyAdvancedTokenizeTransformer(Model, HasInputCol, HasOutputCol):
     """
     Tokenize the provided input using Spacy.
@@ -136,11 +143,12 @@ class SpacyAdvancedTokenizeTransformer(Model, HasInputCol, HasOutputCol):
     >>> str(tr.getLang())
     'en'
     >>> tr.getSpacyFields()
-    ['ancestors', ...
+    [u'ancestors', ...
     >>> tr.setSpacyFields(["text", "lang_"])
     SpacyAdvancedTokenizeTransformer_...
-    >>> tr.transform(df).head().c
-    [{'lang_': 'en', 'text': 'hi'}, {'lang_': 'en', 'text': 'boo'}]
+    >>> r = tr.transform(df).head().c
+    >>> list(map(lambda d: sorted(d.items()), r))
+    [[(u'lang_', u'en'), (u'text', u'hi')], [(u'lang_', u'en'), (u'text', u'boo')]]
     """
 
     lang = Param(Params._dummy(),
@@ -153,21 +161,23 @@ class SpacyAdvancedTokenizeTransformer(Model, HasInputCol, HasOutputCol):
 
     @keyword_only
     def __init__(self, lang=None,
-                 spacyFields=SpacyAdvancedTokenize.default_fields,
+                 spacyFields=None,
                  inputCol=None, outputCol=None):
         super(SpacyAdvancedTokenizeTransformer, self).__init__()
+        spacyFields = spacyFields or SpacyAdvancedTokenize.default_fields
         self._setDefault(lang="en",
                          spacyFields=SpacyAdvancedTokenize.default_fields)
         kwargs = self._input_kwargs
         self.setParams(**kwargs)
 
     @keyword_only
-    def setParams(self, lang="en", spacyFields=SpacyAdvancedTokenize.default_fields,
+    def setParams(self, lang="en", spacyFields=None,
                   inputCol=None, outputCol=None):
         """
         setParams(self, lang="en", SpacyAdvancedTokenize.default_fields,
                   inputCol=None, outputCol=None):
         """
+        spacyFields = spacyFields or SpacyAdvancedTokenize.default_fields
         kwargs = self._input_kwargs
         return self._set(**kwargs)
 

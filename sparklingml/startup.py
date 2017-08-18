@@ -9,7 +9,6 @@ from py4j.java_gateway import *
 # Internal imports
 from sparklingml.transformation_functions import *
 # Hack to allow people to hook in more easily
-from exceptions import ImportError
 try:
     from user_functions import *
     setup_user()

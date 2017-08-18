@@ -15,6 +15,7 @@ try:
 except ImportError:
     pass
 
+
 # This class is used to allow the Scala process to call into Python
 # It may not run in the same Python process as your regular Python
 # shell if you are running PySpark normally.

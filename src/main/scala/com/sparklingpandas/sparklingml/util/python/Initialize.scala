@@ -105,7 +105,8 @@ object PythonRegistration {
       val pythonPath = new ArrayBuffer[String]
       for (sparkHome <- sys.env.get("SPARK_HOME")) {
         pythonPath += Seq(sparkHome, "python", "lib", "pyspark.zip").mkString(File.separator)
-        pythonPath += Seq(sparkHome, "python", "lib", "py4j-0.10.6-src.zip").mkString(File.separator)
+        pythonPath += Seq(sparkHome,
+          "python", "lib", "py4j-0.10.6-src.zip").mkString(File.separator)
       }
       pythonPath ++= SparkContext.jarOfObject(this)
       pythonPath.mkString(File.pathSeparator)
@@ -163,7 +164,8 @@ object PythonRegistration {
     // python process is through environment variable.
     env.put("PYSPARK_PYTHON", pythonExec)
     sys.env.get("PYTHONHASHSEED").foreach(env.put("PYTHONHASHSEED", _))
-    builder.redirectErrorStream(true) // Ugly but needed for stdout and stderr to synchronize
+    // Ugly but needed for stdout and stderr to synchronize
+    builder.redirectErrorStream(true)
     val pythonThread = new Thread(new Runnable() {
       override def run(): Unit = {
         try {

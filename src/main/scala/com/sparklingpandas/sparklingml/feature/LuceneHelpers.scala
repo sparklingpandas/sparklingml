@@ -8,7 +8,8 @@ object LuceneHelpers {
   /**
    * Convert a provided Array of strings into a CharArraySet.
    */
-  def wordstoCharArraySet(input: Array[String], ignoreCase: Boolean): CharArraySet = {
+  def wordstoCharArraySet(input: Array[String], ignoreCase: Boolean):
+      CharArraySet = {
     new CharArraySet(input.toList.asJava, ignoreCase)
   }
 }

@@ -19,8 +19,10 @@ trait PythonTransformer extends Transformer with HasInputCol with HasOutputCol {
   val pythonFunctionName: String
 
   def constructUDF(session: SparkSession) = {
-    val registrationProviderFuture = PythonRegistration.pythonRegistrationProvider.future
-    val registrationProvider = Await.result(registrationProviderFuture, 10 seconds)
+    val registrationProviderFuture =
+      PythonRegistration.pythonRegistrationProvider.future
+    val registrationProvider =
+      Await.result(registrationProviderFuture, 10 seconds)
     val pythonUdf = Option(registrationProvider.registerFunction(
       session.sparkContext,
       session,

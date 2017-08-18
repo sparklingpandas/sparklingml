@@ -26,7 +26,7 @@ from pkg_resources import resource_filename
 if 'IS_TEST' not in os.environ and "JARS" not in os.environ:
     VERSION = '0.0.1'
     JAR_FILE = 'sparklingml_2.11-' + VERSION + '.jar'
-    DEV_JAR_FILE = 'sparklingml_2.11-' + VERSION + '-SNAPSHOT.jar'
+    DEV_JAR = 'sparklingml_2.11-' + VERSION + '-SNAPSHOT.jar'
     my_location = os.path.dirname(os.path.realpath(__file__))
     local_prefixes = [
         # For development, use the sbt target scala-2.11 first
@@ -36,7 +36,7 @@ if 'IS_TEST' not in os.environ and "JARS" not in os.environ:
         os.path.join(os.getcwd(), '../target/scala-2.11/'),
         os.path.join(os.getcwd(), 'target/scala-2.11/')]
     prod_jars = [os.path.join(prefix, JAR_FILE) for prefix in local_prefixes]
-    dev_jars = [os.path.join(prefix, DEV_JAR_FILE) for prefix in local_prefixes]
+    dev_jars = [os.path.join(prefix, DEV_JAR) for prefix in local_prefixes]
     jars = prod_jars + dev_jars
     try:
         jars.append(os.path.abspath(resource_filename('sparklingml.jar',

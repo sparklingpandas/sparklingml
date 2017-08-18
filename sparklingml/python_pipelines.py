@@ -147,8 +147,11 @@ class SpacyAdvancedTokenizeTransformer(Model, HasInputCol, HasOutputCol):
     >>> tr.setSpacyFields(["text", "lang_"])
     SpacyAdvancedTokenizeTransformer_...
     >>> r = tr.transform(df).head().c
-    >>> list(map(lambda d: sorted(d.items()), r))
-    [[(u'lang_', u'en'), (u'text', u'hi')], [(u'lang_', u'en'), (u'text', u'boo')]]
+    >>> l = list(map(lambda d: sorted(d.items()), r))
+    >>> l[0]
+    [(u'lang_', u'en'), (u'text', u'hi')]
+    >>> l[1]
+    [(u'lang_', u'en'), (u'text', u'boo')]
     """
 
     lang = Param(Params._dummy(),
@@ -156,8 +159,8 @@ class SpacyAdvancedTokenizeTransformer(Model, HasInputCol, HasOutputCol):
                  typeConverter=TypeConverters.toString)
 
     spacyFields = Param(Params._dummy(),
-                   "spacyFields", "fields of token to keep",
-                   typeConverter=TypeConverters.toListString)
+                        "spacyFields", "fields of token to keep",
+                        typeConverter=TypeConverters.toListString)
 
     @keyword_only
     def __init__(self, lang=None,
@@ -208,7 +211,8 @@ class SpacyAdvancedTokenizeTransformer(Model, HasInputCol, HasOutputCol):
     def _transform(self, dataset):
         SpacyAdvancedTokenize.setup(
             dataset._sc, dataset.sql_ctx, self.getLang())
-        func = SpacyAdvancedTokenize.func(self.getLang(), self.getSpacyFields())
+        func = SpacyAdvancedTokenize.func(self.getLang(),
+                                          self.getSpacyFields())
         retType = SpacyAdvancedTokenize.returnType(
             self.getLang(), self.getSpacyFields())
         udf = UserDefinedFunction(func, retType)

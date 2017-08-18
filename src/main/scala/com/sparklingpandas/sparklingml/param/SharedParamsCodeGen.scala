@@ -37,7 +37,8 @@ private[sparklingpandas] object SharedParamsCodeGen extends CodeGenerator {
   def main(args: Array[String]): Unit = {
     val params = Seq(
       // SparklingML Params
-      ParamDesc[Boolean]("stopwordCase", "If the case should be considered when filtering stopwords", Some("false")),
+      ParamDesc[Boolean]("stopwordCase",
+        "If the case should be considered when filtering stopwords", Some("false")),
       ParamDesc[Array[String]]("stopwords",
         "Stopwords to be filtered. Default value depends on underlying transformer"),
       // Spark Params

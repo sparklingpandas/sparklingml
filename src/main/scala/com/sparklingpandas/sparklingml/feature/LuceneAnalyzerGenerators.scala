@@ -54,8 +54,11 @@ private[sparklingpandas] object LuceneAnalyzerGenerators extends CodeGenerator {
 
   def generate(): (String, String) = {
     val reflections = new Reflections("org.apache.lucene");
-    val generalAnalyzers = reflections.getSubTypesOf(classOf[org.apache.lucene.analysis.Analyzer]).asScala.toList.sortBy(_.toString)
-    val concreteAnalyzers = generalAnalyzers.filter(cls => !Modifier.isAbstract(cls.getModifiers))
+    val generalAnalyzers =
+      reflections.getSubTypesOf(classOf[org.apache.lucene.analysis.Analyzer])
+        .asScala.toList.sortBy(_.toString)
+    val concreteAnalyzers =
+      generalAnalyzers.filter(cls => !Modifier.isAbstract(cls.getModifiers))
     // A bit of a hack but strip out the factories and such
     val relevantAnalyzers = concreteAnalyzers.filter(cls =>
       !(cls.toString.contains("$") || cls.toString.contains("Factory")))
@@ -85,7 +88,8 @@ private[sparklingpandas] object LuceneAnalyzerGenerators extends CodeGenerator {
     val constructorParametersLists = constructors.map(_.paramLists).toList
     val constructorParametersSizes = constructorParametersLists.map(_(0).size)
     val javaReflectionConstructors = cls.getConstructors().toList
-    val publicJavaReflectionConstructors = javaReflectionConstructors.filter(cls => Modifier.isPublic(cls.getModifiers()))
+    val publicJavaReflectionConstructors =
+      javaReflectionConstructors.filter(cls => Modifier.isPublic(cls.getModifiers()))
     val constructorParameterTypes = publicJavaReflectionConstructors.map(_.getParameterTypes())
     // We do this in Java as well since some of the scala reflection magic returns private
     // constructors even though its filtered for public. See CustomAnalyzer for an example.
@@ -104,7 +108,8 @@ private[sparklingpandas] object LuceneAnalyzerGenerators extends CodeGenerator {
     // StopwordAnalyzerBase's that don't inherit from eachother.
     val isStopWordAnalyzer = baseClasses.exists(_.asClass.fullName.contains("Stopword"))
 
-    val charsetConstructors = constructorParameterTypes.filter(! _.exists(_ != classOf[CharArraySet]))
+    val charsetConstructors =
+      constructorParameterTypes.filter(! _.exists(_ != classOf[CharArraySet]))
     val charsetConstructorSizes = charsetConstructors.map(_.size)
 
     // If it is a stop word analyzer and has a constructor with two charsets then it takes

@@ -22,7 +22,8 @@ class StrLenPlusKPython(override val uid: String) extends PythonTransformer {
   override protected def outputDataType = IntegerType
   override protected def validateInputType(inputType: DataType): Unit = {
     if (inputType != StringType) {
-      throw new IllegalArgumentException("Expected input type StringType instead found ${inputType}")
+      throw new IllegalArgumentException(
+        s"Expected input type StringType instead found ${inputType}")
     }
   }
 
@@ -50,7 +51,8 @@ class SpacyTokenizePython(override val uid: String) extends PythonTransformer {
   override protected def outputDataType = ArrayType(StringType)
   override protected def validateInputType(inputType: DataType): Unit = {
     if (inputType != StringType) {
-      throw new IllegalArgumentException("Expected input type StringType instead found ${inputType}")
+      throw new IllegalArgumentException(
+        s"Expected input type StringType instead found ${inputType}")
     }
   }
 

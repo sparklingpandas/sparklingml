@@ -14,17 +14,27 @@ Super early! Come join!
 
 Dev mailing list: https://groups.google.com/forum/#!forum/sparklingml-dev
 
+## Building
+
+Sparkling ML consists of two components, a Python component and a Java/Scala component. The Python component depends on having the Java/Scala component pre-build which can be done by running `./build/sbt package`.
+
+
+The Python component depends on the package listed in requirements.txt (as well as part of setup.py). Development and testing also requires spacy, nose, codecov, pylint, and pep8.
+
+
+The script `build_and_package.sh` builds & tests both the Scala and Python code.
+
 ### Tests
 
 Are your DocTests failing with
 
-Expected nothing
-Got:
-    <BLANKLINE>
-        Warning: no model found for 'en'
-    <BLANKLINE>
-        Only loading the 'en' tokenizer.
-    <BLANKLINE>
+>Expected nothing
+>Got:
+>    <BLANKLINE>
+>        Warning: no model found for 'en'
+>    <BLANKLINE>
+>        Only loading the 'en' tokenizer.
+>    <BLANKLINE>
 
 
 Make sure you've installed spacy & the en language pack (`python -m spacy download en`)

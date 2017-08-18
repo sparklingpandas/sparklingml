@@ -83,19 +83,21 @@ private[sparklingpandas] object SharedParamsCodeGen {
       val c = implicitly[ClassTag[T]].runtimeClass
       getTypeString(c)
     }
+  }
 
-    private def getTypeString(c: Class[_]): String = {
-      c match {
-        case _ if c == classOf[Int] => "Int"
-        case _ if c == classOf[Long] => "Long"
-        case _ if c == classOf[Float] => "Float"
-        case _ if c == classOf[Double] => "Double"
-        case _ if c == classOf[Boolean] => "Boolean"
-        case _ if c == classOf[String] => "String"
-        case _ if c.isArray => s"Array[${getTypeString(c.getComponentType)}]"
-      }
+
+  private def getTypeString(c: Class[_]): String = {
+    c match {
+      case _ if c == classOf[Int] => "Int"
+      case _ if c == classOf[Long] => "Long"
+      case _ if c == classOf[Float] => "Float"
+      case _ if c == classOf[Double] => "Double"
+      case _ if c == classOf[Boolean] => "Boolean"
+      case _ if c == classOf[String] => "String"
+      case _ if c.isArray => s"Array[${getTypeString(c.getComponentType)}]"
     }
   }
+
 
   /** Generates the HasParam trait code for the input param. */
   private def genHasParamTrait(param: ParamDesc[_]): String = {

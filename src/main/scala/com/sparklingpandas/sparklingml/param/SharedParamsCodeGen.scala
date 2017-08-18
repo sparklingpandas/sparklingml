@@ -55,59 +55,6 @@ private[sparklingpandas] object SharedParamsCodeGen extends CodeGenerator {
     writer.close()
   }
 
-  /** Description of a param. */
-  private case class ParamDesc[T: ClassTag](
-      name: String,
-      doc: String,
-      defaultValueStr: Option[String] = None,
-      isValid: String = "",
-      finalMethods: Boolean = true,
-      finalFields: Boolean = true,
-      isExpertParam: Boolean = false) {
-
-    require(name.matches("[a-z][a-zA-Z0-9]*"), s"Param name $name is invalid.")
-    require(doc.nonEmpty) // TODO: more rigorous on doc
-    val c = implicitly[ClassTag[T]].runtimeClass
-
-    def paramTypeName: String = {
-      paramTypeNameFromClass(c)
-    }
-
-    def valueTypeName: String = {
-      valueTypeNameFromClass(c)
-    }
-  }
-
-  private def paramTypeNameFromClass(c: Class[_]): String = {
-    c match {
-      case _ if c == classOf[Int] => "IntParam"
-      case _ if c == classOf[Long] => "LongParam"
-      case _ if c == classOf[Float] => "FloatParam"
-      case _ if c == classOf[Double] => "DoubleParam"
-      case _ if c == classOf[Boolean] => "BooleanParam"
-      case _ if c.isArray && c.getComponentType == classOf[String] => s"StringArrayParam"
-      case _ if c.isArray && c.getComponentType == classOf[Double] => s"DoubleArrayParam"
-      case _ => s"Param[${getTypeString(c)}]"
-    }
-  }
-
-  private def valueTypeNameFromClass(c: Class[_]): String = {
-    getTypeString(c)
-  }
-
-  private def getTypeString(c: Class[_]): String = {
-    c match {
-      case _ if c == classOf[Int] => "Int"
-      case _ if c == classOf[Long] => "Long"
-      case _ if c == classOf[Float] => "Float"
-      case _ if c == classOf[Double] => "Double"
-      case _ if c == classOf[Boolean] => "Boolean"
-      case _ if c == classOf[String] => "String"
-      case _ if c.isArray => s"Array[${getTypeString(c.getComponentType)}]"
-    }
-  }
-
-
   /** Generates the HasParam trait code for the input param. */
   private def genHasParamTrait(param: ParamDesc[_]): String = {
     val name = param.name
@@ -186,5 +133,58 @@ private[sparklingpandas] object SharedParamsCodeGen extends CodeGenerator {
     val traits = params.map(genHasParamTrait).mkString
 
     header + traits + footer
+  }
+}
+
+/** Description of a param. */
+private case class ParamDesc[T: ClassTag](
+  name: String,
+  doc: String,
+  defaultValueStr: Option[String] = None,
+  isValid: String = "",
+  finalMethods: Boolean = true,
+  finalFields: Boolean = true,
+  isExpertParam: Boolean = false) {
+
+  require(name.matches("[a-z][a-zA-Z0-9]*"), s"Param name $name is invalid.")
+  require(doc.nonEmpty) // TODO: more rigorous on doc
+  val c = implicitly[ClassTag[T]].runtimeClass
+
+  def paramTypeName: String = {
+    paramTypeNameFromClass(c)
+  }
+
+  def valueTypeName: String = {
+    valueTypeNameFromClass(c)
+  }
+  private def paramTypeNameFromClass(c: Class[_]): String = {
+    c match {
+      case _ if c == classOf[Int] => "IntParam"
+      case _ if c == classOf[Long] => "LongParam"
+      case _ if c == classOf[Float] => "FloatParam"
+      case _ if c == classOf[Double] => "DoubleParam"
+      case _ if c == classOf[Boolean] => "BooleanParam"
+      case _ if c.isArray && c.getComponentType == classOf[String] =>
+        s"StringArrayParam"
+      case _ if c.isArray && c.getComponentType == classOf[Double] =>
+        s"DoubleArrayParam"
+      case _ => s"Param[${getTypeString(c)}]"
+    }
+  }
+
+  private def valueTypeNameFromClass(c: Class[_]): String = {
+    getTypeString(c)
+  }
+
+  private def getTypeString(c: Class[_]): String = {
+    c match {
+      case _ if c == classOf[Int] => "Int"
+      case _ if c == classOf[Long] => "Long"
+      case _ if c == classOf[Float] => "Float"
+      case _ if c == classOf[Double] => "Double"
+      case _ if c == classOf[Boolean] => "Boolean"
+      case _ if c == classOf[String] => "String"
+      case _ if c.isArray => s"Array[${getTypeString(c.getComponentType)}]"
+    }
   }
 }

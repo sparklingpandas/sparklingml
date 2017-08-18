@@ -135,7 +135,6 @@ class SpacyAdvancedTokenize(TransformationFunction):
 
     @classmethod
     def func(cls, *args):
-        import spacy
         lang = args[0]
         fields = args[1]
 
@@ -149,7 +148,7 @@ class SpacyAdvancedTokenize(TransformationFunction):
                 def lookup_field_or_none(field_name):
                     try:
                         return (field_name, str(getattr(token, field_name)))
-                    except:
+                    except AttributeError:
                         return (field_name, None)
                 return dict(map(lookup_field_or_none, fields))
             return list(map(spacyTokenToDict, list(nlp(inputString))))

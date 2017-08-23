@@ -18,8 +18,10 @@
 """
 Sparkling ML provides additional ML algorithms for Spark.
 """
+from __future__ import print_function
 import os
 import sys
+import pyspark
 from pkg_resources import resource_filename
 
 
@@ -42,10 +44,13 @@ if 'IS_TEST' not in os.environ and "JARS" not in os.environ:
         jars.append(os.path.abspath(resource_filename('sparklingml.jar',
                                                       JAR_FILE)))
     except Exception as e:
-        print("Could not resolve resource file " + str(e))
+        print("Could not resolve resource file %s. This is not necessarily"
+              " (and is expected during development) but should not occur in "
+              "production if pip installed." % str(e))
     try:
         jar = [jar_path for jar_path in jars if os.path.exists(jar_path)][0]
     except IndexError:
+        print("Failed to find jars. Looked at paths %s." % jars)
         if 'SPARKLING_ML_SPECIFIC' not in os.environ:
             raise IOError("Failed to find jars. Looked at paths %s." % jars)
         else:

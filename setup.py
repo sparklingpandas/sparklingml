@@ -16,11 +16,12 @@ setup(
     long_description=open('README.md').read(),
     install_requires=[
         'pyspark>=2.2.0',
-        'spacy'
+        'spacy',
+        'future',
     ],
     test_requires=[
         'nose==1.3.7',
         'coverage>3.7.0',
-        'unittest2>=1.0.0'
+        'unittest2>=1.0.0',
     ],
 )

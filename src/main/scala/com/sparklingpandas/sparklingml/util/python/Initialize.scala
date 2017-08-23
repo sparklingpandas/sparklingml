@@ -107,6 +107,8 @@ object PythonRegistration {
         pythonPath += Seq(sparkHome, "python", "lib", "pyspark.zip").mkString(File.separator)
         pythonPath += Seq(sparkHome,
           "python", "lib", "py4j-0.10.6-src.zip").mkString(File.separator)
+        pythonPath += Seq(sparkHome,
+          "python", "lib", "py4j-0.10.4-src.zip").mkString(File.separator)
       }
       pythonPath ++= SparkContext.jarOfObject(this)
       pythonPath.mkString(File.pathSeparator)

@@ -80,12 +80,20 @@ if __name__ == "__main__":
 
     import os
     if "SPARKLING_ML_SPECIFIC" in os.environ:
+        # Py4J setup work so we can talk
         gateway_port = int(os.environ["PYSPARK_GATEWAY_PORT"])
         gateway = JavaGateway(
             GatewayClient(port=gateway_port),
             # TODO: handle dynamic port binding here correctly.
-            callback_server_parameters=CallbackServerParameters(),
+            callback_server_parameters=CallbackServerParameters(port=0),
             auto_convert=True)
+        # retrieve the port on which the python callback server was bound to.
+        python_port = gateway.get_callback_server().get_listening_port()
+        # bind the callback server on the java side to the new python_port
+        gateway.java_gateway_server.resetCallbackClient(
+            gateway.java_gateway_server.getCallbackClient().getAddress(),
+            python_port)
+        # Create our registration provider interface for Py4J to call into
         provider = PythonRegistrationProvider(gateway)
         # Sparkling pandas specific imports
         jvm = gateway.jvm

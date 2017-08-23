@@ -46,7 +46,10 @@ if 'IS_TEST' not in os.environ and "JARS" not in os.environ:
     try:
         jar = [jar_path for jar_path in jars if os.path.exists(jar_path)][0]
     except IndexError:
-        raise IOError("Failed to find jars. Looked at paths %s." % jars)
+        if 'SPARKLING_ML_SPECIFIC' not in os.environ:
+            raise IOError("Failed to find jars. Looked at paths %s." % jars)
+        else:
+            print("Failed to find jars, but from JVM so this _should_ be ok")
     os.environ["JARS"] = jar
     os.environ["PYSPARK_SUBMIT_ARGS"] = ("--jars %s --driver-class-path %s" +
                                          " pyspark-shell") % (jar, jar)

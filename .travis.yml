@@ -30,5 +30,6 @@ script:
 # At some point we might need to build the assembly jar for testing,
 # for now we can skip it.
   - "nosetests --logging-level=INFO --detailed-errors --verbosity=2 --with-coverage --cover-html-dir=./htmlcov --cover-package=sparklingml --with-doctest --doctest-options=+ELLIPSIS"
+  - coverage --combine
   - bash <(curl -s https://codecov.io/bash) -cF python || echo "No Python report uploaded"
 sudo: false

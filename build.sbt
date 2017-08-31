@@ -28,7 +28,7 @@ coverageHighlighting := true
 coverageEnabled := true
 
 
-javaOptions ++= Seq("-Xms1G", "-Xmx1G", "-XX:MaxPermSize=1024M", "-XX:+CMSClassUnloadingEnabled")
+javaOptions ++= Seq("-Xms2G", "-Xmx3G", "-XX:MaxPermSize=2024M", "-XX:+CMSClassUnloadingEnabled")
 
 test in assembly := {}
 

@@ -194,8 +194,9 @@ lled through this API
         |""".stripMargin('|')
       val pyCode =
         s"""
-        |class ${clsShortName}Lucene(SparklingJavaTransformer, HasInputCol,
-        |                            HasOutputCol, HasStopwords, HasStopwordCase):
+        |class ${clsShortName}Lucene(
+        |        SparklingJavaTransformer, HasInputCol, HasOutputCol,
+        |        HasStopwords, HasStopwordCase):
         |    \"\"\"
         |    >>> from pyspark.sql import SparkSession
         |    >>> spark = SparkSession.builder.master("local[2]").getOrCreate()
@@ -224,7 +225,7 @@ lled through this API
         |                 stopwords=None, stopwordCase=False)
         |        \"\"\"
         |        super(${clsShortName}Lucene, self).__init__()
-        |        self._setDefault(stopwordCase = False)
+        |        self._setDefault(stopwordCase=False)
         |        kwargs = self._input_kwargs
         |        self.setParams(**kwargs)
         |
@@ -237,6 +238,7 @@ lled through this API
         |        \"\"\"
         |        kwargs = self._input_kwargs
         |        return self._set(**kwargs)
+        |
         |""".stripMargin('|')
       (testCode, code, pyCode)
     } else if (constructorParametersSizes.contains(0) &&

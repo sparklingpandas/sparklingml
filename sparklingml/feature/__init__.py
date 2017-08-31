@@ -23,4 +23,3 @@ import os
 import sys
 import pyspark
 from pkg_resources import resource_filename
-

@@ -33,8 +33,9 @@ from sparklingml.java_wrapper_ml import *
 from sparklingml.param.shared import HasStopwords, HasStopwordCase
 
 
-class ArabicAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
-                            HasOutputCol, HasStopwords, HasStopwordCase):
+class ArabicAnalyzerLucene(
+        SparklingJavaTransformer, HasInputCol, HasOutputCol,
+        HasStopwords, HasStopwordCase):
     """
     >>> from pyspark.sql import SparkSession
     >>> spark = SparkSession.builder.master("local[2]").getOrCreate()
@@ -63,7 +64,7 @@ class ArabicAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
                  stopwords=None, stopwordCase=False)
         """
         super(ArabicAnalyzerLucene, self).__init__()
-        self._setDefault(stopwordCase = False)
+        self._setDefault(stopwordCase=False)
         kwargs = self._input_kwargs
         self.setParams(**kwargs)
 
@@ -77,8 +78,10 @@ class ArabicAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
         kwargs = self._input_kwargs
         return self._set(**kwargs)
 
-class BulgarianAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
-                            HasOutputCol, HasStopwords, HasStopwordCase):
+
+class BulgarianAnalyzerLucene(
+        SparklingJavaTransformer, HasInputCol, HasOutputCol,
+        HasStopwords, HasStopwordCase):
     """
     >>> from pyspark.sql import SparkSession
     >>> spark = SparkSession.builder.master("local[2]").getOrCreate()
@@ -107,7 +110,7 @@ class BulgarianAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
                  stopwords=None, stopwordCase=False)
         """
         super(BulgarianAnalyzerLucene, self).__init__()
-        self._setDefault(stopwordCase = False)
+        self._setDefault(stopwordCase=False)
         kwargs = self._input_kwargs
         self.setParams(**kwargs)
 
@@ -121,8 +124,10 @@ class BulgarianAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
         kwargs = self._input_kwargs
         return self._set(**kwargs)
 
-class BrazilianAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
-                            HasOutputCol, HasStopwords, HasStopwordCase):
+
+class BrazilianAnalyzerLucene(
+        SparklingJavaTransformer, HasInputCol, HasOutputCol,
+        HasStopwords, HasStopwordCase):
     """
     >>> from pyspark.sql import SparkSession
     >>> spark = SparkSession.builder.master("local[2]").getOrCreate()
@@ -151,7 +156,7 @@ class BrazilianAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
                  stopwords=None, stopwordCase=False)
         """
         super(BrazilianAnalyzerLucene, self).__init__()
-        self._setDefault(stopwordCase = False)
+        self._setDefault(stopwordCase=False)
         kwargs = self._input_kwargs
         self.setParams(**kwargs)
 
@@ -165,8 +170,10 @@ class BrazilianAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
         kwargs = self._input_kwargs
         return self._set(**kwargs)
 
-class CatalanAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
-                            HasOutputCol, HasStopwords, HasStopwordCase):
+
+class CatalanAnalyzerLucene(
+        SparklingJavaTransformer, HasInputCol, HasOutputCol,
+        HasStopwords, HasStopwordCase):
     """
     >>> from pyspark.sql import SparkSession
     >>> spark = SparkSession.builder.master("local[2]").getOrCreate()
@@ -195,7 +202,7 @@ class CatalanAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
                  stopwords=None, stopwordCase=False)
         """
         super(CatalanAnalyzerLucene, self).__init__()
-        self._setDefault(stopwordCase = False)
+        self._setDefault(stopwordCase=False)
         kwargs = self._input_kwargs
         self.setParams(**kwargs)
 
@@ -209,8 +216,10 @@ class CatalanAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
         kwargs = self._input_kwargs
         return self._set(**kwargs)
 
-class CJKAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
-                            HasOutputCol, HasStopwords, HasStopwordCase):
+
+class CJKAnalyzerLucene(
+        SparklingJavaTransformer, HasInputCol, HasOutputCol,
+        HasStopwords, HasStopwordCase):
     """
     >>> from pyspark.sql import SparkSession
     >>> spark = SparkSession.builder.master("local[2]").getOrCreate()
@@ -239,7 +248,7 @@ class CJKAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
                  stopwords=None, stopwordCase=False)
         """
         super(CJKAnalyzerLucene, self).__init__()
-        self._setDefault(stopwordCase = False)
+        self._setDefault(stopwordCase=False)
         kwargs = self._input_kwargs
         self.setParams(**kwargs)
 
@@ -253,8 +262,10 @@ class CJKAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
         kwargs = self._input_kwargs
         return self._set(**kwargs)
 
-class SoraniAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
-                            HasOutputCol, HasStopwords, HasStopwordCase):
+
+class SoraniAnalyzerLucene(
+        SparklingJavaTransformer, HasInputCol, HasOutputCol,
+        HasStopwords, HasStopwordCase):
     """
     >>> from pyspark.sql import SparkSession
     >>> spark = SparkSession.builder.master("local[2]").getOrCreate()
@@ -283,7 +294,7 @@ class SoraniAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
                  stopwords=None, stopwordCase=False)
         """
         super(SoraniAnalyzerLucene, self).__init__()
-        self._setDefault(stopwordCase = False)
+        self._setDefault(stopwordCase=False)
         kwargs = self._input_kwargs
         self.setParams(**kwargs)
 
@@ -297,8 +308,10 @@ class SoraniAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
         kwargs = self._input_kwargs
         return self._set(**kwargs)
 
-class StopAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
-                            HasOutputCol, HasStopwords, HasStopwordCase):
+
+class StopAnalyzerLucene(
+        SparklingJavaTransformer, HasInputCol, HasOutputCol,
+        HasStopwords, HasStopwordCase):
     """
     >>> from pyspark.sql import SparkSession
     >>> spark = SparkSession.builder.master("local[2]").getOrCreate()
@@ -327,7 +340,7 @@ class StopAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
                  stopwords=None, stopwordCase=False)
         """
         super(StopAnalyzerLucene, self).__init__()
-        self._setDefault(stopwordCase = False)
+        self._setDefault(stopwordCase=False)
         kwargs = self._input_kwargs
         self.setParams(**kwargs)
 
@@ -341,8 +354,10 @@ class StopAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
         kwargs = self._input_kwargs
         return self._set(**kwargs)
 
-class CzechAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
-                            HasOutputCol, HasStopwords, HasStopwordCase):
+
+class CzechAnalyzerLucene(
+        SparklingJavaTransformer, HasInputCol, HasOutputCol,
+        HasStopwords, HasStopwordCase):
     """
     >>> from pyspark.sql import SparkSession
     >>> spark = SparkSession.builder.master("local[2]").getOrCreate()
@@ -371,7 +386,7 @@ class CzechAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
                  stopwords=None, stopwordCase=False)
         """
         super(CzechAnalyzerLucene, self).__init__()
-        self._setDefault(stopwordCase = False)
+        self._setDefault(stopwordCase=False)
         kwargs = self._input_kwargs
         self.setParams(**kwargs)
 
@@ -385,8 +400,10 @@ class CzechAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
         kwargs = self._input_kwargs
         return self._set(**kwargs)
 
-class DanishAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
-                            HasOutputCol, HasStopwords, HasStopwordCase):
+
+class DanishAnalyzerLucene(
+        SparklingJavaTransformer, HasInputCol, HasOutputCol,
+        HasStopwords, HasStopwordCase):
     """
     >>> from pyspark.sql import SparkSession
     >>> spark = SparkSession.builder.master("local[2]").getOrCreate()
@@ -415,7 +432,7 @@ class DanishAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
                  stopwords=None, stopwordCase=False)
         """
         super(DanishAnalyzerLucene, self).__init__()
-        self._setDefault(stopwordCase = False)
+        self._setDefault(stopwordCase=False)
         kwargs = self._input_kwargs
         self.setParams(**kwargs)
 
@@ -429,8 +446,10 @@ class DanishAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
         kwargs = self._input_kwargs
         return self._set(**kwargs)
 
-class GermanAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
-                            HasOutputCol, HasStopwords, HasStopwordCase):
+
+class GermanAnalyzerLucene(
+        SparklingJavaTransformer, HasInputCol, HasOutputCol,
+        HasStopwords, HasStopwordCase):
     """
     >>> from pyspark.sql import SparkSession
     >>> spark = SparkSession.builder.master("local[2]").getOrCreate()
@@ -459,7 +478,7 @@ class GermanAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
                  stopwords=None, stopwordCase=False)
         """
         super(GermanAnalyzerLucene, self).__init__()
-        self._setDefault(stopwordCase = False)
+        self._setDefault(stopwordCase=False)
         kwargs = self._input_kwargs
         self.setParams(**kwargs)
 
@@ -473,8 +492,10 @@ class GermanAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
         kwargs = self._input_kwargs
         return self._set(**kwargs)
 
-class GreekAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
-                            HasOutputCol, HasStopwords, HasStopwordCase):
+
+class GreekAnalyzerLucene(
+        SparklingJavaTransformer, HasInputCol, HasOutputCol,
+        HasStopwords, HasStopwordCase):
     """
     >>> from pyspark.sql import SparkSession
     >>> spark = SparkSession.builder.master("local[2]").getOrCreate()
@@ -503,7 +524,7 @@ class GreekAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
                  stopwords=None, stopwordCase=False)
         """
         super(GreekAnalyzerLucene, self).__init__()
-        self._setDefault(stopwordCase = False)
+        self._setDefault(stopwordCase=False)
         kwargs = self._input_kwargs
         self.setParams(**kwargs)
 
@@ -517,8 +538,10 @@ class GreekAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
         kwargs = self._input_kwargs
         return self._set(**kwargs)
 
-class EnglishAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
-                            HasOutputCol, HasStopwords, HasStopwordCase):
+
+class EnglishAnalyzerLucene(
+        SparklingJavaTransformer, HasInputCol, HasOutputCol,
+        HasStopwords, HasStopwordCase):
     """
     >>> from pyspark.sql import SparkSession
     >>> spark = SparkSession.builder.master("local[2]").getOrCreate()
@@ -547,7 +570,7 @@ class EnglishAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
                  stopwords=None, stopwordCase=False)
         """
         super(EnglishAnalyzerLucene, self).__init__()
-        self._setDefault(stopwordCase = False)
+        self._setDefault(stopwordCase=False)
         kwargs = self._input_kwargs
         self.setParams(**kwargs)
 
@@ -561,8 +584,10 @@ class EnglishAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
         kwargs = self._input_kwargs
         return self._set(**kwargs)
 
-class SpanishAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
-                            HasOutputCol, HasStopwords, HasStopwordCase):
+
+class SpanishAnalyzerLucene(
+        SparklingJavaTransformer, HasInputCol, HasOutputCol,
+        HasStopwords, HasStopwordCase):
     """
     >>> from pyspark.sql import SparkSession
     >>> spark = SparkSession.builder.master("local[2]").getOrCreate()
@@ -591,7 +616,7 @@ class SpanishAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
                  stopwords=None, stopwordCase=False)
         """
         super(SpanishAnalyzerLucene, self).__init__()
-        self._setDefault(stopwordCase = False)
+        self._setDefault(stopwordCase=False)
         kwargs = self._input_kwargs
         self.setParams(**kwargs)
 
@@ -605,8 +630,10 @@ class SpanishAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
         kwargs = self._input_kwargs
         return self._set(**kwargs)
 
-class BasqueAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
-                            HasOutputCol, HasStopwords, HasStopwordCase):
+
+class BasqueAnalyzerLucene(
+        SparklingJavaTransformer, HasInputCol, HasOutputCol,
+        HasStopwords, HasStopwordCase):
     """
     >>> from pyspark.sql import SparkSession
     >>> spark = SparkSession.builder.master("local[2]").getOrCreate()
@@ -635,7 +662,7 @@ class BasqueAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
                  stopwords=None, stopwordCase=False)
         """
         super(BasqueAnalyzerLucene, self).__init__()
-        self._setDefault(stopwordCase = False)
+        self._setDefault(stopwordCase=False)
         kwargs = self._input_kwargs
         self.setParams(**kwargs)
 
@@ -649,8 +676,10 @@ class BasqueAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
         kwargs = self._input_kwargs
         return self._set(**kwargs)
 
-class PersianAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
-                            HasOutputCol, HasStopwords, HasStopwordCase):
+
+class PersianAnalyzerLucene(
+        SparklingJavaTransformer, HasInputCol, HasOutputCol,
+        HasStopwords, HasStopwordCase):
     """
     >>> from pyspark.sql import SparkSession
     >>> spark = SparkSession.builder.master("local[2]").getOrCreate()
@@ -679,7 +708,7 @@ class PersianAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
                  stopwords=None, stopwordCase=False)
         """
         super(PersianAnalyzerLucene, self).__init__()
-        self._setDefault(stopwordCase = False)
+        self._setDefault(stopwordCase=False)
         kwargs = self._input_kwargs
         self.setParams(**kwargs)
 
@@ -693,8 +722,10 @@ class PersianAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
         kwargs = self._input_kwargs
         return self._set(**kwargs)
 
-class FinnishAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
-                            HasOutputCol, HasStopwords, HasStopwordCase):
+
+class FinnishAnalyzerLucene(
+        SparklingJavaTransformer, HasInputCol, HasOutputCol,
+        HasStopwords, HasStopwordCase):
     """
     >>> from pyspark.sql import SparkSession
     >>> spark = SparkSession.builder.master("local[2]").getOrCreate()
@@ -723,7 +754,7 @@ class FinnishAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
                  stopwords=None, stopwordCase=False)
         """
         super(FinnishAnalyzerLucene, self).__init__()
-        self._setDefault(stopwordCase = False)
+        self._setDefault(stopwordCase=False)
         kwargs = self._input_kwargs
         self.setParams(**kwargs)
 
@@ -737,8 +768,10 @@ class FinnishAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
         kwargs = self._input_kwargs
         return self._set(**kwargs)
 
-class FrenchAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
-                            HasOutputCol, HasStopwords, HasStopwordCase):
+
+class FrenchAnalyzerLucene(
+        SparklingJavaTransformer, HasInputCol, HasOutputCol,
+        HasStopwords, HasStopwordCase):
     """
     >>> from pyspark.sql import SparkSession
     >>> spark = SparkSession.builder.master("local[2]").getOrCreate()
@@ -767,7 +800,7 @@ class FrenchAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
                  stopwords=None, stopwordCase=False)
         """
         super(FrenchAnalyzerLucene, self).__init__()
-        self._setDefault(stopwordCase = False)
+        self._setDefault(stopwordCase=False)
         kwargs = self._input_kwargs
         self.setParams(**kwargs)
 
@@ -781,8 +814,10 @@ class FrenchAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
         kwargs = self._input_kwargs
         return self._set(**kwargs)
 
-class IrishAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
-                            HasOutputCol, HasStopwords, HasStopwordCase):
+
+class IrishAnalyzerLucene(
+        SparklingJavaTransformer, HasInputCol, HasOutputCol,
+        HasStopwords, HasStopwordCase):
     """
     >>> from pyspark.sql import SparkSession
     >>> spark = SparkSession.builder.master("local[2]").getOrCreate()
@@ -811,7 +846,7 @@ class IrishAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
                  stopwords=None, stopwordCase=False)
         """
         super(IrishAnalyzerLucene, self).__init__()
-        self._setDefault(stopwordCase = False)
+        self._setDefault(stopwordCase=False)
         kwargs = self._input_kwargs
         self.setParams(**kwargs)
 
@@ -825,8 +860,10 @@ class IrishAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
         kwargs = self._input_kwargs
         return self._set(**kwargs)
 
-class GalicianAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
-                            HasOutputCol, HasStopwords, HasStopwordCase):
+
+class GalicianAnalyzerLucene(
+        SparklingJavaTransformer, HasInputCol, HasOutputCol,
+        HasStopwords, HasStopwordCase):
     """
     >>> from pyspark.sql import SparkSession
     >>> spark = SparkSession.builder.master("local[2]").getOrCreate()
@@ -855,7 +892,7 @@ class GalicianAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
                  stopwords=None, stopwordCase=False)
         """
         super(GalicianAnalyzerLucene, self).__init__()
-        self._setDefault(stopwordCase = False)
+        self._setDefault(stopwordCase=False)
         kwargs = self._input_kwargs
         self.setParams(**kwargs)
 
@@ -869,8 +906,10 @@ class GalicianAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
         kwargs = self._input_kwargs
         return self._set(**kwargs)
 
-class HindiAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
-                            HasOutputCol, HasStopwords, HasStopwordCase):
+
+class HindiAnalyzerLucene(
+        SparklingJavaTransformer, HasInputCol, HasOutputCol,
+        HasStopwords, HasStopwordCase):
     """
     >>> from pyspark.sql import SparkSession
     >>> spark = SparkSession.builder.master("local[2]").getOrCreate()
@@ -899,7 +938,7 @@ class HindiAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
                  stopwords=None, stopwordCase=False)
         """
         super(HindiAnalyzerLucene, self).__init__()
-        self._setDefault(stopwordCase = False)
+        self._setDefault(stopwordCase=False)
         kwargs = self._input_kwargs
         self.setParams(**kwargs)
 
@@ -913,8 +952,10 @@ class HindiAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
         kwargs = self._input_kwargs
         return self._set(**kwargs)
 
-class HungarianAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
-                            HasOutputCol, HasStopwords, HasStopwordCase):
+
+class HungarianAnalyzerLucene(
+        SparklingJavaTransformer, HasInputCol, HasOutputCol,
+        HasStopwords, HasStopwordCase):
     """
     >>> from pyspark.sql import SparkSession
     >>> spark = SparkSession.builder.master("local[2]").getOrCreate()
@@ -943,7 +984,7 @@ class HungarianAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
                  stopwords=None, stopwordCase=False)
         """
         super(HungarianAnalyzerLucene, self).__init__()
-        self._setDefault(stopwordCase = False)
+        self._setDefault(stopwordCase=False)
         kwargs = self._input_kwargs
         self.setParams(**kwargs)
 
@@ -957,8 +998,10 @@ class HungarianAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
         kwargs = self._input_kwargs
         return self._set(**kwargs)
 
-class ArmenianAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
-                            HasOutputCol, HasStopwords, HasStopwordCase):
+
+class ArmenianAnalyzerLucene(
+        SparklingJavaTransformer, HasInputCol, HasOutputCol,
+        HasStopwords, HasStopwordCase):
     """
     >>> from pyspark.sql import SparkSession
     >>> spark = SparkSession.builder.master("local[2]").getOrCreate()
@@ -987,7 +1030,7 @@ class ArmenianAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
                  stopwords=None, stopwordCase=False)
         """
         super(ArmenianAnalyzerLucene, self).__init__()
-        self._setDefault(stopwordCase = False)
+        self._setDefault(stopwordCase=False)
         kwargs = self._input_kwargs
         self.setParams(**kwargs)
 
@@ -1001,8 +1044,10 @@ class ArmenianAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
         kwargs = self._input_kwargs
         return self._set(**kwargs)
 
-class IndonesianAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
-                            HasOutputCol, HasStopwords, HasStopwordCase):
+
+class IndonesianAnalyzerLucene(
+        SparklingJavaTransformer, HasInputCol, HasOutputCol,
+        HasStopwords, HasStopwordCase):
     """
     >>> from pyspark.sql import SparkSession
     >>> spark = SparkSession.builder.master("local[2]").getOrCreate()
@@ -1031,7 +1076,7 @@ class IndonesianAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
                  stopwords=None, stopwordCase=False)
         """
         super(IndonesianAnalyzerLucene, self).__init__()
-        self._setDefault(stopwordCase = False)
+        self._setDefault(stopwordCase=False)
         kwargs = self._input_kwargs
         self.setParams(**kwargs)
 
@@ -1045,8 +1090,10 @@ class IndonesianAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
         kwargs = self._input_kwargs
         return self._set(**kwargs)
 
-class ItalianAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
-                            HasOutputCol, HasStopwords, HasStopwordCase):
+
+class ItalianAnalyzerLucene(
+        SparklingJavaTransformer, HasInputCol, HasOutputCol,
+        HasStopwords, HasStopwordCase):
     """
     >>> from pyspark.sql import SparkSession
     >>> spark = SparkSession.builder.master("local[2]").getOrCreate()
@@ -1075,7 +1122,7 @@ class ItalianAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
                  stopwords=None, stopwordCase=False)
         """
         super(ItalianAnalyzerLucene, self).__init__()
-        self._setDefault(stopwordCase = False)
+        self._setDefault(stopwordCase=False)
         kwargs = self._input_kwargs
         self.setParams(**kwargs)
 
@@ -1089,8 +1136,10 @@ class ItalianAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
         kwargs = self._input_kwargs
         return self._set(**kwargs)
 
-class LithuanianAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
-                            HasOutputCol, HasStopwords, HasStopwordCase):
+
+class LithuanianAnalyzerLucene(
+        SparklingJavaTransformer, HasInputCol, HasOutputCol,
+        HasStopwords, HasStopwordCase):
     """
     >>> from pyspark.sql import SparkSession
     >>> spark = SparkSession.builder.master("local[2]").getOrCreate()
@@ -1119,7 +1168,7 @@ class LithuanianAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
                  stopwords=None, stopwordCase=False)
         """
         super(LithuanianAnalyzerLucene, self).__init__()
-        self._setDefault(stopwordCase = False)
+        self._setDefault(stopwordCase=False)
         kwargs = self._input_kwargs
         self.setParams(**kwargs)
 
@@ -1133,8 +1182,10 @@ class LithuanianAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
         kwargs = self._input_kwargs
         return self._set(**kwargs)
 
-class LatvianAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
-                            HasOutputCol, HasStopwords, HasStopwordCase):
+
+class LatvianAnalyzerLucene(
+        SparklingJavaTransformer, HasInputCol, HasOutputCol,
+        HasStopwords, HasStopwordCase):
     """
     >>> from pyspark.sql import SparkSession
     >>> spark = SparkSession.builder.master("local[2]").getOrCreate()
@@ -1163,7 +1214,7 @@ class LatvianAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
                  stopwords=None, stopwordCase=False)
         """
         super(LatvianAnalyzerLucene, self).__init__()
-        self._setDefault(stopwordCase = False)
+        self._setDefault(stopwordCase=False)
         kwargs = self._input_kwargs
         self.setParams(**kwargs)
 
@@ -1177,8 +1228,10 @@ class LatvianAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
         kwargs = self._input_kwargs
         return self._set(**kwargs)
 
-class NorwegianAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
-                            HasOutputCol, HasStopwords, HasStopwordCase):
+
+class NorwegianAnalyzerLucene(
+        SparklingJavaTransformer, HasInputCol, HasOutputCol,
+        HasStopwords, HasStopwordCase):
     """
     >>> from pyspark.sql import SparkSession
     >>> spark = SparkSession.builder.master("local[2]").getOrCreate()
@@ -1207,7 +1260,7 @@ class NorwegianAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
                  stopwords=None, stopwordCase=False)
         """
         super(NorwegianAnalyzerLucene, self).__init__()
-        self._setDefault(stopwordCase = False)
+        self._setDefault(stopwordCase=False)
         kwargs = self._input_kwargs
         self.setParams(**kwargs)
 
@@ -1221,8 +1274,10 @@ class NorwegianAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
         kwargs = self._input_kwargs
         return self._set(**kwargs)
 
-class PolishAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
-                            HasOutputCol, HasStopwords, HasStopwordCase):
+
+class PolishAnalyzerLucene(
+        SparklingJavaTransformer, HasInputCol, HasOutputCol,
+        HasStopwords, HasStopwordCase):
     """
     >>> from pyspark.sql import SparkSession
     >>> spark = SparkSession.builder.master("local[2]").getOrCreate()
@@ -1251,7 +1306,7 @@ class PolishAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
                  stopwords=None, stopwordCase=False)
         """
         super(PolishAnalyzerLucene, self).__init__()
-        self._setDefault(stopwordCase = False)
+        self._setDefault(stopwordCase=False)
         kwargs = self._input_kwargs
         self.setParams(**kwargs)
 
@@ -1265,8 +1320,10 @@ class PolishAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
         kwargs = self._input_kwargs
         return self._set(**kwargs)
 
-class PortugueseAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
-                            HasOutputCol, HasStopwords, HasStopwordCase):
+
+class PortugueseAnalyzerLucene(
+        SparklingJavaTransformer, HasInputCol, HasOutputCol,
+        HasStopwords, HasStopwordCase):
     """
     >>> from pyspark.sql import SparkSession
     >>> spark = SparkSession.builder.master("local[2]").getOrCreate()
@@ -1295,7 +1352,7 @@ class PortugueseAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
                  stopwords=None, stopwordCase=False)
         """
         super(PortugueseAnalyzerLucene, self).__init__()
-        self._setDefault(stopwordCase = False)
+        self._setDefault(stopwordCase=False)
         kwargs = self._input_kwargs
         self.setParams(**kwargs)
 
@@ -1309,8 +1366,10 @@ class PortugueseAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
         kwargs = self._input_kwargs
         return self._set(**kwargs)
 
-class RomanianAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
-                            HasOutputCol, HasStopwords, HasStopwordCase):
+
+class RomanianAnalyzerLucene(
+        SparklingJavaTransformer, HasInputCol, HasOutputCol,
+        HasStopwords, HasStopwordCase):
     """
     >>> from pyspark.sql import SparkSession
     >>> spark = SparkSession.builder.master("local[2]").getOrCreate()
@@ -1339,7 +1398,7 @@ class RomanianAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
                  stopwords=None, stopwordCase=False)
         """
         super(RomanianAnalyzerLucene, self).__init__()
-        self._setDefault(stopwordCase = False)
+        self._setDefault(stopwordCase=False)
         kwargs = self._input_kwargs
         self.setParams(**kwargs)
 
@@ -1353,8 +1412,10 @@ class RomanianAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
         kwargs = self._input_kwargs
         return self._set(**kwargs)
 
-class RussianAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
-                            HasOutputCol, HasStopwords, HasStopwordCase):
+
+class RussianAnalyzerLucene(
+        SparklingJavaTransformer, HasInputCol, HasOutputCol,
+        HasStopwords, HasStopwordCase):
     """
     >>> from pyspark.sql import SparkSession
     >>> spark = SparkSession.builder.master("local[2]").getOrCreate()
@@ -1383,7 +1444,7 @@ class RussianAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
                  stopwords=None, stopwordCase=False)
         """
         super(RussianAnalyzerLucene, self).__init__()
-        self._setDefault(stopwordCase = False)
+        self._setDefault(stopwordCase=False)
         kwargs = self._input_kwargs
         self.setParams(**kwargs)
 
@@ -1397,8 +1458,10 @@ class RussianAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
         kwargs = self._input_kwargs
         return self._set(**kwargs)
 
-class ClassicAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
-                            HasOutputCol, HasStopwords, HasStopwordCase):
+
+class ClassicAnalyzerLucene(
+        SparklingJavaTransformer, HasInputCol, HasOutputCol,
+        HasStopwords, HasStopwordCase):
     """
     >>> from pyspark.sql import SparkSession
     >>> spark = SparkSession.builder.master("local[2]").getOrCreate()
@@ -1427,7 +1490,7 @@ class ClassicAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
                  stopwords=None, stopwordCase=False)
         """
         super(ClassicAnalyzerLucene, self).__init__()
-        self._setDefault(stopwordCase = False)
+        self._setDefault(stopwordCase=False)
         kwargs = self._input_kwargs
         self.setParams(**kwargs)
 
@@ -1441,8 +1504,10 @@ class ClassicAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
         kwargs = self._input_kwargs
         return self._set(**kwargs)
 
-class StandardAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
-                            HasOutputCol, HasStopwords, HasStopwordCase):
+
+class StandardAnalyzerLucene(
+        SparklingJavaTransformer, HasInputCol, HasOutputCol,
+        HasStopwords, HasStopwordCase):
     """
     >>> from pyspark.sql import SparkSession
     >>> spark = SparkSession.builder.master("local[2]").getOrCreate()
@@ -1471,7 +1536,7 @@ class StandardAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
                  stopwords=None, stopwordCase=False)
         """
         super(StandardAnalyzerLucene, self).__init__()
-        self._setDefault(stopwordCase = False)
+        self._setDefault(stopwordCase=False)
         kwargs = self._input_kwargs
         self.setParams(**kwargs)
 
@@ -1485,8 +1550,10 @@ class StandardAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
         kwargs = self._input_kwargs
         return self._set(**kwargs)
 
-class UAX29URLEmailAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
-                            HasOutputCol, HasStopwords, HasStopwordCase):
+
+class UAX29URLEmailAnalyzerLucene(
+        SparklingJavaTransformer, HasInputCol, HasOutputCol,
+        HasStopwords, HasStopwordCase):
     """
     >>> from pyspark.sql import SparkSession
     >>> spark = SparkSession.builder.master("local[2]").getOrCreate()
@@ -1515,7 +1582,7 @@ class UAX29URLEmailAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
                  stopwords=None, stopwordCase=False)
         """
         super(UAX29URLEmailAnalyzerLucene, self).__init__()
-        self._setDefault(stopwordCase = False)
+        self._setDefault(stopwordCase=False)
         kwargs = self._input_kwargs
         self.setParams(**kwargs)
 
@@ -1529,8 +1596,10 @@ class UAX29URLEmailAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
         kwargs = self._input_kwargs
         return self._set(**kwargs)
 
-class SwedishAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
-                            HasOutputCol, HasStopwords, HasStopwordCase):
+
+class SwedishAnalyzerLucene(
+        SparklingJavaTransformer, HasInputCol, HasOutputCol,
+        HasStopwords, HasStopwordCase):
     """
     >>> from pyspark.sql import SparkSession
     >>> spark = SparkSession.builder.master("local[2]").getOrCreate()
@@ -1559,7 +1628,7 @@ class SwedishAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
                  stopwords=None, stopwordCase=False)
         """
         super(SwedishAnalyzerLucene, self).__init__()
-        self._setDefault(stopwordCase = False)
+        self._setDefault(stopwordCase=False)
         kwargs = self._input_kwargs
         self.setParams(**kwargs)
 
@@ -1573,8 +1642,10 @@ class SwedishAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
         kwargs = self._input_kwargs
         return self._set(**kwargs)
 
-class ThaiAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
-                            HasOutputCol, HasStopwords, HasStopwordCase):
+
+class ThaiAnalyzerLucene(
+        SparklingJavaTransformer, HasInputCol, HasOutputCol,
+        HasStopwords, HasStopwordCase):
     """
     >>> from pyspark.sql import SparkSession
     >>> spark = SparkSession.builder.master("local[2]").getOrCreate()
@@ -1603,7 +1674,7 @@ class ThaiAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
                  stopwords=None, stopwordCase=False)
         """
         super(ThaiAnalyzerLucene, self).__init__()
-        self._setDefault(stopwordCase = False)
+        self._setDefault(stopwordCase=False)
         kwargs = self._input_kwargs
         self.setParams(**kwargs)
 
@@ -1617,8 +1688,10 @@ class ThaiAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
         kwargs = self._input_kwargs
         return self._set(**kwargs)
 
-class TurkishAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
-                            HasOutputCol, HasStopwords, HasStopwordCase):
+
+class TurkishAnalyzerLucene(
+        SparklingJavaTransformer, HasInputCol, HasOutputCol,
+        HasStopwords, HasStopwordCase):
     """
     >>> from pyspark.sql import SparkSession
     >>> spark = SparkSession.builder.master("local[2]").getOrCreate()
@@ -1647,7 +1720,7 @@ class TurkishAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
                  stopwords=None, stopwordCase=False)
         """
         super(TurkishAnalyzerLucene, self).__init__()
-        self._setDefault(stopwordCase = False)
+        self._setDefault(stopwordCase=False)
         kwargs = self._input_kwargs
         self.setParams(**kwargs)
 
@@ -1661,8 +1734,10 @@ class TurkishAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
         kwargs = self._input_kwargs
         return self._set(**kwargs)
 
-class UkrainianMorfologikAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
-                            HasOutputCol, HasStopwords, HasStopwordCase):
+
+class UkrainianMorfologikAnalyzerLucene(
+        SparklingJavaTransformer, HasInputCol, HasOutputCol,
+        HasStopwords, HasStopwordCase):
     """
     >>> from pyspark.sql import SparkSession
     >>> spark = SparkSession.builder.master("local[2]").getOrCreate()
@@ -1691,7 +1766,7 @@ class UkrainianMorfologikAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
                  stopwords=None, stopwordCase=False)
         """
         super(UkrainianMorfologikAnalyzerLucene, self).__init__()
-        self._setDefault(stopwordCase = False)
+        self._setDefault(stopwordCase=False)
         kwargs = self._input_kwargs
         self.setParams(**kwargs)
 
@@ -1704,6 +1779,7 @@ class UkrainianMorfologikAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
         """
         kwargs = self._input_kwargs
         return self._set(**kwargs)
+
 
 if __name__ == "__main__":
     import doctest

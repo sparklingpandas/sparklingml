@@ -212,36 +212,73 @@ lled through this API
 
   def generateZeroArgStage(clsShortName: String, clsFullName: String):
       (String, String, String) = {
-          val testCode =
-        s"""
-        |/**
-        | * A super simple test
-        | */
-        |class ${clsShortName}LuceneTest
-        |    extends LuceneTransformerTest[${clsShortName}Lucene] {
-        |    val transformer = new ${clsShortName}Lucene()
-        |}
-        |""".stripMargin('|')
-      val code =
-        s"""
-        |/**
-        | * A basic Transformer based on ${clsShortName} - does not support
-        | * any configuration properties.
-        | * See https://github.com/sparklingpandas/sparklingml/issues/3
-        | * & LuceneAnalyzerGenerators for details.
-        | */
-        |
-        |class ${clsShortName}Lucene(override val uid: String)
-        |    extends LuceneTransformer[${clsShortName}Lucene] {
-        |
-        |  def this() = this(Identifiable.randomUID("${clsShortName}"))
-        |
-        |  def buildAnalyzer(): Analyzer = {
-        |    new ${clsFullName}()
-        |  }
-        |}
-        |""".stripMargin('|')
-      (testCode, code, "")
+    val testCode =
+      s"""
+      |/**
+      | * A super simple test
+      | */
+      |class ${clsShortName}LuceneTest
+      |    extends LuceneTransformerTest[${clsShortName}Lucene] {
+      |    val transformer = new ${clsShortName}Lucene()
+      |}
+      |""".stripMargin('|')
+    val code =
+      s"""
+      |/**
+      | * A basic Transformer based on ${clsShortName} - does not support
+      | * any configuration properties.
+      | * See https://github.com/sparklingpandas/sparklingml/issues/3
+      | * & LuceneAnalyzerGenerators for details.
+      | */
+      |
+      |class ${clsShortName}Lucene(override val uid: String)
+      |    extends LuceneTransformer[${clsShortName}Lucene] {
+      |
+      |  def this() = this(Identifiable.randomUID("${clsShortName}"))
+      |
+      |  def buildAnalyzer(): Analyzer = {
+      |    new ${clsFullName}()
+      |  }
+      |}
+      |""".stripMargin('|')
+    val pyCode =
+      s"""
+      |class ${clsShortName}Lucene(
+      |        SparklingJavaTransformer, HasInputCol, HasOutputCol):
+      |    \"\"\"
+      |    >>> from pyspark.sql import SparkSession
+      |    >>> spark = SparkSession.builder.master("local[2]").getOrCreate()
+      |    >>> df = spark.createDataFrame([("hi boo",), ("bye boo",)], ["vals"])
+      |    >>> transformer = ${clsShortName}Lucene()
+      |    >>> transformer.setParams(inputCol="vals", outputCol="out")
+      |    ${clsShortName}Lucene_...
+      |    >>> result = transformer.transform(df)
+      |    >>> result.count()
+      |    2
+      |    \"\"\"
+      |    package_name = "com.sparklingpandas.sparklingml.feature"
+      |    class_name = "${clsShortName}Lucene"
+      |    transformer_name = package_name + "." + class_name
+      |
+      |    @keyword_only
+      |    def __init__(self, inputCol=None, outputCol=None):
+      |        \"\"\"
+      |        __init__(self, inputCol=None, outputCol=None)
+      |        \"\"\"
+      |        super(${clsShortName}Lucene, self).__init__()
+      |        kwargs = self._input_kwargs
+      |        self.setParams(**kwargs)
+      |
+      |    @keyword_only
+      |    def setParams(self, inputCol=None, outputCol=None):
+      |        \"\"\"
+      |        setParams(inputCol=None, outputCol=None)
+      |        \"\"\"
+      |        kwargs = self._input_kwargs
+      |        return self._set(**kwargs)
+      |
+      |""".stripMargin('|')
+      (testCode, code, pyCode)
   }
 
   def generateForClass(cls: Class[_]): (String, String, String) = {

@@ -307,6 +307,111 @@ class SoraniAnalyzerLucene(
         return self._set(**kwargs)
 
 
+class SmartChineseAnalyzerLucene(
+        SparklingJavaTransformer, HasInputCol, HasOutputCol):
+    """
+    >>> from pyspark.sql import SparkSession
+    >>> spark = SparkSession.builder.master("local[2]").getOrCreate()
+    >>> df = spark.createDataFrame([("hi boo",), ("bye boo",)], ["vals"])
+    >>> transformer = SmartChineseAnalyzerLucene()
+    >>> transformer.setParams(inputCol="vals", outputCol="out")
+    SmartChineseAnalyzerLucene_...
+    >>> result = transformer.transform(df)
+    >>> result.count()
+    2
+    """
+    package_name = "com.sparklingpandas.sparklingml.feature"
+    class_name = "SmartChineseAnalyzerLucene"
+    transformer_name = package_name + "." + class_name
+
+    @keyword_only
+    def __init__(self, inputCol=None, outputCol=None):
+        """
+        __init__(self, inputCol=None, outputCol=None)
+        """
+        super(SmartChineseAnalyzerLucene, self).__init__()
+        kwargs = self._input_kwargs
+        self.setParams(**kwargs)
+
+    @keyword_only
+    def setParams(self, inputCol=None, outputCol=None):
+        """
+        setParams(inputCol=None, outputCol=None)
+        """
+        kwargs = self._input_kwargs
+        return self._set(**kwargs)
+
+
+class KeywordAnalyzerLucene(
+        SparklingJavaTransformer, HasInputCol, HasOutputCol):
+    """
+    >>> from pyspark.sql import SparkSession
+    >>> spark = SparkSession.builder.master("local[2]").getOrCreate()
+    >>> df = spark.createDataFrame([("hi boo",), ("bye boo",)], ["vals"])
+    >>> transformer = KeywordAnalyzerLucene()
+    >>> transformer.setParams(inputCol="vals", outputCol="out")
+    KeywordAnalyzerLucene_...
+    >>> result = transformer.transform(df)
+    >>> result.count()
+    2
+    """
+    package_name = "com.sparklingpandas.sparklingml.feature"
+    class_name = "KeywordAnalyzerLucene"
+    transformer_name = package_name + "." + class_name
+
+    @keyword_only
+    def __init__(self, inputCol=None, outputCol=None):
+        """
+        __init__(self, inputCol=None, outputCol=None)
+        """
+        super(KeywordAnalyzerLucene, self).__init__()
+        kwargs = self._input_kwargs
+        self.setParams(**kwargs)
+
+    @keyword_only
+    def setParams(self, inputCol=None, outputCol=None):
+        """
+        setParams(inputCol=None, outputCol=None)
+        """
+        kwargs = self._input_kwargs
+        return self._set(**kwargs)
+
+
+class SimpleAnalyzerLucene(
+        SparklingJavaTransformer, HasInputCol, HasOutputCol):
+    """
+    >>> from pyspark.sql import SparkSession
+    >>> spark = SparkSession.builder.master("local[2]").getOrCreate()
+    >>> df = spark.createDataFrame([("hi boo",), ("bye boo",)], ["vals"])
+    >>> transformer = SimpleAnalyzerLucene()
+    >>> transformer.setParams(inputCol="vals", outputCol="out")
+    SimpleAnalyzerLucene_...
+    >>> result = transformer.transform(df)
+    >>> result.count()
+    2
+    """
+    package_name = "com.sparklingpandas.sparklingml.feature"
+    class_name = "SimpleAnalyzerLucene"
+    transformer_name = package_name + "." + class_name
+
+    @keyword_only
+    def __init__(self, inputCol=None, outputCol=None):
+        """
+        __init__(self, inputCol=None, outputCol=None)
+        """
+        super(SimpleAnalyzerLucene, self).__init__()
+        kwargs = self._input_kwargs
+        self.setParams(**kwargs)
+
+    @keyword_only
+    def setParams(self, inputCol=None, outputCol=None):
+        """
+        setParams(inputCol=None, outputCol=None)
+        """
+        kwargs = self._input_kwargs
+        return self._set(**kwargs)
+
+
 class StopAnalyzerLucene(
         SparklingJavaTransformer, HasInputCol, HasOutputCol,
         HasStopwords, HasStopwordCase):
@@ -348,6 +453,76 @@ class StopAnalyzerLucene(
         """
         setParams(inputCol=None, outputCol=None,
                   stopwords=None, stopwordCase=False)
+        """
+        kwargs = self._input_kwargs
+        return self._set(**kwargs)
+
+
+class UnicodeWhitespaceAnalyzerLucene(
+        SparklingJavaTransformer, HasInputCol, HasOutputCol):
+    """
+    >>> from pyspark.sql import SparkSession
+    >>> spark = SparkSession.builder.master("local[2]").getOrCreate()
+    >>> df = spark.createDataFrame([("hi boo",), ("bye boo",)], ["vals"])
+    >>> transformer = UnicodeWhitespaceAnalyzerLucene()
+    >>> transformer.setParams(inputCol="vals", outputCol="out")
+    UnicodeWhitespaceAnalyzerLucene_...
+    >>> result = transformer.transform(df)
+    >>> result.count()
+    2
+    """
+    package_name = "com.sparklingpandas.sparklingml.feature"
+    class_name = "UnicodeWhitespaceAnalyzerLucene"
+    transformer_name = package_name + "." + class_name
+
+    @keyword_only
+    def __init__(self, inputCol=None, outputCol=None):
+        """
+        __init__(self, inputCol=None, outputCol=None)
+        """
+        super(UnicodeWhitespaceAnalyzerLucene, self).__init__()
+        kwargs = self._input_kwargs
+        self.setParams(**kwargs)
+
+    @keyword_only
+    def setParams(self, inputCol=None, outputCol=None):
+        """
+        setParams(inputCol=None, outputCol=None)
+        """
+        kwargs = self._input_kwargs
+        return self._set(**kwargs)
+
+
+class WhitespaceAnalyzerLucene(
+        SparklingJavaTransformer, HasInputCol, HasOutputCol):
+    """
+    >>> from pyspark.sql import SparkSession
+    >>> spark = SparkSession.builder.master("local[2]").getOrCreate()
+    >>> df = spark.createDataFrame([("hi boo",), ("bye boo",)], ["vals"])
+    >>> transformer = WhitespaceAnalyzerLucene()
+    >>> transformer.setParams(inputCol="vals", outputCol="out")
+    WhitespaceAnalyzerLucene_...
+    >>> result = transformer.transform(df)
+    >>> result.count()
+    2
+    """
+    package_name = "com.sparklingpandas.sparklingml.feature"
+    class_name = "WhitespaceAnalyzerLucene"
+    transformer_name = package_name + "." + class_name
+
+    @keyword_only
+    def __init__(self, inputCol=None, outputCol=None):
+        """
+        __init__(self, inputCol=None, outputCol=None)
+        """
+        super(WhitespaceAnalyzerLucene, self).__init__()
+        kwargs = self._input_kwargs
+        self.setParams(**kwargs)
+
+    @keyword_only
+    def setParams(self, inputCol=None, outputCol=None):
+        """
+        setParams(inputCol=None, outputCol=None)
         """
         kwargs = self._input_kwargs
         return self._set(**kwargs)
@@ -1135,6 +1310,41 @@ class ItalianAnalyzerLucene(
         return self._set(**kwargs)
 
 
+class JapaneseAnalyzerLucene(
+        SparklingJavaTransformer, HasInputCol, HasOutputCol):
+    """
+    >>> from pyspark.sql import SparkSession
+    >>> spark = SparkSession.builder.master("local[2]").getOrCreate()
+    >>> df = spark.createDataFrame([("hi boo",), ("bye boo",)], ["vals"])
+    >>> transformer = JapaneseAnalyzerLucene()
+    >>> transformer.setParams(inputCol="vals", outputCol="out")
+    JapaneseAnalyzerLucene_...
+    >>> result = transformer.transform(df)
+    >>> result.count()
+    2
+    """
+    package_name = "com.sparklingpandas.sparklingml.feature"
+    class_name = "JapaneseAnalyzerLucene"
+    transformer_name = package_name + "." + class_name
+
+    @keyword_only
+    def __init__(self, inputCol=None, outputCol=None):
+        """
+        __init__(self, inputCol=None, outputCol=None)
+        """
+        super(JapaneseAnalyzerLucene, self).__init__()
+        kwargs = self._input_kwargs
+        self.setParams(**kwargs)
+
+    @keyword_only
+    def setParams(self, inputCol=None, outputCol=None):
+        """
+        setParams(inputCol=None, outputCol=None)
+        """
+        kwargs = self._input_kwargs
+        return self._set(**kwargs)
+
+
 class LithuanianAnalyzerLucene(
         SparklingJavaTransformer, HasInputCol, HasOutputCol,
         HasStopwords, HasStopwordCase):
@@ -1222,6 +1432,76 @@ class LatvianAnalyzerLucene(
         """
         setParams(inputCol=None, outputCol=None,
                   stopwords=None, stopwordCase=False)
+        """
+        kwargs = self._input_kwargs
+        return self._set(**kwargs)
+
+
+class MorfologikAnalyzerLucene(
+        SparklingJavaTransformer, HasInputCol, HasOutputCol):
+    """
+    >>> from pyspark.sql import SparkSession
+    >>> spark = SparkSession.builder.master("local[2]").getOrCreate()
+    >>> df = spark.createDataFrame([("hi boo",), ("bye boo",)], ["vals"])
+    >>> transformer = MorfologikAnalyzerLucene()
+    >>> transformer.setParams(inputCol="vals", outputCol="out")
+    MorfologikAnalyzerLucene_...
+    >>> result = transformer.transform(df)
+    >>> result.count()
+    2
+    """
+    package_name = "com.sparklingpandas.sparklingml.feature"
+    class_name = "MorfologikAnalyzerLucene"
+    transformer_name = package_name + "." + class_name
+
+    @keyword_only
+    def __init__(self, inputCol=None, outputCol=None):
+        """
+        __init__(self, inputCol=None, outputCol=None)
+        """
+        super(MorfologikAnalyzerLucene, self).__init__()
+        kwargs = self._input_kwargs
+        self.setParams(**kwargs)
+
+    @keyword_only
+    def setParams(self, inputCol=None, outputCol=None):
+        """
+        setParams(inputCol=None, outputCol=None)
+        """
+        kwargs = self._input_kwargs
+        return self._set(**kwargs)
+
+
+class DutchAnalyzerLucene(
+        SparklingJavaTransformer, HasInputCol, HasOutputCol):
+    """
+    >>> from pyspark.sql import SparkSession
+    >>> spark = SparkSession.builder.master("local[2]").getOrCreate()
+    >>> df = spark.createDataFrame([("hi boo",), ("bye boo",)], ["vals"])
+    >>> transformer = DutchAnalyzerLucene()
+    >>> transformer.setParams(inputCol="vals", outputCol="out")
+    DutchAnalyzerLucene_...
+    >>> result = transformer.transform(df)
+    >>> result.count()
+    2
+    """
+    package_name = "com.sparklingpandas.sparklingml.feature"
+    class_name = "DutchAnalyzerLucene"
+    transformer_name = package_name + "." + class_name
+
+    @keyword_only
+    def __init__(self, inputCol=None, outputCol=None):
+        """
+        __init__(self, inputCol=None, outputCol=None)
+        """
+        super(DutchAnalyzerLucene, self).__init__()
+        kwargs = self._input_kwargs
+        self.setParams(**kwargs)
+
+    @keyword_only
+    def setParams(self, inputCol=None, outputCol=None):
+        """
+        setParams(inputCol=None, outputCol=None)
         """
         kwargs = self._input_kwargs
         return self._set(**kwargs)
@@ -1452,6 +1732,41 @@ class RussianAnalyzerLucene(
         """
         setParams(inputCol=None, outputCol=None,
                   stopwords=None, stopwordCase=False)
+        """
+        kwargs = self._input_kwargs
+        return self._set(**kwargs)
+
+
+class ShingleAnalyzerWrapperLucene(
+        SparklingJavaTransformer, HasInputCol, HasOutputCol):
+    """
+    >>> from pyspark.sql import SparkSession
+    >>> spark = SparkSession.builder.master("local[2]").getOrCreate()
+    >>> df = spark.createDataFrame([("hi boo",), ("bye boo",)], ["vals"])
+    >>> transformer = ShingleAnalyzerWrapperLucene()
+    >>> transformer.setParams(inputCol="vals", outputCol="out")
+    ShingleAnalyzerWrapperLucene_...
+    >>> result = transformer.transform(df)
+    >>> result.count()
+    2
+    """
+    package_name = "com.sparklingpandas.sparklingml.feature"
+    class_name = "ShingleAnalyzerWrapperLucene"
+    transformer_name = package_name + "." + class_name
+
+    @keyword_only
+    def __init__(self, inputCol=None, outputCol=None):
+        """
+        __init__(self, inputCol=None, outputCol=None)
+        """
+        super(ShingleAnalyzerWrapperLucene, self).__init__()
+        kwargs = self._input_kwargs
+        self.setParams(**kwargs)
+
+    @keyword_only
+    def setParams(self, inputCol=None, outputCol=None):
+        """
+        setParams(inputCol=None, outputCol=None)
         """
         kwargs = self._input_kwargs
         return self._set(**kwargs)

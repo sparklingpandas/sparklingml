@@ -27,8 +27,8 @@ from pkg_resources import resource_filename
 
 if 'IS_TEST' not in os.environ and "JARS" not in os.environ:
     VERSION = '0.0.1'
-    JAR_FILE = 'sparklingml_2.11-' + VERSION + '.jar'
-    DEV_JAR = 'sparklingml_2.11-' + VERSION + '-SNAPSHOT.jar'
+    JAR_FILE = 'sparklingml-assembly-' + VERSION + '.jar'
+    DEV_JAR = 'sparklingml-assembly-' + VERSION + '-SNAPSHOT.jar'
     my_location = os.path.dirname(os.path.realpath(__file__))
     local_prefixes = [
         # For development, use the sbt target scala-2.11 first
@@ -47,6 +47,7 @@ if 'IS_TEST' not in os.environ and "JARS" not in os.environ:
         print("Could not resolve resource file %s. This is not necessarily"
               " (and is expected during development) but should not occur in "
               "production if pip installed." % str(e))
+    jar = None
     try:
         jar = [jar_path for jar_path in jars if os.path.exists(jar_path)][0]
     except IndexError:
@@ -55,6 +56,7 @@ if 'IS_TEST' not in os.environ and "JARS" not in os.environ:
             raise IOError("Failed to find jars. Looked at paths %s." % jars)
         else:
             print("Failed to find jars, but from JVM so this _should_ be ok")
-    os.environ["JARS"] = jar
-    os.environ["PYSPARK_SUBMIT_ARGS"] = ("--jars %s --driver-class-path %s" +
-                                         " pyspark-shell") % (jar, jar)
+    if jar is not None:
+        os.environ["JARS"] = jar
+        os.environ["PYSPARK_SUBMIT_ARGS"] = ("--jars %s --driver-class-path %s" +
+                                             " pyspark-shell") % (jar, jar)

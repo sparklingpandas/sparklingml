@@ -19,7 +19,7 @@ import org.apache.lucene.analysis.{Analyzer, CharArraySet}
 /**
  * Code generator for LuceneAnalyzers (LuceneAnalyzers.scala). Run with
  * {{{
- *   build/sbt "runMain com.sparklingpandas.sparklingml.feature.LuceneAnalyzerGenerators"
+ *   build/sbt "test:runMain com.sparklingpandas.sparklingml.feature.LuceneAnalyzerGenerators"
  * }}}
  */
 private[sparklingpandas] object LuceneAnalyzerGenerators extends CodeGenerator {
@@ -64,6 +64,7 @@ private[sparklingpandas] object LuceneAnalyzerGenerators extends CodeGenerator {
         |from pyspark.rdd import ignore_unicode_prefix
         |from pyspark.ml import Model
         |from pyspark.ml.param import *
+        |from pyspark.ml.param.shared import HasInputCol, HasOutputCol
         |# The shared params aren't really intended to be public currently..
         |from pyspark.ml.param.shared import *
         |from pyspark.ml.util import *
@@ -148,7 +149,8 @@ private[sparklingpandas] object LuceneAnalyzerGenerators extends CodeGenerator {
       val includeWarning = constructorParametersSizes.exists(_ > 1)
       val warning = if (includeWarning) {
         s"""
-         | * There are additional parameters which can not yet be controlled through this API
+         | * There are additional parameters which can not yet be contro
+lled through this API
          | * See https://github.com/sparklingpandas/sparklingml/issues/3"""
           .stripMargin('|')
       } else {
@@ -192,13 +194,20 @@ private[sparklingpandas] object LuceneAnalyzerGenerators extends CodeGenerator {
         |""".stripMargin('|')
       val pyCode =
         s"""
-        |class ${clsShortName}Lucene(SparklingJavaTransformer, HasStopwords,
-        |                            HasStopwordCase):
+        |class ${clsShortName}Lucene(SparklingJavaTransformer, HasInputCol,
+        |                            HasOutputCol, HasStopwords, HasStopwordCase):
         |    \"\"\"
         |    >>> from pyspark.sql import SparkSession
         |    >>> spark = SparkSession.builder.master("local[2]").getOrCreate()
         |    >>> df = spark.createDataFrame([("hi boo",), ("bye boo",)], ["vals"])
         |    >>> transformer = ${clsShortName}Lucene()
+        |    >>> transformer.setParams(inputCol="vals", outputCol="out")
+        |    ${clsShortName}Lucene_...
+        |    >>> result = transformer.transform(df)
+        |    >>> result.count()
+        |    2
+        |    >>> transformer.setStopwordCase(True)
+        |    ${clsShortName}Lucene_...
         |    >>> result = transformer.transform(df)
         |    >>> result.count()
         |    2
@@ -208,9 +217,11 @@ private[sparklingpandas] object LuceneAnalyzerGenerators extends CodeGenerator {
         |    transformer_name = package_name + "." + class_name
         |
         |    @keyword_only
-        |    def __init__(self, stopwords=None, stopwordCase=False):
+        |    def __init__(self, inputCol=None, outputCol=None,
+        |                 stopwords=None, stopwordCase=False):
         |        \"\"\"
-        |        __init__(self, stopwords=None, stopwordCase=False)
+        |        __init__(self, inputCol=None, outputCol=None,
+        |                 stopwords=None, stopwordCase=False)
         |        \"\"\"
         |        super(${clsShortName}Lucene, self).__init__()
         |        self._setDefault(stopwordCase = False)
@@ -218,9 +229,11 @@ private[sparklingpandas] object LuceneAnalyzerGenerators extends CodeGenerator {
         |        self.setParams(**kwargs)
         |
         |    @keyword_only
-        |    def setParams(self, stopwords=None, stopwordCase=False):
+        |    def setParams(self, inputCol=None, outputCol=None,
+        |                  stopwords=None, stopwordCase=False):
         |        \"\"\"
-        |        setParams(stopwords=None, stopwordCase=False)
+        |        setParams(inputCol=None, outputCol=None,
+        |                  stopwords=None, stopwordCase=False)
         |        \"\"\"
         |        kwargs = self._input_kwargs
         |        return self._set(**kwargs)

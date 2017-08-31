@@ -30,16 +30,26 @@ coverageEnabled := true
 
 javaOptions ++= Seq("-Xms1G", "-Xmx3G", "-XX:MaxPermSize=2048M", "-XX:+CMSClassUnloadingEnabled")
 
+test in assembly := {}
 
 libraryDependencies ++= Seq(
   // spark components
   "org.apache.spark" %% "spark-core" % sparkVersion.value % "provided",
+  "org.apache.spark" %% "spark-hive" % sparkVersion.value % "provided",
   "org.apache.spark" %% "spark-sql" % sparkVersion.value % "provided",
   "org.apache.spark" %% "spark-catalyst" % sparkVersion.value % "provided",
   "org.apache.spark" %% "spark-mllib" % sparkVersion.value % "provided",
   // algorithm providers
-  "com.lucidworks.spark" % "spark-solr" % "3.0.2",
-  // internals that are only used during code gen -- exclude from assembly.
+  "org.apache.lucene" % "lucene-analyzers-common" % "6.6.0",
+  "org.apache.lucene" % "lucene-analyzers-icu" % "6.6.0",
+  "org.apache.lucene" % "lucene-analyzers-kuromoji" % "6.6.0",
+  "org.apache.lucene" % "lucene-analyzers-morfologik" % "6.6.0",
+  "org.apache.lucene" % "lucene-analyzers-phonetic" % "6.6.0",
+  "org.apache.lucene" % "lucene-analyzers-smartcn" % "6.6.0",
+  "org.apache.lucene" % "lucene-analyzers-stempel" % "6.6.0",
+  "org.apache.lucene" % "lucene-analyzers-uima" % "6.6.0",
+  // internals that are only used during code gen
+  // TODO(holden): exclude from assembly but keep for runMain somehow?
   "org.scala-lang" % "scala-reflect" % "2.11.7" % "provided",
   "org.reflections" % "reflections" % "0.9.11" % "provided",
   // testing libraries

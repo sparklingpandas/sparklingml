@@ -31,7 +31,8 @@ import com.sparklingpandas.sparklingml.param._
 /**
  * A basic Transformer based on ArabicAnalyzer.
  * Supports configuring stopwords.
- * There are additional parameters which can not yet be controlled through this API
+ * There are additional parameters which can not yet be contro
+lled through this API
  * See https://github.com/sparklingpandas/sparklingml/issues/3
  */
 
@@ -57,7 +58,8 @@ class ArabicAnalyzerLucene(override val uid: String)
 /**
  * A basic Transformer based on BulgarianAnalyzer.
  * Supports configuring stopwords.
- * There are additional parameters which can not yet be controlled through this API
+ * There are additional parameters which can not yet be contro
+lled through this API
  * See https://github.com/sparklingpandas/sparklingml/issues/3
  */
 
@@ -83,7 +85,8 @@ class BulgarianAnalyzerLucene(override val uid: String)
 /**
  * A basic Transformer based on BrazilianAnalyzer.
  * Supports configuring stopwords.
- * There are additional parameters which can not yet be controlled through this API
+ * There are additional parameters which can not yet be contro
+lled through this API
  * See https://github.com/sparklingpandas/sparklingml/issues/3
  */
 
@@ -109,7 +112,8 @@ class BrazilianAnalyzerLucene(override val uid: String)
 /**
  * A basic Transformer based on CatalanAnalyzer.
  * Supports configuring stopwords.
- * There are additional parameters which can not yet be controlled through this API
+ * There are additional parameters which can not yet be contro
+lled through this API
  * See https://github.com/sparklingpandas/sparklingml/issues/3
  */
 
@@ -159,7 +163,8 @@ class CJKAnalyzerLucene(override val uid: String)
 /**
  * A basic Transformer based on SoraniAnalyzer.
  * Supports configuring stopwords.
- * There are additional parameters which can not yet be controlled through this API
+ * There are additional parameters which can not yet be contro
+lled through this API
  * See https://github.com/sparklingpandas/sparklingml/issues/3
  */
 
@@ -179,6 +184,23 @@ class SoraniAnalyzerLucene(override val uid: String)
     } else {
       new org.apache.lucene.analysis.ckb.SoraniAnalyzer()
     }
+  }
+}
+
+/**
+ * A basic Transformer based on SmartChineseAnalyzer - does not support
+ * any configuration properties.
+ * See https://github.com/sparklingpandas/sparklingml/issues/3
+ * & LuceneAnalyzerGenerators for details.
+ */
+
+class SmartChineseAnalyzerLucene(override val uid: String)
+    extends LuceneTransformer[SmartChineseAnalyzerLucene] {
+
+  def this() = this(Identifiable.randomUID("SmartChineseAnalyzer"))
+
+  def buildAnalyzer(): Analyzer = {
+    new org.apache.lucene.analysis.cn.smart.SmartChineseAnalyzer()
   }
 }
 
@@ -281,7 +303,8 @@ class WhitespaceAnalyzerLucene(override val uid: String)
 /**
  * A basic Transformer based on CzechAnalyzer.
  * Supports configuring stopwords.
- * There are additional parameters which can not yet be controlled through this API
+ * There are additional parameters which can not yet be contro
+lled through this API
  * See https://github.com/sparklingpandas/sparklingml/issues/3
  */
 
@@ -307,7 +330,8 @@ class CzechAnalyzerLucene(override val uid: String)
 /**
  * A basic Transformer based on DanishAnalyzer.
  * Supports configuring stopwords.
- * There are additional parameters which can not yet be controlled through this API
+ * There are additional parameters which can not yet be contro
+lled through this API
  * See https://github.com/sparklingpandas/sparklingml/issues/3
  */
 
@@ -333,7 +357,8 @@ class DanishAnalyzerLucene(override val uid: String)
 /**
  * A basic Transformer based on GermanAnalyzer.
  * Supports configuring stopwords.
- * There are additional parameters which can not yet be controlled through this API
+ * There are additional parameters which can not yet be contro
+lled through this API
  * See https://github.com/sparklingpandas/sparklingml/issues/3
  */
 
@@ -383,7 +408,8 @@ class GreekAnalyzerLucene(override val uid: String)
 /**
  * A basic Transformer based on EnglishAnalyzer.
  * Supports configuring stopwords.
- * There are additional parameters which can not yet be controlled through this API
+ * There are additional parameters which can not yet be contro
+lled through this API
  * See https://github.com/sparklingpandas/sparklingml/issues/3
  */
 
@@ -409,7 +435,8 @@ class EnglishAnalyzerLucene(override val uid: String)
 /**
  * A basic Transformer based on SpanishAnalyzer.
  * Supports configuring stopwords.
- * There are additional parameters which can not yet be controlled through this API
+ * There are additional parameters which can not yet be contro
+lled through this API
  * See https://github.com/sparklingpandas/sparklingml/issues/3
  */
 
@@ -435,7 +462,8 @@ class SpanishAnalyzerLucene(override val uid: String)
 /**
  * A basic Transformer based on BasqueAnalyzer.
  * Supports configuring stopwords.
- * There are additional parameters which can not yet be controlled through this API
+ * There are additional parameters which can not yet be contro
+lled through this API
  * See https://github.com/sparklingpandas/sparklingml/issues/3
  */
 
@@ -485,7 +513,8 @@ class PersianAnalyzerLucene(override val uid: String)
 /**
  * A basic Transformer based on FinnishAnalyzer.
  * Supports configuring stopwords.
- * There are additional parameters which can not yet be controlled through this API
+ * There are additional parameters which can not yet be contro
+lled through this API
  * See https://github.com/sparklingpandas/sparklingml/issues/3
  */
 
@@ -511,7 +540,8 @@ class FinnishAnalyzerLucene(override val uid: String)
 /**
  * A basic Transformer based on FrenchAnalyzer.
  * Supports configuring stopwords.
- * There are additional parameters which can not yet be controlled through this API
+ * There are additional parameters which can not yet be contro
+lled through this API
  * See https://github.com/sparklingpandas/sparklingml/issues/3
  */
 
@@ -537,7 +567,8 @@ class FrenchAnalyzerLucene(override val uid: String)
 /**
  * A basic Transformer based on IrishAnalyzer.
  * Supports configuring stopwords.
- * There are additional parameters which can not yet be controlled through this API
+ * There are additional parameters which can not yet be contro
+lled through this API
  * See https://github.com/sparklingpandas/sparklingml/issues/3
  */
 
@@ -563,7 +594,8 @@ class IrishAnalyzerLucene(override val uid: String)
 /**
  * A basic Transformer based on GalicianAnalyzer.
  * Supports configuring stopwords.
- * There are additional parameters which can not yet be controlled through this API
+ * There are additional parameters which can not yet be contro
+lled through this API
  * See https://github.com/sparklingpandas/sparklingml/issues/3
  */
 
@@ -589,7 +621,8 @@ class GalicianAnalyzerLucene(override val uid: String)
 /**
  * A basic Transformer based on HindiAnalyzer.
  * Supports configuring stopwords.
- * There are additional parameters which can not yet be controlled through this API
+ * There are additional parameters which can not yet be contro
+lled through this API
  * See https://github.com/sparklingpandas/sparklingml/issues/3
  */
 
@@ -615,7 +648,8 @@ class HindiAnalyzerLucene(override val uid: String)
 /**
  * A basic Transformer based on HungarianAnalyzer.
  * Supports configuring stopwords.
- * There are additional parameters which can not yet be controlled through this API
+ * There are additional parameters which can not yet be contro
+lled through this API
  * See https://github.com/sparklingpandas/sparklingml/issues/3
  */
 
@@ -641,7 +675,8 @@ class HungarianAnalyzerLucene(override val uid: String)
 /**
  * A basic Transformer based on ArmenianAnalyzer.
  * Supports configuring stopwords.
- * There are additional parameters which can not yet be controlled through this API
+ * There are additional parameters which can not yet be contro
+lled through this API
  * See https://github.com/sparklingpandas/sparklingml/issues/3
  */
 
@@ -667,7 +702,8 @@ class ArmenianAnalyzerLucene(override val uid: String)
 /**
  * A basic Transformer based on IndonesianAnalyzer.
  * Supports configuring stopwords.
- * There are additional parameters which can not yet be controlled through this API
+ * There are additional parameters which can not yet be contro
+lled through this API
  * See https://github.com/sparklingpandas/sparklingml/issues/3
  */
 
@@ -693,7 +729,8 @@ class IndonesianAnalyzerLucene(override val uid: String)
 /**
  * A basic Transformer based on ItalianAnalyzer.
  * Supports configuring stopwords.
- * There are additional parameters which can not yet be controlled through this API
+ * There are additional parameters which can not yet be contro
+lled through this API
  * See https://github.com/sparklingpandas/sparklingml/issues/3
  */
 
@@ -736,7 +773,8 @@ class JapaneseAnalyzerLucene(override val uid: String)
 /**
  * A basic Transformer based on LithuanianAnalyzer.
  * Supports configuring stopwords.
- * There are additional parameters which can not yet be controlled through this API
+ * There are additional parameters which can not yet be contro
+lled through this API
  * See https://github.com/sparklingpandas/sparklingml/issues/3
  */
 
@@ -762,7 +800,8 @@ class LithuanianAnalyzerLucene(override val uid: String)
 /**
  * A basic Transformer based on LatvianAnalyzer.
  * Supports configuring stopwords.
- * There are additional parameters which can not yet be controlled through this API
+ * There are additional parameters which can not yet be contro
+lled through this API
  * See https://github.com/sparklingpandas/sparklingml/issues/3
  */
 
@@ -794,6 +833,23 @@ class LatvianAnalyzerLucene(override val uid: String)
  */
 
 /**
+ * A basic Transformer based on MorfologikAnalyzer - does not support
+ * any configuration properties.
+ * See https://github.com/sparklingpandas/sparklingml/issues/3
+ * & LuceneAnalyzerGenerators for details.
+ */
+
+class MorfologikAnalyzerLucene(override val uid: String)
+    extends LuceneTransformer[MorfologikAnalyzerLucene] {
+
+  def this() = this(Identifiable.randomUID("MorfologikAnalyzer"))
+
+  def buildAnalyzer(): Analyzer = {
+    new org.apache.lucene.analysis.morfologik.MorfologikAnalyzer()
+  }
+}
+
+/**
  * A basic Transformer based on DutchAnalyzer - does not support
  * any configuration properties.
  * See https://github.com/sparklingpandas/sparklingml/issues/3
@@ -813,7 +869,8 @@ class DutchAnalyzerLucene(override val uid: String)
 /**
  * A basic Transformer based on NorwegianAnalyzer.
  * Supports configuring stopwords.
- * There are additional parameters which can not yet be controlled through this API
+ * There are additional parameters which can not yet be contro
+lled through this API
  * See https://github.com/sparklingpandas/sparklingml/issues/3
  */
 
@@ -837,9 +894,37 @@ class NorwegianAnalyzerLucene(override val uid: String)
 }
 
 /**
+ * A basic Transformer based on PolishAnalyzer.
+ * Supports configuring stopwords.
+ * There are additional parameters which can not yet be contro
+lled through this API
+ * See https://github.com/sparklingpandas/sparklingml/issues/3
+ */
+
+class PolishAnalyzerLucene(override val uid: String)
+    extends LuceneTransformer[PolishAnalyzerLucene]
+    with HasStopwords with HasStopwordCase {
+
+  def this() = this(Identifiable.randomUID("PolishAnalyzer"))
+
+  def buildAnalyzer(): Analyzer = {
+    // In the future we can use getDefaultStopWords here to allow people
+    // to control the snowball stemmer distinctly from the stopwords.
+    // but that is a TODO for later.
+    if (isSet(stopwords)) {
+      new org.apache.lucene.analysis.pl.PolishAnalyzer(
+        LuceneHelpers.wordstoCharArraySet($(stopwords), !$(stopwordCase)))
+    } else {
+      new org.apache.lucene.analysis.pl.PolishAnalyzer()
+    }
+  }
+}
+
+/**
  * A basic Transformer based on PortugueseAnalyzer.
  * Supports configuring stopwords.
- * There are additional parameters which can not yet be controlled through this API
+ * There are additional parameters which can not yet be contro
+lled through this API
  * See https://github.com/sparklingpandas/sparklingml/issues/3
  */
 
@@ -869,7 +954,8 @@ class PortugueseAnalyzerLucene(override val uid: String)
 /**
  * A basic Transformer based on RomanianAnalyzer.
  * Supports configuring stopwords.
- * There are additional parameters which can not yet be controlled through this API
+ * There are additional parameters which can not yet be contro
+lled through this API
  * See https://github.com/sparklingpandas/sparklingml/issues/3
  */
 
@@ -895,7 +981,8 @@ class RomanianAnalyzerLucene(override val uid: String)
 /**
  * A basic Transformer based on RussianAnalyzer.
  * Supports configuring stopwords.
- * There are additional parameters which can not yet be controlled through this API
+ * There are additional parameters which can not yet be contro
+lled through this API
  * See https://github.com/sparklingpandas/sparklingml/issues/3
  */
 
@@ -1010,7 +1097,8 @@ class UAX29URLEmailAnalyzerLucene(override val uid: String)
 /**
  * A basic Transformer based on SwedishAnalyzer.
  * Supports configuring stopwords.
- * There are additional parameters which can not yet be controlled through this API
+ * There are additional parameters which can not yet be contro
+lled through this API
  * See https://github.com/sparklingpandas/sparklingml/issues/3
  */
 
@@ -1060,7 +1148,8 @@ class ThaiAnalyzerLucene(override val uid: String)
 /**
  * A basic Transformer based on TurkishAnalyzer.
  * Supports configuring stopwords.
- * There are additional parameters which can not yet be controlled through this API
+ * There are additional parameters which can not yet be contro
+lled through this API
  * See https://github.com/sparklingpandas/sparklingml/issues/3
  */
 
@@ -1084,9 +1173,44 @@ class TurkishAnalyzerLucene(override val uid: String)
 }
 
 /* There is no default zero arg constructor for
+ *org.apache.lucene.analysis.uima.UIMABaseAnalyzer.
+ */
+
+/* There is no default zero arg constructor for
+ *org.apache.lucene.analysis.uima.UIMATypeAwareAnalyzer.
+ */
+
+/**
+ * A basic Transformer based on UkrainianMorfologikAnalyzer.
+ * Supports configuring stopwords.
+ * There are additional parameters which can not yet be contro
+lled through this API
+ * See https://github.com/sparklingpandas/sparklingml/issues/3
+ */
+
+class UkrainianMorfologikAnalyzerLucene(override val uid: String)
+    extends LuceneTransformer[UkrainianMorfologikAnalyzerLucene]
+    with HasStopwords with HasStopwordCase {
+
+  def this() = this(Identifiable.randomUID("UkrainianMorfologikAnalyzer"))
+
+  def buildAnalyzer(): Analyzer = {
+    // In the future we can use getDefaultStopWords here to allow people
+    // to control the snowball stemmer distinctly from the stopwords.
+    // but that is a TODO for later.
+    if (isSet(stopwords)) {
+      new org.apache.lucene.analysis.uk.UkrainianMorfologikAnalyzer(
+        LuceneHelpers.wordstoCharArraySet($(stopwords), !$(stopwordCase)))
+    } else {
+      new org.apache.lucene.analysis.uk.UkrainianMorfologikAnalyzer()
+    }
+  }
+}
+
+/* There is no default zero arg constructor for
  *org.apache.lucene.collation.CollationKeyAnalyzer.
  */
 
 /* There is no default zero arg constructor for
- *org.apache.lucene.search.suggest.document.CompletionAnalyzer.
+ *org.apache.lucene.collation.ICUCollationKeyAnalyzer.
  */

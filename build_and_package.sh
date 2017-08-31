@@ -12,7 +12,7 @@ pep8 --ignore=E402 sparklingml/
 
 echo "Building and testing JVM code"
 
-./build/sbt clean compile package test
+./build/sbt clean compile package assembly test
 
 echo "Testing Python code"
 

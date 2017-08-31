@@ -24,6 +24,7 @@ from pyspark import keyword_only
 from pyspark.rdd import ignore_unicode_prefix
 from pyspark.ml import Model
 from pyspark.ml.param import *
+from pyspark.ml.param.shared import HasInputCol, HasOutputCol
 # The shared params aren't really intended to be public currently..
 from pyspark.ml.param.shared import *
 from pyspark.ml.util import *
@@ -32,13 +33,20 @@ from sparklingml.java_wrapper_ml import *
 from sparklingml.param.shared import HasStopwords, HasStopwordCase
 
 
-class ArabicAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
-                            HasStopwordCase):
+class ArabicAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
+                            HasOutputCol, HasStopwords, HasStopwordCase):
     """
     >>> from pyspark.sql import SparkSession
     >>> spark = SparkSession.builder.master("local[2]").getOrCreate()
     >>> df = spark.createDataFrame([("hi boo",), ("bye boo",)], ["vals"])
     >>> transformer = ArabicAnalyzerLucene()
+    >>> transformer.setParams(inputCol="vals", outputCol="out")
+    ArabicAnalyzerLucene_...
+    >>> result = transformer.transform(df)
+    >>> result.count()
+    2
+    >>> transformer.setStopwordCase(True)
+    ArabicAnalyzerLucene_...
     >>> result = transformer.transform(df)
     >>> result.count()
     2
@@ -48,9 +56,11 @@ class ArabicAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
     transformer_name = package_name + "." + class_name
 
     @keyword_only
-    def __init__(self, stopwords=None, stopwordCase=False):
+    def __init__(self, inputCol=None, outputCol=None,
+                 stopwords=None, stopwordCase=False):
         """
-        __init__(self, stopwords=None, stopwordCase=False)
+        __init__(self, inputCol=None, outputCol=None,
+                 stopwords=None, stopwordCase=False)
         """
         super(ArabicAnalyzerLucene, self).__init__()
         self._setDefault(stopwordCase = False)
@@ -58,20 +68,29 @@ class ArabicAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
         self.setParams(**kwargs)
 
     @keyword_only
-    def setParams(self, stopwords=None, stopwordCase=False):
+    def setParams(self, inputCol=None, outputCol=None,
+                  stopwords=None, stopwordCase=False):
         """
-        setParams(stopwords=None, stopwordCase=False)
+        setParams(inputCol=None, outputCol=None,
+                  stopwords=None, stopwordCase=False)
         """
         kwargs = self._input_kwargs
         return self._set(**kwargs)
 
-class BulgarianAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
-                            HasStopwordCase):
+class BulgarianAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
+                            HasOutputCol, HasStopwords, HasStopwordCase):
     """
     >>> from pyspark.sql import SparkSession
     >>> spark = SparkSession.builder.master("local[2]").getOrCreate()
     >>> df = spark.createDataFrame([("hi boo",), ("bye boo",)], ["vals"])
     >>> transformer = BulgarianAnalyzerLucene()
+    >>> transformer.setParams(inputCol="vals", outputCol="out")
+    BulgarianAnalyzerLucene_...
+    >>> result = transformer.transform(df)
+    >>> result.count()
+    2
+    >>> transformer.setStopwordCase(True)
+    BulgarianAnalyzerLucene_...
     >>> result = transformer.transform(df)
     >>> result.count()
     2
@@ -81,9 +100,11 @@ class BulgarianAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
     transformer_name = package_name + "." + class_name
 
     @keyword_only
-    def __init__(self, stopwords=None, stopwordCase=False):
+    def __init__(self, inputCol=None, outputCol=None,
+                 stopwords=None, stopwordCase=False):
         """
-        __init__(self, stopwords=None, stopwordCase=False)
+        __init__(self, inputCol=None, outputCol=None,
+                 stopwords=None, stopwordCase=False)
         """
         super(BulgarianAnalyzerLucene, self).__init__()
         self._setDefault(stopwordCase = False)
@@ -91,20 +112,29 @@ class BulgarianAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
         self.setParams(**kwargs)
 
     @keyword_only
-    def setParams(self, stopwords=None, stopwordCase=False):
+    def setParams(self, inputCol=None, outputCol=None,
+                  stopwords=None, stopwordCase=False):
         """
-        setParams(stopwords=None, stopwordCase=False)
+        setParams(inputCol=None, outputCol=None,
+                  stopwords=None, stopwordCase=False)
         """
         kwargs = self._input_kwargs
         return self._set(**kwargs)
 
-class BrazilianAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
-                            HasStopwordCase):
+class BrazilianAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
+                            HasOutputCol, HasStopwords, HasStopwordCase):
     """
     >>> from pyspark.sql import SparkSession
     >>> spark = SparkSession.builder.master("local[2]").getOrCreate()
     >>> df = spark.createDataFrame([("hi boo",), ("bye boo",)], ["vals"])
     >>> transformer = BrazilianAnalyzerLucene()
+    >>> transformer.setParams(inputCol="vals", outputCol="out")
+    BrazilianAnalyzerLucene_...
+    >>> result = transformer.transform(df)
+    >>> result.count()
+    2
+    >>> transformer.setStopwordCase(True)
+    BrazilianAnalyzerLucene_...
     >>> result = transformer.transform(df)
     >>> result.count()
     2
@@ -114,9 +144,11 @@ class BrazilianAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
     transformer_name = package_name + "." + class_name
 
     @keyword_only
-    def __init__(self, stopwords=None, stopwordCase=False):
+    def __init__(self, inputCol=None, outputCol=None,
+                 stopwords=None, stopwordCase=False):
         """
-        __init__(self, stopwords=None, stopwordCase=False)
+        __init__(self, inputCol=None, outputCol=None,
+                 stopwords=None, stopwordCase=False)
         """
         super(BrazilianAnalyzerLucene, self).__init__()
         self._setDefault(stopwordCase = False)
@@ -124,20 +156,29 @@ class BrazilianAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
         self.setParams(**kwargs)
 
     @keyword_only
-    def setParams(self, stopwords=None, stopwordCase=False):
+    def setParams(self, inputCol=None, outputCol=None,
+                  stopwords=None, stopwordCase=False):
         """
-        setParams(stopwords=None, stopwordCase=False)
+        setParams(inputCol=None, outputCol=None,
+                  stopwords=None, stopwordCase=False)
         """
         kwargs = self._input_kwargs
         return self._set(**kwargs)
 
-class CatalanAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
-                            HasStopwordCase):
+class CatalanAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
+                            HasOutputCol, HasStopwords, HasStopwordCase):
     """
     >>> from pyspark.sql import SparkSession
     >>> spark = SparkSession.builder.master("local[2]").getOrCreate()
     >>> df = spark.createDataFrame([("hi boo",), ("bye boo",)], ["vals"])
     >>> transformer = CatalanAnalyzerLucene()
+    >>> transformer.setParams(inputCol="vals", outputCol="out")
+    CatalanAnalyzerLucene_...
+    >>> result = transformer.transform(df)
+    >>> result.count()
+    2
+    >>> transformer.setStopwordCase(True)
+    CatalanAnalyzerLucene_...
     >>> result = transformer.transform(df)
     >>> result.count()
     2
@@ -147,9 +188,11 @@ class CatalanAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
     transformer_name = package_name + "." + class_name
 
     @keyword_only
-    def __init__(self, stopwords=None, stopwordCase=False):
+    def __init__(self, inputCol=None, outputCol=None,
+                 stopwords=None, stopwordCase=False):
         """
-        __init__(self, stopwords=None, stopwordCase=False)
+        __init__(self, inputCol=None, outputCol=None,
+                 stopwords=None, stopwordCase=False)
         """
         super(CatalanAnalyzerLucene, self).__init__()
         self._setDefault(stopwordCase = False)
@@ -157,20 +200,29 @@ class CatalanAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
         self.setParams(**kwargs)
 
     @keyword_only
-    def setParams(self, stopwords=None, stopwordCase=False):
+    def setParams(self, inputCol=None, outputCol=None,
+                  stopwords=None, stopwordCase=False):
         """
-        setParams(stopwords=None, stopwordCase=False)
+        setParams(inputCol=None, outputCol=None,
+                  stopwords=None, stopwordCase=False)
         """
         kwargs = self._input_kwargs
         return self._set(**kwargs)
 
-class CJKAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
-                            HasStopwordCase):
+class CJKAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
+                            HasOutputCol, HasStopwords, HasStopwordCase):
     """
     >>> from pyspark.sql import SparkSession
     >>> spark = SparkSession.builder.master("local[2]").getOrCreate()
     >>> df = spark.createDataFrame([("hi boo",), ("bye boo",)], ["vals"])
     >>> transformer = CJKAnalyzerLucene()
+    >>> transformer.setParams(inputCol="vals", outputCol="out")
+    CJKAnalyzerLucene_...
+    >>> result = transformer.transform(df)
+    >>> result.count()
+    2
+    >>> transformer.setStopwordCase(True)
+    CJKAnalyzerLucene_...
     >>> result = transformer.transform(df)
     >>> result.count()
     2
@@ -180,9 +232,11 @@ class CJKAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
     transformer_name = package_name + "." + class_name
 
     @keyword_only
-    def __init__(self, stopwords=None, stopwordCase=False):
+    def __init__(self, inputCol=None, outputCol=None,
+                 stopwords=None, stopwordCase=False):
         """
-        __init__(self, stopwords=None, stopwordCase=False)
+        __init__(self, inputCol=None, outputCol=None,
+                 stopwords=None, stopwordCase=False)
         """
         super(CJKAnalyzerLucene, self).__init__()
         self._setDefault(stopwordCase = False)
@@ -190,20 +244,29 @@ class CJKAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
         self.setParams(**kwargs)
 
     @keyword_only
-    def setParams(self, stopwords=None, stopwordCase=False):
+    def setParams(self, inputCol=None, outputCol=None,
+                  stopwords=None, stopwordCase=False):
         """
-        setParams(stopwords=None, stopwordCase=False)
+        setParams(inputCol=None, outputCol=None,
+                  stopwords=None, stopwordCase=False)
         """
         kwargs = self._input_kwargs
         return self._set(**kwargs)
 
-class SoraniAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
-                            HasStopwordCase):
+class SoraniAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
+                            HasOutputCol, HasStopwords, HasStopwordCase):
     """
     >>> from pyspark.sql import SparkSession
     >>> spark = SparkSession.builder.master("local[2]").getOrCreate()
     >>> df = spark.createDataFrame([("hi boo",), ("bye boo",)], ["vals"])
     >>> transformer = SoraniAnalyzerLucene()
+    >>> transformer.setParams(inputCol="vals", outputCol="out")
+    SoraniAnalyzerLucene_...
+    >>> result = transformer.transform(df)
+    >>> result.count()
+    2
+    >>> transformer.setStopwordCase(True)
+    SoraniAnalyzerLucene_...
     >>> result = transformer.transform(df)
     >>> result.count()
     2
@@ -213,9 +276,11 @@ class SoraniAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
     transformer_name = package_name + "." + class_name
 
     @keyword_only
-    def __init__(self, stopwords=None, stopwordCase=False):
+    def __init__(self, inputCol=None, outputCol=None,
+                 stopwords=None, stopwordCase=False):
         """
-        __init__(self, stopwords=None, stopwordCase=False)
+        __init__(self, inputCol=None, outputCol=None,
+                 stopwords=None, stopwordCase=False)
         """
         super(SoraniAnalyzerLucene, self).__init__()
         self._setDefault(stopwordCase = False)
@@ -223,20 +288,29 @@ class SoraniAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
         self.setParams(**kwargs)
 
     @keyword_only
-    def setParams(self, stopwords=None, stopwordCase=False):
+    def setParams(self, inputCol=None, outputCol=None,
+                  stopwords=None, stopwordCase=False):
         """
-        setParams(stopwords=None, stopwordCase=False)
+        setParams(inputCol=None, outputCol=None,
+                  stopwords=None, stopwordCase=False)
         """
         kwargs = self._input_kwargs
         return self._set(**kwargs)
 
-class StopAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
-                            HasStopwordCase):
+class StopAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
+                            HasOutputCol, HasStopwords, HasStopwordCase):
     """
     >>> from pyspark.sql import SparkSession
     >>> spark = SparkSession.builder.master("local[2]").getOrCreate()
     >>> df = spark.createDataFrame([("hi boo",), ("bye boo",)], ["vals"])
     >>> transformer = StopAnalyzerLucene()
+    >>> transformer.setParams(inputCol="vals", outputCol="out")
+    StopAnalyzerLucene_...
+    >>> result = transformer.transform(df)
+    >>> result.count()
+    2
+    >>> transformer.setStopwordCase(True)
+    StopAnalyzerLucene_...
     >>> result = transformer.transform(df)
     >>> result.count()
     2
@@ -246,9 +320,11 @@ class StopAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
     transformer_name = package_name + "." + class_name
 
     @keyword_only
-    def __init__(self, stopwords=None, stopwordCase=False):
+    def __init__(self, inputCol=None, outputCol=None,
+                 stopwords=None, stopwordCase=False):
         """
-        __init__(self, stopwords=None, stopwordCase=False)
+        __init__(self, inputCol=None, outputCol=None,
+                 stopwords=None, stopwordCase=False)
         """
         super(StopAnalyzerLucene, self).__init__()
         self._setDefault(stopwordCase = False)
@@ -256,20 +332,29 @@ class StopAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
         self.setParams(**kwargs)
 
     @keyword_only
-    def setParams(self, stopwords=None, stopwordCase=False):
+    def setParams(self, inputCol=None, outputCol=None,
+                  stopwords=None, stopwordCase=False):
         """
-        setParams(stopwords=None, stopwordCase=False)
+        setParams(inputCol=None, outputCol=None,
+                  stopwords=None, stopwordCase=False)
         """
         kwargs = self._input_kwargs
         return self._set(**kwargs)
 
-class CzechAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
-                            HasStopwordCase):
+class CzechAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
+                            HasOutputCol, HasStopwords, HasStopwordCase):
     """
     >>> from pyspark.sql import SparkSession
     >>> spark = SparkSession.builder.master("local[2]").getOrCreate()
     >>> df = spark.createDataFrame([("hi boo",), ("bye boo",)], ["vals"])
     >>> transformer = CzechAnalyzerLucene()
+    >>> transformer.setParams(inputCol="vals", outputCol="out")
+    CzechAnalyzerLucene_...
+    >>> result = transformer.transform(df)
+    >>> result.count()
+    2
+    >>> transformer.setStopwordCase(True)
+    CzechAnalyzerLucene_...
     >>> result = transformer.transform(df)
     >>> result.count()
     2
@@ -279,9 +364,11 @@ class CzechAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
     transformer_name = package_name + "." + class_name
 
     @keyword_only
-    def __init__(self, stopwords=None, stopwordCase=False):
+    def __init__(self, inputCol=None, outputCol=None,
+                 stopwords=None, stopwordCase=False):
         """
-        __init__(self, stopwords=None, stopwordCase=False)
+        __init__(self, inputCol=None, outputCol=None,
+                 stopwords=None, stopwordCase=False)
         """
         super(CzechAnalyzerLucene, self).__init__()
         self._setDefault(stopwordCase = False)
@@ -289,20 +376,29 @@ class CzechAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
         self.setParams(**kwargs)
 
     @keyword_only
-    def setParams(self, stopwords=None, stopwordCase=False):
+    def setParams(self, inputCol=None, outputCol=None,
+                  stopwords=None, stopwordCase=False):
         """
-        setParams(stopwords=None, stopwordCase=False)
+        setParams(inputCol=None, outputCol=None,
+                  stopwords=None, stopwordCase=False)
         """
         kwargs = self._input_kwargs
         return self._set(**kwargs)
 
-class DanishAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
-                            HasStopwordCase):
+class DanishAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
+                            HasOutputCol, HasStopwords, HasStopwordCase):
     """
     >>> from pyspark.sql import SparkSession
     >>> spark = SparkSession.builder.master("local[2]").getOrCreate()
     >>> df = spark.createDataFrame([("hi boo",), ("bye boo",)], ["vals"])
     >>> transformer = DanishAnalyzerLucene()
+    >>> transformer.setParams(inputCol="vals", outputCol="out")
+    DanishAnalyzerLucene_...
+    >>> result = transformer.transform(df)
+    >>> result.count()
+    2
+    >>> transformer.setStopwordCase(True)
+    DanishAnalyzerLucene_...
     >>> result = transformer.transform(df)
     >>> result.count()
     2
@@ -312,9 +408,11 @@ class DanishAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
     transformer_name = package_name + "." + class_name
 
     @keyword_only
-    def __init__(self, stopwords=None, stopwordCase=False):
+    def __init__(self, inputCol=None, outputCol=None,
+                 stopwords=None, stopwordCase=False):
         """
-        __init__(self, stopwords=None, stopwordCase=False)
+        __init__(self, inputCol=None, outputCol=None,
+                 stopwords=None, stopwordCase=False)
         """
         super(DanishAnalyzerLucene, self).__init__()
         self._setDefault(stopwordCase = False)
@@ -322,20 +420,29 @@ class DanishAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
         self.setParams(**kwargs)
 
     @keyword_only
-    def setParams(self, stopwords=None, stopwordCase=False):
+    def setParams(self, inputCol=None, outputCol=None,
+                  stopwords=None, stopwordCase=False):
         """
-        setParams(stopwords=None, stopwordCase=False)
+        setParams(inputCol=None, outputCol=None,
+                  stopwords=None, stopwordCase=False)
         """
         kwargs = self._input_kwargs
         return self._set(**kwargs)
 
-class GermanAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
-                            HasStopwordCase):
+class GermanAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
+                            HasOutputCol, HasStopwords, HasStopwordCase):
     """
     >>> from pyspark.sql import SparkSession
     >>> spark = SparkSession.builder.master("local[2]").getOrCreate()
     >>> df = spark.createDataFrame([("hi boo",), ("bye boo",)], ["vals"])
     >>> transformer = GermanAnalyzerLucene()
+    >>> transformer.setParams(inputCol="vals", outputCol="out")
+    GermanAnalyzerLucene_...
+    >>> result = transformer.transform(df)
+    >>> result.count()
+    2
+    >>> transformer.setStopwordCase(True)
+    GermanAnalyzerLucene_...
     >>> result = transformer.transform(df)
     >>> result.count()
     2
@@ -345,9 +452,11 @@ class GermanAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
     transformer_name = package_name + "." + class_name
 
     @keyword_only
-    def __init__(self, stopwords=None, stopwordCase=False):
+    def __init__(self, inputCol=None, outputCol=None,
+                 stopwords=None, stopwordCase=False):
         """
-        __init__(self, stopwords=None, stopwordCase=False)
+        __init__(self, inputCol=None, outputCol=None,
+                 stopwords=None, stopwordCase=False)
         """
         super(GermanAnalyzerLucene, self).__init__()
         self._setDefault(stopwordCase = False)
@@ -355,20 +464,29 @@ class GermanAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
         self.setParams(**kwargs)
 
     @keyword_only
-    def setParams(self, stopwords=None, stopwordCase=False):
+    def setParams(self, inputCol=None, outputCol=None,
+                  stopwords=None, stopwordCase=False):
         """
-        setParams(stopwords=None, stopwordCase=False)
+        setParams(inputCol=None, outputCol=None,
+                  stopwords=None, stopwordCase=False)
         """
         kwargs = self._input_kwargs
         return self._set(**kwargs)
 
-class GreekAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
-                            HasStopwordCase):
+class GreekAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
+                            HasOutputCol, HasStopwords, HasStopwordCase):
     """
     >>> from pyspark.sql import SparkSession
     >>> spark = SparkSession.builder.master("local[2]").getOrCreate()
     >>> df = spark.createDataFrame([("hi boo",), ("bye boo",)], ["vals"])
     >>> transformer = GreekAnalyzerLucene()
+    >>> transformer.setParams(inputCol="vals", outputCol="out")
+    GreekAnalyzerLucene_...
+    >>> result = transformer.transform(df)
+    >>> result.count()
+    2
+    >>> transformer.setStopwordCase(True)
+    GreekAnalyzerLucene_...
     >>> result = transformer.transform(df)
     >>> result.count()
     2
@@ -378,9 +496,11 @@ class GreekAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
     transformer_name = package_name + "." + class_name
 
     @keyword_only
-    def __init__(self, stopwords=None, stopwordCase=False):
+    def __init__(self, inputCol=None, outputCol=None,
+                 stopwords=None, stopwordCase=False):
         """
-        __init__(self, stopwords=None, stopwordCase=False)
+        __init__(self, inputCol=None, outputCol=None,
+                 stopwords=None, stopwordCase=False)
         """
         super(GreekAnalyzerLucene, self).__init__()
         self._setDefault(stopwordCase = False)
@@ -388,20 +508,29 @@ class GreekAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
         self.setParams(**kwargs)
 
     @keyword_only
-    def setParams(self, stopwords=None, stopwordCase=False):
+    def setParams(self, inputCol=None, outputCol=None,
+                  stopwords=None, stopwordCase=False):
         """
-        setParams(stopwords=None, stopwordCase=False)
+        setParams(inputCol=None, outputCol=None,
+                  stopwords=None, stopwordCase=False)
         """
         kwargs = self._input_kwargs
         return self._set(**kwargs)
 
-class EnglishAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
-                            HasStopwordCase):
+class EnglishAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
+                            HasOutputCol, HasStopwords, HasStopwordCase):
     """
     >>> from pyspark.sql import SparkSession
     >>> spark = SparkSession.builder.master("local[2]").getOrCreate()
     >>> df = spark.createDataFrame([("hi boo",), ("bye boo",)], ["vals"])
     >>> transformer = EnglishAnalyzerLucene()
+    >>> transformer.setParams(inputCol="vals", outputCol="out")
+    EnglishAnalyzerLucene_...
+    >>> result = transformer.transform(df)
+    >>> result.count()
+    2
+    >>> transformer.setStopwordCase(True)
+    EnglishAnalyzerLucene_...
     >>> result = transformer.transform(df)
     >>> result.count()
     2
@@ -411,9 +540,11 @@ class EnglishAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
     transformer_name = package_name + "." + class_name
 
     @keyword_only
-    def __init__(self, stopwords=None, stopwordCase=False):
+    def __init__(self, inputCol=None, outputCol=None,
+                 stopwords=None, stopwordCase=False):
         """
-        __init__(self, stopwords=None, stopwordCase=False)
+        __init__(self, inputCol=None, outputCol=None,
+                 stopwords=None, stopwordCase=False)
         """
         super(EnglishAnalyzerLucene, self).__init__()
         self._setDefault(stopwordCase = False)
@@ -421,20 +552,29 @@ class EnglishAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
         self.setParams(**kwargs)
 
     @keyword_only
-    def setParams(self, stopwords=None, stopwordCase=False):
+    def setParams(self, inputCol=None, outputCol=None,
+                  stopwords=None, stopwordCase=False):
         """
-        setParams(stopwords=None, stopwordCase=False)
+        setParams(inputCol=None, outputCol=None,
+                  stopwords=None, stopwordCase=False)
         """
         kwargs = self._input_kwargs
         return self._set(**kwargs)
 
-class SpanishAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
-                            HasStopwordCase):
+class SpanishAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
+                            HasOutputCol, HasStopwords, HasStopwordCase):
     """
     >>> from pyspark.sql import SparkSession
     >>> spark = SparkSession.builder.master("local[2]").getOrCreate()
     >>> df = spark.createDataFrame([("hi boo",), ("bye boo",)], ["vals"])
     >>> transformer = SpanishAnalyzerLucene()
+    >>> transformer.setParams(inputCol="vals", outputCol="out")
+    SpanishAnalyzerLucene_...
+    >>> result = transformer.transform(df)
+    >>> result.count()
+    2
+    >>> transformer.setStopwordCase(True)
+    SpanishAnalyzerLucene_...
     >>> result = transformer.transform(df)
     >>> result.count()
     2
@@ -444,9 +584,11 @@ class SpanishAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
     transformer_name = package_name + "." + class_name
 
     @keyword_only
-    def __init__(self, stopwords=None, stopwordCase=False):
+    def __init__(self, inputCol=None, outputCol=None,
+                 stopwords=None, stopwordCase=False):
         """
-        __init__(self, stopwords=None, stopwordCase=False)
+        __init__(self, inputCol=None, outputCol=None,
+                 stopwords=None, stopwordCase=False)
         """
         super(SpanishAnalyzerLucene, self).__init__()
         self._setDefault(stopwordCase = False)
@@ -454,20 +596,29 @@ class SpanishAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
         self.setParams(**kwargs)
 
     @keyword_only
-    def setParams(self, stopwords=None, stopwordCase=False):
+    def setParams(self, inputCol=None, outputCol=None,
+                  stopwords=None, stopwordCase=False):
         """
-        setParams(stopwords=None, stopwordCase=False)
+        setParams(inputCol=None, outputCol=None,
+                  stopwords=None, stopwordCase=False)
         """
         kwargs = self._input_kwargs
         return self._set(**kwargs)
 
-class BasqueAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
-                            HasStopwordCase):
+class BasqueAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
+                            HasOutputCol, HasStopwords, HasStopwordCase):
     """
     >>> from pyspark.sql import SparkSession
     >>> spark = SparkSession.builder.master("local[2]").getOrCreate()
     >>> df = spark.createDataFrame([("hi boo",), ("bye boo",)], ["vals"])
     >>> transformer = BasqueAnalyzerLucene()
+    >>> transformer.setParams(inputCol="vals", outputCol="out")
+    BasqueAnalyzerLucene_...
+    >>> result = transformer.transform(df)
+    >>> result.count()
+    2
+    >>> transformer.setStopwordCase(True)
+    BasqueAnalyzerLucene_...
     >>> result = transformer.transform(df)
     >>> result.count()
     2
@@ -477,9 +628,11 @@ class BasqueAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
     transformer_name = package_name + "." + class_name
 
     @keyword_only
-    def __init__(self, stopwords=None, stopwordCase=False):
+    def __init__(self, inputCol=None, outputCol=None,
+                 stopwords=None, stopwordCase=False):
         """
-        __init__(self, stopwords=None, stopwordCase=False)
+        __init__(self, inputCol=None, outputCol=None,
+                 stopwords=None, stopwordCase=False)
         """
         super(BasqueAnalyzerLucene, self).__init__()
         self._setDefault(stopwordCase = False)
@@ -487,20 +640,29 @@ class BasqueAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
         self.setParams(**kwargs)
 
     @keyword_only
-    def setParams(self, stopwords=None, stopwordCase=False):
+    def setParams(self, inputCol=None, outputCol=None,
+                  stopwords=None, stopwordCase=False):
         """
-        setParams(stopwords=None, stopwordCase=False)
+        setParams(inputCol=None, outputCol=None,
+                  stopwords=None, stopwordCase=False)
         """
         kwargs = self._input_kwargs
         return self._set(**kwargs)
 
-class PersianAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
-                            HasStopwordCase):
+class PersianAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
+                            HasOutputCol, HasStopwords, HasStopwordCase):
     """
     >>> from pyspark.sql import SparkSession
     >>> spark = SparkSession.builder.master("local[2]").getOrCreate()
     >>> df = spark.createDataFrame([("hi boo",), ("bye boo",)], ["vals"])
     >>> transformer = PersianAnalyzerLucene()
+    >>> transformer.setParams(inputCol="vals", outputCol="out")
+    PersianAnalyzerLucene_...
+    >>> result = transformer.transform(df)
+    >>> result.count()
+    2
+    >>> transformer.setStopwordCase(True)
+    PersianAnalyzerLucene_...
     >>> result = transformer.transform(df)
     >>> result.count()
     2
@@ -510,9 +672,11 @@ class PersianAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
     transformer_name = package_name + "." + class_name
 
     @keyword_only
-    def __init__(self, stopwords=None, stopwordCase=False):
+    def __init__(self, inputCol=None, outputCol=None,
+                 stopwords=None, stopwordCase=False):
         """
-        __init__(self, stopwords=None, stopwordCase=False)
+        __init__(self, inputCol=None, outputCol=None,
+                 stopwords=None, stopwordCase=False)
         """
         super(PersianAnalyzerLucene, self).__init__()
         self._setDefault(stopwordCase = False)
@@ -520,20 +684,29 @@ class PersianAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
         self.setParams(**kwargs)
 
     @keyword_only
-    def setParams(self, stopwords=None, stopwordCase=False):
+    def setParams(self, inputCol=None, outputCol=None,
+                  stopwords=None, stopwordCase=False):
         """
-        setParams(stopwords=None, stopwordCase=False)
+        setParams(inputCol=None, outputCol=None,
+                  stopwords=None, stopwordCase=False)
         """
         kwargs = self._input_kwargs
         return self._set(**kwargs)
 
-class FinnishAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
-                            HasStopwordCase):
+class FinnishAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
+                            HasOutputCol, HasStopwords, HasStopwordCase):
     """
     >>> from pyspark.sql import SparkSession
     >>> spark = SparkSession.builder.master("local[2]").getOrCreate()
     >>> df = spark.createDataFrame([("hi boo",), ("bye boo",)], ["vals"])
     >>> transformer = FinnishAnalyzerLucene()
+    >>> transformer.setParams(inputCol="vals", outputCol="out")
+    FinnishAnalyzerLucene_...
+    >>> result = transformer.transform(df)
+    >>> result.count()
+    2
+    >>> transformer.setStopwordCase(True)
+    FinnishAnalyzerLucene_...
     >>> result = transformer.transform(df)
     >>> result.count()
     2
@@ -543,9 +716,11 @@ class FinnishAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
     transformer_name = package_name + "." + class_name
 
     @keyword_only
-    def __init__(self, stopwords=None, stopwordCase=False):
+    def __init__(self, inputCol=None, outputCol=None,
+                 stopwords=None, stopwordCase=False):
         """
-        __init__(self, stopwords=None, stopwordCase=False)
+        __init__(self, inputCol=None, outputCol=None,
+                 stopwords=None, stopwordCase=False)
         """
         super(FinnishAnalyzerLucene, self).__init__()
         self._setDefault(stopwordCase = False)
@@ -553,20 +728,29 @@ class FinnishAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
         self.setParams(**kwargs)
 
     @keyword_only
-    def setParams(self, stopwords=None, stopwordCase=False):
+    def setParams(self, inputCol=None, outputCol=None,
+                  stopwords=None, stopwordCase=False):
         """
-        setParams(stopwords=None, stopwordCase=False)
+        setParams(inputCol=None, outputCol=None,
+                  stopwords=None, stopwordCase=False)
         """
         kwargs = self._input_kwargs
         return self._set(**kwargs)
 
-class FrenchAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
-                            HasStopwordCase):
+class FrenchAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
+                            HasOutputCol, HasStopwords, HasStopwordCase):
     """
     >>> from pyspark.sql import SparkSession
     >>> spark = SparkSession.builder.master("local[2]").getOrCreate()
     >>> df = spark.createDataFrame([("hi boo",), ("bye boo",)], ["vals"])
     >>> transformer = FrenchAnalyzerLucene()
+    >>> transformer.setParams(inputCol="vals", outputCol="out")
+    FrenchAnalyzerLucene_...
+    >>> result = transformer.transform(df)
+    >>> result.count()
+    2
+    >>> transformer.setStopwordCase(True)
+    FrenchAnalyzerLucene_...
     >>> result = transformer.transform(df)
     >>> result.count()
     2
@@ -576,9 +760,11 @@ class FrenchAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
     transformer_name = package_name + "." + class_name
 
     @keyword_only
-    def __init__(self, stopwords=None, stopwordCase=False):
+    def __init__(self, inputCol=None, outputCol=None,
+                 stopwords=None, stopwordCase=False):
         """
-        __init__(self, stopwords=None, stopwordCase=False)
+        __init__(self, inputCol=None, outputCol=None,
+                 stopwords=None, stopwordCase=False)
         """
         super(FrenchAnalyzerLucene, self).__init__()
         self._setDefault(stopwordCase = False)
@@ -586,20 +772,29 @@ class FrenchAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
         self.setParams(**kwargs)
 
     @keyword_only
-    def setParams(self, stopwords=None, stopwordCase=False):
+    def setParams(self, inputCol=None, outputCol=None,
+                  stopwords=None, stopwordCase=False):
         """
-        setParams(stopwords=None, stopwordCase=False)
+        setParams(inputCol=None, outputCol=None,
+                  stopwords=None, stopwordCase=False)
         """
         kwargs = self._input_kwargs
         return self._set(**kwargs)
 
-class IrishAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
-                            HasStopwordCase):
+class IrishAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
+                            HasOutputCol, HasStopwords, HasStopwordCase):
     """
     >>> from pyspark.sql import SparkSession
     >>> spark = SparkSession.builder.master("local[2]").getOrCreate()
     >>> df = spark.createDataFrame([("hi boo",), ("bye boo",)], ["vals"])
     >>> transformer = IrishAnalyzerLucene()
+    >>> transformer.setParams(inputCol="vals", outputCol="out")
+    IrishAnalyzerLucene_...
+    >>> result = transformer.transform(df)
+    >>> result.count()
+    2
+    >>> transformer.setStopwordCase(True)
+    IrishAnalyzerLucene_...
     >>> result = transformer.transform(df)
     >>> result.count()
     2
@@ -609,9 +804,11 @@ class IrishAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
     transformer_name = package_name + "." + class_name
 
     @keyword_only
-    def __init__(self, stopwords=None, stopwordCase=False):
+    def __init__(self, inputCol=None, outputCol=None,
+                 stopwords=None, stopwordCase=False):
         """
-        __init__(self, stopwords=None, stopwordCase=False)
+        __init__(self, inputCol=None, outputCol=None,
+                 stopwords=None, stopwordCase=False)
         """
         super(IrishAnalyzerLucene, self).__init__()
         self._setDefault(stopwordCase = False)
@@ -619,20 +816,29 @@ class IrishAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
         self.setParams(**kwargs)
 
     @keyword_only
-    def setParams(self, stopwords=None, stopwordCase=False):
+    def setParams(self, inputCol=None, outputCol=None,
+                  stopwords=None, stopwordCase=False):
         """
-        setParams(stopwords=None, stopwordCase=False)
+        setParams(inputCol=None, outputCol=None,
+                  stopwords=None, stopwordCase=False)
         """
         kwargs = self._input_kwargs
         return self._set(**kwargs)
 
-class GalicianAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
-                            HasStopwordCase):
+class GalicianAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
+                            HasOutputCol, HasStopwords, HasStopwordCase):
     """
     >>> from pyspark.sql import SparkSession
     >>> spark = SparkSession.builder.master("local[2]").getOrCreate()
     >>> df = spark.createDataFrame([("hi boo",), ("bye boo",)], ["vals"])
     >>> transformer = GalicianAnalyzerLucene()
+    >>> transformer.setParams(inputCol="vals", outputCol="out")
+    GalicianAnalyzerLucene_...
+    >>> result = transformer.transform(df)
+    >>> result.count()
+    2
+    >>> transformer.setStopwordCase(True)
+    GalicianAnalyzerLucene_...
     >>> result = transformer.transform(df)
     >>> result.count()
     2
@@ -642,9 +848,11 @@ class GalicianAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
     transformer_name = package_name + "." + class_name
 
     @keyword_only
-    def __init__(self, stopwords=None, stopwordCase=False):
+    def __init__(self, inputCol=None, outputCol=None,
+                 stopwords=None, stopwordCase=False):
         """
-        __init__(self, stopwords=None, stopwordCase=False)
+        __init__(self, inputCol=None, outputCol=None,
+                 stopwords=None, stopwordCase=False)
         """
         super(GalicianAnalyzerLucene, self).__init__()
         self._setDefault(stopwordCase = False)
@@ -652,20 +860,29 @@ class GalicianAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
         self.setParams(**kwargs)
 
     @keyword_only
-    def setParams(self, stopwords=None, stopwordCase=False):
+    def setParams(self, inputCol=None, outputCol=None,
+                  stopwords=None, stopwordCase=False):
         """
-        setParams(stopwords=None, stopwordCase=False)
+        setParams(inputCol=None, outputCol=None,
+                  stopwords=None, stopwordCase=False)
         """
         kwargs = self._input_kwargs
         return self._set(**kwargs)
 
-class HindiAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
-                            HasStopwordCase):
+class HindiAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
+                            HasOutputCol, HasStopwords, HasStopwordCase):
     """
     >>> from pyspark.sql import SparkSession
     >>> spark = SparkSession.builder.master("local[2]").getOrCreate()
     >>> df = spark.createDataFrame([("hi boo",), ("bye boo",)], ["vals"])
     >>> transformer = HindiAnalyzerLucene()
+    >>> transformer.setParams(inputCol="vals", outputCol="out")
+    HindiAnalyzerLucene_...
+    >>> result = transformer.transform(df)
+    >>> result.count()
+    2
+    >>> transformer.setStopwordCase(True)
+    HindiAnalyzerLucene_...
     >>> result = transformer.transform(df)
     >>> result.count()
     2
@@ -675,9 +892,11 @@ class HindiAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
     transformer_name = package_name + "." + class_name
 
     @keyword_only
-    def __init__(self, stopwords=None, stopwordCase=False):
+    def __init__(self, inputCol=None, outputCol=None,
+                 stopwords=None, stopwordCase=False):
         """
-        __init__(self, stopwords=None, stopwordCase=False)
+        __init__(self, inputCol=None, outputCol=None,
+                 stopwords=None, stopwordCase=False)
         """
         super(HindiAnalyzerLucene, self).__init__()
         self._setDefault(stopwordCase = False)
@@ -685,20 +904,29 @@ class HindiAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
         self.setParams(**kwargs)
 
     @keyword_only
-    def setParams(self, stopwords=None, stopwordCase=False):
+    def setParams(self, inputCol=None, outputCol=None,
+                  stopwords=None, stopwordCase=False):
         """
-        setParams(stopwords=None, stopwordCase=False)
+        setParams(inputCol=None, outputCol=None,
+                  stopwords=None, stopwordCase=False)
         """
         kwargs = self._input_kwargs
         return self._set(**kwargs)
 
-class HungarianAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
-                            HasStopwordCase):
+class HungarianAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
+                            HasOutputCol, HasStopwords, HasStopwordCase):
     """
     >>> from pyspark.sql import SparkSession
     >>> spark = SparkSession.builder.master("local[2]").getOrCreate()
     >>> df = spark.createDataFrame([("hi boo",), ("bye boo",)], ["vals"])
     >>> transformer = HungarianAnalyzerLucene()
+    >>> transformer.setParams(inputCol="vals", outputCol="out")
+    HungarianAnalyzerLucene_...
+    >>> result = transformer.transform(df)
+    >>> result.count()
+    2
+    >>> transformer.setStopwordCase(True)
+    HungarianAnalyzerLucene_...
     >>> result = transformer.transform(df)
     >>> result.count()
     2
@@ -708,9 +936,11 @@ class HungarianAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
     transformer_name = package_name + "." + class_name
 
     @keyword_only
-    def __init__(self, stopwords=None, stopwordCase=False):
+    def __init__(self, inputCol=None, outputCol=None,
+                 stopwords=None, stopwordCase=False):
         """
-        __init__(self, stopwords=None, stopwordCase=False)
+        __init__(self, inputCol=None, outputCol=None,
+                 stopwords=None, stopwordCase=False)
         """
         super(HungarianAnalyzerLucene, self).__init__()
         self._setDefault(stopwordCase = False)
@@ -718,20 +948,29 @@ class HungarianAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
         self.setParams(**kwargs)
 
     @keyword_only
-    def setParams(self, stopwords=None, stopwordCase=False):
+    def setParams(self, inputCol=None, outputCol=None,
+                  stopwords=None, stopwordCase=False):
         """
-        setParams(stopwords=None, stopwordCase=False)
+        setParams(inputCol=None, outputCol=None,
+                  stopwords=None, stopwordCase=False)
         """
         kwargs = self._input_kwargs
         return self._set(**kwargs)
 
-class ArmenianAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
-                            HasStopwordCase):
+class ArmenianAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
+                            HasOutputCol, HasStopwords, HasStopwordCase):
     """
     >>> from pyspark.sql import SparkSession
     >>> spark = SparkSession.builder.master("local[2]").getOrCreate()
     >>> df = spark.createDataFrame([("hi boo",), ("bye boo",)], ["vals"])
     >>> transformer = ArmenianAnalyzerLucene()
+    >>> transformer.setParams(inputCol="vals", outputCol="out")
+    ArmenianAnalyzerLucene_...
+    >>> result = transformer.transform(df)
+    >>> result.count()
+    2
+    >>> transformer.setStopwordCase(True)
+    ArmenianAnalyzerLucene_...
     >>> result = transformer.transform(df)
     >>> result.count()
     2
@@ -741,9 +980,11 @@ class ArmenianAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
     transformer_name = package_name + "." + class_name
 
     @keyword_only
-    def __init__(self, stopwords=None, stopwordCase=False):
+    def __init__(self, inputCol=None, outputCol=None,
+                 stopwords=None, stopwordCase=False):
         """
-        __init__(self, stopwords=None, stopwordCase=False)
+        __init__(self, inputCol=None, outputCol=None,
+                 stopwords=None, stopwordCase=False)
         """
         super(ArmenianAnalyzerLucene, self).__init__()
         self._setDefault(stopwordCase = False)
@@ -751,20 +992,29 @@ class ArmenianAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
         self.setParams(**kwargs)
 
     @keyword_only
-    def setParams(self, stopwords=None, stopwordCase=False):
+    def setParams(self, inputCol=None, outputCol=None,
+                  stopwords=None, stopwordCase=False):
         """
-        setParams(stopwords=None, stopwordCase=False)
+        setParams(inputCol=None, outputCol=None,
+                  stopwords=None, stopwordCase=False)
         """
         kwargs = self._input_kwargs
         return self._set(**kwargs)
 
-class IndonesianAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
-                            HasStopwordCase):
+class IndonesianAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
+                            HasOutputCol, HasStopwords, HasStopwordCase):
     """
     >>> from pyspark.sql import SparkSession
     >>> spark = SparkSession.builder.master("local[2]").getOrCreate()
     >>> df = spark.createDataFrame([("hi boo",), ("bye boo",)], ["vals"])
     >>> transformer = IndonesianAnalyzerLucene()
+    >>> transformer.setParams(inputCol="vals", outputCol="out")
+    IndonesianAnalyzerLucene_...
+    >>> result = transformer.transform(df)
+    >>> result.count()
+    2
+    >>> transformer.setStopwordCase(True)
+    IndonesianAnalyzerLucene_...
     >>> result = transformer.transform(df)
     >>> result.count()
     2
@@ -774,9 +1024,11 @@ class IndonesianAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
     transformer_name = package_name + "." + class_name
 
     @keyword_only
-    def __init__(self, stopwords=None, stopwordCase=False):
+    def __init__(self, inputCol=None, outputCol=None,
+                 stopwords=None, stopwordCase=False):
         """
-        __init__(self, stopwords=None, stopwordCase=False)
+        __init__(self, inputCol=None, outputCol=None,
+                 stopwords=None, stopwordCase=False)
         """
         super(IndonesianAnalyzerLucene, self).__init__()
         self._setDefault(stopwordCase = False)
@@ -784,20 +1036,29 @@ class IndonesianAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
         self.setParams(**kwargs)
 
     @keyword_only
-    def setParams(self, stopwords=None, stopwordCase=False):
+    def setParams(self, inputCol=None, outputCol=None,
+                  stopwords=None, stopwordCase=False):
         """
-        setParams(stopwords=None, stopwordCase=False)
+        setParams(inputCol=None, outputCol=None,
+                  stopwords=None, stopwordCase=False)
         """
         kwargs = self._input_kwargs
         return self._set(**kwargs)
 
-class ItalianAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
-                            HasStopwordCase):
+class ItalianAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
+                            HasOutputCol, HasStopwords, HasStopwordCase):
     """
     >>> from pyspark.sql import SparkSession
     >>> spark = SparkSession.builder.master("local[2]").getOrCreate()
     >>> df = spark.createDataFrame([("hi boo",), ("bye boo",)], ["vals"])
     >>> transformer = ItalianAnalyzerLucene()
+    >>> transformer.setParams(inputCol="vals", outputCol="out")
+    ItalianAnalyzerLucene_...
+    >>> result = transformer.transform(df)
+    >>> result.count()
+    2
+    >>> transformer.setStopwordCase(True)
+    ItalianAnalyzerLucene_...
     >>> result = transformer.transform(df)
     >>> result.count()
     2
@@ -807,9 +1068,11 @@ class ItalianAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
     transformer_name = package_name + "." + class_name
 
     @keyword_only
-    def __init__(self, stopwords=None, stopwordCase=False):
+    def __init__(self, inputCol=None, outputCol=None,
+                 stopwords=None, stopwordCase=False):
         """
-        __init__(self, stopwords=None, stopwordCase=False)
+        __init__(self, inputCol=None, outputCol=None,
+                 stopwords=None, stopwordCase=False)
         """
         super(ItalianAnalyzerLucene, self).__init__()
         self._setDefault(stopwordCase = False)
@@ -817,20 +1080,29 @@ class ItalianAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
         self.setParams(**kwargs)
 
     @keyword_only
-    def setParams(self, stopwords=None, stopwordCase=False):
+    def setParams(self, inputCol=None, outputCol=None,
+                  stopwords=None, stopwordCase=False):
         """
-        setParams(stopwords=None, stopwordCase=False)
+        setParams(inputCol=None, outputCol=None,
+                  stopwords=None, stopwordCase=False)
         """
         kwargs = self._input_kwargs
         return self._set(**kwargs)
 
-class LithuanianAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
-                            HasStopwordCase):
+class LithuanianAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
+                            HasOutputCol, HasStopwords, HasStopwordCase):
     """
     >>> from pyspark.sql import SparkSession
     >>> spark = SparkSession.builder.master("local[2]").getOrCreate()
     >>> df = spark.createDataFrame([("hi boo",), ("bye boo",)], ["vals"])
     >>> transformer = LithuanianAnalyzerLucene()
+    >>> transformer.setParams(inputCol="vals", outputCol="out")
+    LithuanianAnalyzerLucene_...
+    >>> result = transformer.transform(df)
+    >>> result.count()
+    2
+    >>> transformer.setStopwordCase(True)
+    LithuanianAnalyzerLucene_...
     >>> result = transformer.transform(df)
     >>> result.count()
     2
@@ -840,9 +1112,11 @@ class LithuanianAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
     transformer_name = package_name + "." + class_name
 
     @keyword_only
-    def __init__(self, stopwords=None, stopwordCase=False):
+    def __init__(self, inputCol=None, outputCol=None,
+                 stopwords=None, stopwordCase=False):
         """
-        __init__(self, stopwords=None, stopwordCase=False)
+        __init__(self, inputCol=None, outputCol=None,
+                 stopwords=None, stopwordCase=False)
         """
         super(LithuanianAnalyzerLucene, self).__init__()
         self._setDefault(stopwordCase = False)
@@ -850,20 +1124,29 @@ class LithuanianAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
         self.setParams(**kwargs)
 
     @keyword_only
-    def setParams(self, stopwords=None, stopwordCase=False):
+    def setParams(self, inputCol=None, outputCol=None,
+                  stopwords=None, stopwordCase=False):
         """
-        setParams(stopwords=None, stopwordCase=False)
+        setParams(inputCol=None, outputCol=None,
+                  stopwords=None, stopwordCase=False)
         """
         kwargs = self._input_kwargs
         return self._set(**kwargs)
 
-class LatvianAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
-                            HasStopwordCase):
+class LatvianAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
+                            HasOutputCol, HasStopwords, HasStopwordCase):
     """
     >>> from pyspark.sql import SparkSession
     >>> spark = SparkSession.builder.master("local[2]").getOrCreate()
     >>> df = spark.createDataFrame([("hi boo",), ("bye boo",)], ["vals"])
     >>> transformer = LatvianAnalyzerLucene()
+    >>> transformer.setParams(inputCol="vals", outputCol="out")
+    LatvianAnalyzerLucene_...
+    >>> result = transformer.transform(df)
+    >>> result.count()
+    2
+    >>> transformer.setStopwordCase(True)
+    LatvianAnalyzerLucene_...
     >>> result = transformer.transform(df)
     >>> result.count()
     2
@@ -873,9 +1156,11 @@ class LatvianAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
     transformer_name = package_name + "." + class_name
 
     @keyword_only
-    def __init__(self, stopwords=None, stopwordCase=False):
+    def __init__(self, inputCol=None, outputCol=None,
+                 stopwords=None, stopwordCase=False):
         """
-        __init__(self, stopwords=None, stopwordCase=False)
+        __init__(self, inputCol=None, outputCol=None,
+                 stopwords=None, stopwordCase=False)
         """
         super(LatvianAnalyzerLucene, self).__init__()
         self._setDefault(stopwordCase = False)
@@ -883,20 +1168,29 @@ class LatvianAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
         self.setParams(**kwargs)
 
     @keyword_only
-    def setParams(self, stopwords=None, stopwordCase=False):
+    def setParams(self, inputCol=None, outputCol=None,
+                  stopwords=None, stopwordCase=False):
         """
-        setParams(stopwords=None, stopwordCase=False)
+        setParams(inputCol=None, outputCol=None,
+                  stopwords=None, stopwordCase=False)
         """
         kwargs = self._input_kwargs
         return self._set(**kwargs)
 
-class NorwegianAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
-                            HasStopwordCase):
+class NorwegianAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
+                            HasOutputCol, HasStopwords, HasStopwordCase):
     """
     >>> from pyspark.sql import SparkSession
     >>> spark = SparkSession.builder.master("local[2]").getOrCreate()
     >>> df = spark.createDataFrame([("hi boo",), ("bye boo",)], ["vals"])
     >>> transformer = NorwegianAnalyzerLucene()
+    >>> transformer.setParams(inputCol="vals", outputCol="out")
+    NorwegianAnalyzerLucene_...
+    >>> result = transformer.transform(df)
+    >>> result.count()
+    2
+    >>> transformer.setStopwordCase(True)
+    NorwegianAnalyzerLucene_...
     >>> result = transformer.transform(df)
     >>> result.count()
     2
@@ -906,9 +1200,11 @@ class NorwegianAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
     transformer_name = package_name + "." + class_name
 
     @keyword_only
-    def __init__(self, stopwords=None, stopwordCase=False):
+    def __init__(self, inputCol=None, outputCol=None,
+                 stopwords=None, stopwordCase=False):
         """
-        __init__(self, stopwords=None, stopwordCase=False)
+        __init__(self, inputCol=None, outputCol=None,
+                 stopwords=None, stopwordCase=False)
         """
         super(NorwegianAnalyzerLucene, self).__init__()
         self._setDefault(stopwordCase = False)
@@ -916,20 +1212,73 @@ class NorwegianAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
         self.setParams(**kwargs)
 
     @keyword_only
-    def setParams(self, stopwords=None, stopwordCase=False):
+    def setParams(self, inputCol=None, outputCol=None,
+                  stopwords=None, stopwordCase=False):
         """
-        setParams(stopwords=None, stopwordCase=False)
+        setParams(inputCol=None, outputCol=None,
+                  stopwords=None, stopwordCase=False)
         """
         kwargs = self._input_kwargs
         return self._set(**kwargs)
 
-class PortugueseAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
-                            HasStopwordCase):
+class PolishAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
+                            HasOutputCol, HasStopwords, HasStopwordCase):
+    """
+    >>> from pyspark.sql import SparkSession
+    >>> spark = SparkSession.builder.master("local[2]").getOrCreate()
+    >>> df = spark.createDataFrame([("hi boo",), ("bye boo",)], ["vals"])
+    >>> transformer = PolishAnalyzerLucene()
+    >>> transformer.setParams(inputCol="vals", outputCol="out")
+    PolishAnalyzerLucene_...
+    >>> result = transformer.transform(df)
+    >>> result.count()
+    2
+    >>> transformer.setStopwordCase(True)
+    PolishAnalyzerLucene_...
+    >>> result = transformer.transform(df)
+    >>> result.count()
+    2
+    """
+    package_name = "com.sparklingpandas.sparklingml.feature"
+    class_name = "PolishAnalyzerLucene"
+    transformer_name = package_name + "." + class_name
+
+    @keyword_only
+    def __init__(self, inputCol=None, outputCol=None,
+                 stopwords=None, stopwordCase=False):
+        """
+        __init__(self, inputCol=None, outputCol=None,
+                 stopwords=None, stopwordCase=False)
+        """
+        super(PolishAnalyzerLucene, self).__init__()
+        self._setDefault(stopwordCase = False)
+        kwargs = self._input_kwargs
+        self.setParams(**kwargs)
+
+    @keyword_only
+    def setParams(self, inputCol=None, outputCol=None,
+                  stopwords=None, stopwordCase=False):
+        """
+        setParams(inputCol=None, outputCol=None,
+                  stopwords=None, stopwordCase=False)
+        """
+        kwargs = self._input_kwargs
+        return self._set(**kwargs)
+
+class PortugueseAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
+                            HasOutputCol, HasStopwords, HasStopwordCase):
     """
     >>> from pyspark.sql import SparkSession
     >>> spark = SparkSession.builder.master("local[2]").getOrCreate()
     >>> df = spark.createDataFrame([("hi boo",), ("bye boo",)], ["vals"])
     >>> transformer = PortugueseAnalyzerLucene()
+    >>> transformer.setParams(inputCol="vals", outputCol="out")
+    PortugueseAnalyzerLucene_...
+    >>> result = transformer.transform(df)
+    >>> result.count()
+    2
+    >>> transformer.setStopwordCase(True)
+    PortugueseAnalyzerLucene_...
     >>> result = transformer.transform(df)
     >>> result.count()
     2
@@ -939,9 +1288,11 @@ class PortugueseAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
     transformer_name = package_name + "." + class_name
 
     @keyword_only
-    def __init__(self, stopwords=None, stopwordCase=False):
+    def __init__(self, inputCol=None, outputCol=None,
+                 stopwords=None, stopwordCase=False):
         """
-        __init__(self, stopwords=None, stopwordCase=False)
+        __init__(self, inputCol=None, outputCol=None,
+                 stopwords=None, stopwordCase=False)
         """
         super(PortugueseAnalyzerLucene, self).__init__()
         self._setDefault(stopwordCase = False)
@@ -949,20 +1300,29 @@ class PortugueseAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
         self.setParams(**kwargs)
 
     @keyword_only
-    def setParams(self, stopwords=None, stopwordCase=False):
+    def setParams(self, inputCol=None, outputCol=None,
+                  stopwords=None, stopwordCase=False):
         """
-        setParams(stopwords=None, stopwordCase=False)
+        setParams(inputCol=None, outputCol=None,
+                  stopwords=None, stopwordCase=False)
         """
         kwargs = self._input_kwargs
         return self._set(**kwargs)
 
-class RomanianAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
-                            HasStopwordCase):
+class RomanianAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
+                            HasOutputCol, HasStopwords, HasStopwordCase):
     """
     >>> from pyspark.sql import SparkSession
     >>> spark = SparkSession.builder.master("local[2]").getOrCreate()
     >>> df = spark.createDataFrame([("hi boo",), ("bye boo",)], ["vals"])
     >>> transformer = RomanianAnalyzerLucene()
+    >>> transformer.setParams(inputCol="vals", outputCol="out")
+    RomanianAnalyzerLucene_...
+    >>> result = transformer.transform(df)
+    >>> result.count()
+    2
+    >>> transformer.setStopwordCase(True)
+    RomanianAnalyzerLucene_...
     >>> result = transformer.transform(df)
     >>> result.count()
     2
@@ -972,9 +1332,11 @@ class RomanianAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
     transformer_name = package_name + "." + class_name
 
     @keyword_only
-    def __init__(self, stopwords=None, stopwordCase=False):
+    def __init__(self, inputCol=None, outputCol=None,
+                 stopwords=None, stopwordCase=False):
         """
-        __init__(self, stopwords=None, stopwordCase=False)
+        __init__(self, inputCol=None, outputCol=None,
+                 stopwords=None, stopwordCase=False)
         """
         super(RomanianAnalyzerLucene, self).__init__()
         self._setDefault(stopwordCase = False)
@@ -982,20 +1344,29 @@ class RomanianAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
         self.setParams(**kwargs)
 
     @keyword_only
-    def setParams(self, stopwords=None, stopwordCase=False):
+    def setParams(self, inputCol=None, outputCol=None,
+                  stopwords=None, stopwordCase=False):
         """
-        setParams(stopwords=None, stopwordCase=False)
+        setParams(inputCol=None, outputCol=None,
+                  stopwords=None, stopwordCase=False)
         """
         kwargs = self._input_kwargs
         return self._set(**kwargs)
 
-class RussianAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
-                            HasStopwordCase):
+class RussianAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
+                            HasOutputCol, HasStopwords, HasStopwordCase):
     """
     >>> from pyspark.sql import SparkSession
     >>> spark = SparkSession.builder.master("local[2]").getOrCreate()
     >>> df = spark.createDataFrame([("hi boo",), ("bye boo",)], ["vals"])
     >>> transformer = RussianAnalyzerLucene()
+    >>> transformer.setParams(inputCol="vals", outputCol="out")
+    RussianAnalyzerLucene_...
+    >>> result = transformer.transform(df)
+    >>> result.count()
+    2
+    >>> transformer.setStopwordCase(True)
+    RussianAnalyzerLucene_...
     >>> result = transformer.transform(df)
     >>> result.count()
     2
@@ -1005,9 +1376,11 @@ class RussianAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
     transformer_name = package_name + "." + class_name
 
     @keyword_only
-    def __init__(self, stopwords=None, stopwordCase=False):
+    def __init__(self, inputCol=None, outputCol=None,
+                 stopwords=None, stopwordCase=False):
         """
-        __init__(self, stopwords=None, stopwordCase=False)
+        __init__(self, inputCol=None, outputCol=None,
+                 stopwords=None, stopwordCase=False)
         """
         super(RussianAnalyzerLucene, self).__init__()
         self._setDefault(stopwordCase = False)
@@ -1015,20 +1388,29 @@ class RussianAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
         self.setParams(**kwargs)
 
     @keyword_only
-    def setParams(self, stopwords=None, stopwordCase=False):
+    def setParams(self, inputCol=None, outputCol=None,
+                  stopwords=None, stopwordCase=False):
         """
-        setParams(stopwords=None, stopwordCase=False)
+        setParams(inputCol=None, outputCol=None,
+                  stopwords=None, stopwordCase=False)
         """
         kwargs = self._input_kwargs
         return self._set(**kwargs)
 
-class ClassicAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
-                            HasStopwordCase):
+class ClassicAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
+                            HasOutputCol, HasStopwords, HasStopwordCase):
     """
     >>> from pyspark.sql import SparkSession
     >>> spark = SparkSession.builder.master("local[2]").getOrCreate()
     >>> df = spark.createDataFrame([("hi boo",), ("bye boo",)], ["vals"])
     >>> transformer = ClassicAnalyzerLucene()
+    >>> transformer.setParams(inputCol="vals", outputCol="out")
+    ClassicAnalyzerLucene_...
+    >>> result = transformer.transform(df)
+    >>> result.count()
+    2
+    >>> transformer.setStopwordCase(True)
+    ClassicAnalyzerLucene_...
     >>> result = transformer.transform(df)
     >>> result.count()
     2
@@ -1038,9 +1420,11 @@ class ClassicAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
     transformer_name = package_name + "." + class_name
 
     @keyword_only
-    def __init__(self, stopwords=None, stopwordCase=False):
+    def __init__(self, inputCol=None, outputCol=None,
+                 stopwords=None, stopwordCase=False):
         """
-        __init__(self, stopwords=None, stopwordCase=False)
+        __init__(self, inputCol=None, outputCol=None,
+                 stopwords=None, stopwordCase=False)
         """
         super(ClassicAnalyzerLucene, self).__init__()
         self._setDefault(stopwordCase = False)
@@ -1048,20 +1432,29 @@ class ClassicAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
         self.setParams(**kwargs)
 
     @keyword_only
-    def setParams(self, stopwords=None, stopwordCase=False):
+    def setParams(self, inputCol=None, outputCol=None,
+                  stopwords=None, stopwordCase=False):
         """
-        setParams(stopwords=None, stopwordCase=False)
+        setParams(inputCol=None, outputCol=None,
+                  stopwords=None, stopwordCase=False)
         """
         kwargs = self._input_kwargs
         return self._set(**kwargs)
 
-class StandardAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
-                            HasStopwordCase):
+class StandardAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
+                            HasOutputCol, HasStopwords, HasStopwordCase):
     """
     >>> from pyspark.sql import SparkSession
     >>> spark = SparkSession.builder.master("local[2]").getOrCreate()
     >>> df = spark.createDataFrame([("hi boo",), ("bye boo",)], ["vals"])
     >>> transformer = StandardAnalyzerLucene()
+    >>> transformer.setParams(inputCol="vals", outputCol="out")
+    StandardAnalyzerLucene_...
+    >>> result = transformer.transform(df)
+    >>> result.count()
+    2
+    >>> transformer.setStopwordCase(True)
+    StandardAnalyzerLucene_...
     >>> result = transformer.transform(df)
     >>> result.count()
     2
@@ -1071,9 +1464,11 @@ class StandardAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
     transformer_name = package_name + "." + class_name
 
     @keyword_only
-    def __init__(self, stopwords=None, stopwordCase=False):
+    def __init__(self, inputCol=None, outputCol=None,
+                 stopwords=None, stopwordCase=False):
         """
-        __init__(self, stopwords=None, stopwordCase=False)
+        __init__(self, inputCol=None, outputCol=None,
+                 stopwords=None, stopwordCase=False)
         """
         super(StandardAnalyzerLucene, self).__init__()
         self._setDefault(stopwordCase = False)
@@ -1081,20 +1476,29 @@ class StandardAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
         self.setParams(**kwargs)
 
     @keyword_only
-    def setParams(self, stopwords=None, stopwordCase=False):
+    def setParams(self, inputCol=None, outputCol=None,
+                  stopwords=None, stopwordCase=False):
         """
-        setParams(stopwords=None, stopwordCase=False)
+        setParams(inputCol=None, outputCol=None,
+                  stopwords=None, stopwordCase=False)
         """
         kwargs = self._input_kwargs
         return self._set(**kwargs)
 
-class UAX29URLEmailAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
-                            HasStopwordCase):
+class UAX29URLEmailAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
+                            HasOutputCol, HasStopwords, HasStopwordCase):
     """
     >>> from pyspark.sql import SparkSession
     >>> spark = SparkSession.builder.master("local[2]").getOrCreate()
     >>> df = spark.createDataFrame([("hi boo",), ("bye boo",)], ["vals"])
     >>> transformer = UAX29URLEmailAnalyzerLucene()
+    >>> transformer.setParams(inputCol="vals", outputCol="out")
+    UAX29URLEmailAnalyzerLucene_...
+    >>> result = transformer.transform(df)
+    >>> result.count()
+    2
+    >>> transformer.setStopwordCase(True)
+    UAX29URLEmailAnalyzerLucene_...
     >>> result = transformer.transform(df)
     >>> result.count()
     2
@@ -1104,9 +1508,11 @@ class UAX29URLEmailAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
     transformer_name = package_name + "." + class_name
 
     @keyword_only
-    def __init__(self, stopwords=None, stopwordCase=False):
+    def __init__(self, inputCol=None, outputCol=None,
+                 stopwords=None, stopwordCase=False):
         """
-        __init__(self, stopwords=None, stopwordCase=False)
+        __init__(self, inputCol=None, outputCol=None,
+                 stopwords=None, stopwordCase=False)
         """
         super(UAX29URLEmailAnalyzerLucene, self).__init__()
         self._setDefault(stopwordCase = False)
@@ -1114,20 +1520,29 @@ class UAX29URLEmailAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
         self.setParams(**kwargs)
 
     @keyword_only
-    def setParams(self, stopwords=None, stopwordCase=False):
+    def setParams(self, inputCol=None, outputCol=None,
+                  stopwords=None, stopwordCase=False):
         """
-        setParams(stopwords=None, stopwordCase=False)
+        setParams(inputCol=None, outputCol=None,
+                  stopwords=None, stopwordCase=False)
         """
         kwargs = self._input_kwargs
         return self._set(**kwargs)
 
-class SwedishAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
-                            HasStopwordCase):
+class SwedishAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
+                            HasOutputCol, HasStopwords, HasStopwordCase):
     """
     >>> from pyspark.sql import SparkSession
     >>> spark = SparkSession.builder.master("local[2]").getOrCreate()
     >>> df = spark.createDataFrame([("hi boo",), ("bye boo",)], ["vals"])
     >>> transformer = SwedishAnalyzerLucene()
+    >>> transformer.setParams(inputCol="vals", outputCol="out")
+    SwedishAnalyzerLucene_...
+    >>> result = transformer.transform(df)
+    >>> result.count()
+    2
+    >>> transformer.setStopwordCase(True)
+    SwedishAnalyzerLucene_...
     >>> result = transformer.transform(df)
     >>> result.count()
     2
@@ -1137,9 +1552,11 @@ class SwedishAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
     transformer_name = package_name + "." + class_name
 
     @keyword_only
-    def __init__(self, stopwords=None, stopwordCase=False):
+    def __init__(self, inputCol=None, outputCol=None,
+                 stopwords=None, stopwordCase=False):
         """
-        __init__(self, stopwords=None, stopwordCase=False)
+        __init__(self, inputCol=None, outputCol=None,
+                 stopwords=None, stopwordCase=False)
         """
         super(SwedishAnalyzerLucene, self).__init__()
         self._setDefault(stopwordCase = False)
@@ -1147,20 +1564,29 @@ class SwedishAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
         self.setParams(**kwargs)
 
     @keyword_only
-    def setParams(self, stopwords=None, stopwordCase=False):
+    def setParams(self, inputCol=None, outputCol=None,
+                  stopwords=None, stopwordCase=False):
         """
-        setParams(stopwords=None, stopwordCase=False)
+        setParams(inputCol=None, outputCol=None,
+                  stopwords=None, stopwordCase=False)
         """
         kwargs = self._input_kwargs
         return self._set(**kwargs)
 
-class ThaiAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
-                            HasStopwordCase):
+class ThaiAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
+                            HasOutputCol, HasStopwords, HasStopwordCase):
     """
     >>> from pyspark.sql import SparkSession
     >>> spark = SparkSession.builder.master("local[2]").getOrCreate()
     >>> df = spark.createDataFrame([("hi boo",), ("bye boo",)], ["vals"])
     >>> transformer = ThaiAnalyzerLucene()
+    >>> transformer.setParams(inputCol="vals", outputCol="out")
+    ThaiAnalyzerLucene_...
+    >>> result = transformer.transform(df)
+    >>> result.count()
+    2
+    >>> transformer.setStopwordCase(True)
+    ThaiAnalyzerLucene_...
     >>> result = transformer.transform(df)
     >>> result.count()
     2
@@ -1170,9 +1596,11 @@ class ThaiAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
     transformer_name = package_name + "." + class_name
 
     @keyword_only
-    def __init__(self, stopwords=None, stopwordCase=False):
+    def __init__(self, inputCol=None, outputCol=None,
+                 stopwords=None, stopwordCase=False):
         """
-        __init__(self, stopwords=None, stopwordCase=False)
+        __init__(self, inputCol=None, outputCol=None,
+                 stopwords=None, stopwordCase=False)
         """
         super(ThaiAnalyzerLucene, self).__init__()
         self._setDefault(stopwordCase = False)
@@ -1180,20 +1608,29 @@ class ThaiAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
         self.setParams(**kwargs)
 
     @keyword_only
-    def setParams(self, stopwords=None, stopwordCase=False):
+    def setParams(self, inputCol=None, outputCol=None,
+                  stopwords=None, stopwordCase=False):
         """
-        setParams(stopwords=None, stopwordCase=False)
+        setParams(inputCol=None, outputCol=None,
+                  stopwords=None, stopwordCase=False)
         """
         kwargs = self._input_kwargs
         return self._set(**kwargs)
 
-class TurkishAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
-                            HasStopwordCase):
+class TurkishAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
+                            HasOutputCol, HasStopwords, HasStopwordCase):
     """
     >>> from pyspark.sql import SparkSession
     >>> spark = SparkSession.builder.master("local[2]").getOrCreate()
     >>> df = spark.createDataFrame([("hi boo",), ("bye boo",)], ["vals"])
     >>> transformer = TurkishAnalyzerLucene()
+    >>> transformer.setParams(inputCol="vals", outputCol="out")
+    TurkishAnalyzerLucene_...
+    >>> result = transformer.transform(df)
+    >>> result.count()
+    2
+    >>> transformer.setStopwordCase(True)
+    TurkishAnalyzerLucene_...
     >>> result = transformer.transform(df)
     >>> result.count()
     2
@@ -1203,9 +1640,11 @@ class TurkishAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
     transformer_name = package_name + "." + class_name
 
     @keyword_only
-    def __init__(self, stopwords=None, stopwordCase=False):
+    def __init__(self, inputCol=None, outputCol=None,
+                 stopwords=None, stopwordCase=False):
         """
-        __init__(self, stopwords=None, stopwordCase=False)
+        __init__(self, inputCol=None, outputCol=None,
+                 stopwords=None, stopwordCase=False)
         """
         super(TurkishAnalyzerLucene, self).__init__()
         self._setDefault(stopwordCase = False)
@@ -1213,9 +1652,55 @@ class TurkishAnalyzerLucene(SparklingJavaTransformer, HasStopwords,
         self.setParams(**kwargs)
 
     @keyword_only
-    def setParams(self, stopwords=None, stopwordCase=False):
+    def setParams(self, inputCol=None, outputCol=None,
+                  stopwords=None, stopwordCase=False):
         """
-        setParams(stopwords=None, stopwordCase=False)
+        setParams(inputCol=None, outputCol=None,
+                  stopwords=None, stopwordCase=False)
+        """
+        kwargs = self._input_kwargs
+        return self._set(**kwargs)
+
+class UkrainianMorfologikAnalyzerLucene(SparklingJavaTransformer, HasInputCol,
+                            HasOutputCol, HasStopwords, HasStopwordCase):
+    """
+    >>> from pyspark.sql import SparkSession
+    >>> spark = SparkSession.builder.master("local[2]").getOrCreate()
+    >>> df = spark.createDataFrame([("hi boo",), ("bye boo",)], ["vals"])
+    >>> transformer = UkrainianMorfologikAnalyzerLucene()
+    >>> transformer.setParams(inputCol="vals", outputCol="out")
+    UkrainianMorfologikAnalyzerLucene_...
+    >>> result = transformer.transform(df)
+    >>> result.count()
+    2
+    >>> transformer.setStopwordCase(True)
+    UkrainianMorfologikAnalyzerLucene_...
+    >>> result = transformer.transform(df)
+    >>> result.count()
+    2
+    """
+    package_name = "com.sparklingpandas.sparklingml.feature"
+    class_name = "UkrainianMorfologikAnalyzerLucene"
+    transformer_name = package_name + "." + class_name
+
+    @keyword_only
+    def __init__(self, inputCol=None, outputCol=None,
+                 stopwords=None, stopwordCase=False):
+        """
+        __init__(self, inputCol=None, outputCol=None,
+                 stopwords=None, stopwordCase=False)
+        """
+        super(UkrainianMorfologikAnalyzerLucene, self).__init__()
+        self._setDefault(stopwordCase = False)
+        kwargs = self._input_kwargs
+        self.setParams(**kwargs)
+
+    @keyword_only
+    def setParams(self, inputCol=None, outputCol=None,
+                  stopwords=None, stopwordCase=False):
+        """
+        setParams(inputCol=None, outputCol=None,
+                  stopwords=None, stopwordCase=False)
         """
         kwargs = self._input_kwargs
         return self._set(**kwargs)

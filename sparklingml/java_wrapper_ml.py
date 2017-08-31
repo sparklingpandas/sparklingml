@@ -1,7 +1,5 @@
 from __future__ import unicode_literals
 
-from pyspark import SparkContext, keyword_only
-from pyspark.rdd import ignore_unicode_prefix
 from pyspark.ml.wrapper import JavaTransformer, JavaModel
 
 

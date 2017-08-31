@@ -1,5 +1,6 @@
 language: scala
-
+# Don't really need sudo, just need more memory!
+sudo: required
 # These directories are cached to S3 at the end of the build
 cache:
   directories:

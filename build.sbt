@@ -32,14 +32,19 @@ javaOptions ++= Seq("-Xms1G", "-Xmx3G", "-XX:MaxPermSize=2048M", "-XX:+CMSClassU
 
 
 libraryDependencies ++= Seq(
+  // spark components
+  "org.apache.spark" %% "spark-core" % sparkVersion.value % "provided",
+  "org.apache.spark" %% "spark-sql" % sparkVersion.value % "provided",
+  "org.apache.spark" %% "spark-catalyst" % sparkVersion.value % "provided",
+  "org.apache.spark" %% "spark-mllib" % sparkVersion.value % "provided",
   // algorithm providers
   "com.lucidworks.spark" % "spark-solr" % "3.0.2",
-  // internals
-  "org.scala-lang" % "scala-reflect" % "2.11.7",
-  "org.reflections" % "reflections" % "0.9.11",
+  // internals that are only used during code gen -- exclude from assembly.
+  "org.scala-lang" % "scala-reflect" % "2.11.7" % "provided",
+  "org.reflections" % "reflections" % "0.9.11" % "provided",
   // testing libraries
-  "org.scalatest" %% "scalatest" % "3.0.1",
-  "org.scalacheck" %% "scalacheck" % "1.13.4",
+  "org.scalatest" %% "scalatest" % "3.0.1" % "test",
+  "org.scalacheck" %% "scalacheck" % "1.13.4" % "test",
   "com.holdenkarau" %% "spark-testing-base" % "0.7.3" % "test")
 
 
@@ -66,7 +71,8 @@ publishTo := {
     Some("releases"  at nexus + "service/local/staging/deploy/maven2")
 }
 
-licenses := Seq("Apache License 2.0" -> url("http://www.apache.org/licenses/LICENSE-2.0.html"))
+licenses := Seq("Apache License 2.0" ->
+  url("http://www.apache.org/licenses/LICENSE-2.0.html"))
 
 homepage := Some(url("https://github.com/sparklingpandas/sparklingml"))
 
@@ -85,7 +91,9 @@ pomExtra := (
   </developers>
 )
 
-credentials ++= Seq(Credentials(Path.userHome / ".ivy2" / ".sbtcredentials"), Credentials(Path.userHome / ".ivy2" / ".sparkcredentials"))
+credentials ++= Seq(
+  Credentials(Path.userHome / ".ivy2" / ".sbtcredentials"),
+  Credentials(Path.userHome / ".ivy2" / ".sparkcredentials"))
 
 spIncludeMaven := true
 

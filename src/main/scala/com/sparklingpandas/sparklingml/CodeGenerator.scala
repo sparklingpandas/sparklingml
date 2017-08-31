@@ -39,4 +39,12 @@ private[sparklingpandas] class CodeGenerator {
       |# limitations under the License.
       |#""".stripMargin('|')
 
+  val pythonDoctestFooter =
+    """
+    |if __name__ == "__main__":
+    |    import doctest
+    |    doctest.testmod(optionflags=doctest.ELLIPSIS)
+    |""".stripMargin('|')
+
+
 }

@@ -63,17 +63,19 @@ private[sparklingpandas] object LuceneAnalyzerGenerators extends CodeGenerator {
         |from pyspark import keyword_only
         |from pyspark.rdd import ignore_unicode_prefix
         |from pyspark.ml import Model
-        |from pyspark.ml.wrapper import JavaModel
         |from pyspark.ml.param import *
         |# The shared params aren't really intended to be public currently..
         |from pyspark.ml.param.shared import *
         |from pyspark.ml.util import *
         |
+        |from sparklingml.java_wrapper_ml import *
+        |from sparklingml.param.shared import HasStopwords, HasStopwordCase
         |
         |""".stripMargin('|')
     val writer = new PrintWriter(pyCodeFile)
     writer.write(pythonHeader)
     writer.write(pyCode)
+    writer.write(pythonDoctestFooter)
     writer.close()
   }
 
@@ -190,7 +192,39 @@ private[sparklingpandas] object LuceneAnalyzerGenerators extends CodeGenerator {
         |""".stripMargin('|')
       val pyCode =
         s"""
-        |class
+        |class ${clsShortName}Lucene(SparklingJavaTransformer, HasStopwords,
+        |                            HasStopwordCase):
+        |    \"\"\"
+        |    >>> from pyspark.sql import SparkSession
+        |    >>> spark = SparkSession.builder.master("local[2]").getOrCreate()
+        |    >>> df = spark.createDataFrame([("hi boo",), ("bye boo",)], ["vals"])
+        |    >>> transformer = ${clsShortName}Lucene()
+        |    >>> result = transformer.transform(df)
+        |    >>> result.count()
+        |    2
+        |    \"\"\"
+        |    package_name = "com.sparklingpandas.sparklingml.feature"
+        |    class_name = "${clsShortName}Lucene"
+        |    transformer_name = package_name + "." + class_name
+        |
+        |    @keyword_only
+        |    def __init__(self, stopwords=None, stopwordCase=False):
+        |        \"\"\"
+        |        __init__(self, stopwords=None, stopwordCase=False)
+        |        \"\"\"
+        |        super(${clsShortName}Lucene, self).__init__()
+        |        self._setDefault(stopwordCase = False)
+        |        kwargs = self._input_kwargs
+        |        self.setParams(**kwargs)
+        |
+        |    @keyword_only
+        |    def setParams(self, stopwords=None, stopwordCase=False):
+        |        \"\"\"
+        |        setParams(stopwords=None, stopwordCase=False)
+        |        \"\"\"
+        |        kwargs = self._input_kwargs
+        |        return self._set(**kwargs)
+        |""".stripMargin('|')
       (testCode, code, pyCode)
     } else if (constructorParametersSizes.contains(0) &&
       javaConstructorParametersSizes.contains(0)) {
@@ -223,13 +257,13 @@ private[sparklingpandas] object LuceneAnalyzerGenerators extends CodeGenerator {
         |  }
         |}
         |""".stripMargin('|')
-      (testCode, code)
+      (testCode, code, "")
     } else {
       ("", s"""
         |/* There is no default zero arg constructor for
         | *${clsFullName}.
         | */
-        |""".stripMargin('|'))
+        |""".stripMargin('|'), "")
     }
   }
 }

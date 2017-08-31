@@ -9,7 +9,7 @@ from pyspark.ml.param.shared import *
 from pyspark.ml.util import *
 from pyspark.sql.functions import UserDefinedFunction
 
-from .transformation_functions import *
+from sparklingml.transformation_functions import *
 
 # Most of the Python models are wrappers of JavaModels, and we will need those
 # as well. For now this simple example shows how to expose a simple Python only

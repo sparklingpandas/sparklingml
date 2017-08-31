@@ -58,5 +58,6 @@ if 'IS_TEST' not in os.environ and "JARS" not in os.environ:
             print("Failed to find jars, but from JVM so this _should_ be ok")
     if jar is not None:
         os.environ["JARS"] = jar
+        print("Using backing jar " + jar)
         os.environ["PYSPARK_SUBMIT_ARGS"] = ("--jars %s --driver-class-path %s" +
                                              " pyspark-shell") % (jar, jar)

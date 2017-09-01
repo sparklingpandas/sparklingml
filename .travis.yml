@@ -30,7 +30,7 @@ script:
   - ./build/sbt clean coverage compile package pack test coverageReport
   - bash <(curl -s https://codecov.io/bash) -cF scala || echo "No Scala report uploaded"
   - "pep8 --ignore=E402 sparklingml/"
-  - isort -c
+  - pushd sparklingml; isort -c; popd
   - "find ./target |grep -i jar"
   - "nosetests --logging-level=INFO --detailed-errors --verbosity=2 --with-coverage --cover-html-dir=./htmlcov --cover-package=sparklingml --with-doctest --doctest-options=+ELLIPSIS"
   - coverage --combine

@@ -21,14 +21,14 @@ spName := "sparklingpandas/sparklingml"
 sparkComponents := Seq("core", "sql", "catalyst", "mllib")
 
 parallelExecution in Test := false
-fork := true
+fork in test := true
 
 
 coverageHighlighting := true
 coverageEnabled := true
 
 
-javaOptions ++= Seq("-Xms2G", "-Xmx3G", "-XX:MaxPermSize=2024M", "-XX:+CMSClassUnloadingEnabled")
+javaOptions in test ++= Seq("-Xms1G", "-Xmx1G", "-XX:MaxPermSize=1024M", "-XX:+CMSClassUnloadingEnabled")
 
 test in assembly := {}
 

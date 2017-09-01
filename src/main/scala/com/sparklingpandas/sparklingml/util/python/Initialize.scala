@@ -187,6 +187,7 @@ object PythonRegistration {
     pythonThread.setName("python-udf-registrationProvider-thread")
     pythonThread.setDaemon(true)
     pythonThread.start()
+    println(s"Waiting for friend on port ${gatewayServer.getListeningPort}")
     gatewayServer
   }
 

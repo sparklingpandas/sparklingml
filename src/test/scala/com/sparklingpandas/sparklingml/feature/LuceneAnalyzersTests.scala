@@ -79,6 +79,14 @@ class SoraniAnalyzerLuceneTest
 /**
  * A super simple test
  */
+class SmartChineseAnalyzerLuceneTest
+    extends LuceneTransformerTest[SmartChineseAnalyzerLucene] {
+    val transformer = new SmartChineseAnalyzerLucene()
+}
+
+/**
+ * A super simple test
+ */
 class KeywordAnalyzerLuceneTest
     extends LuceneTransformerTest[KeywordAnalyzerLucene] {
     val transformer = new KeywordAnalyzerLucene()
@@ -279,6 +287,14 @@ class LatvianAnalyzerLuceneTest
 /**
  * A super simple test
  */
+class MorfologikAnalyzerLuceneTest
+    extends LuceneTransformerTest[MorfologikAnalyzerLucene] {
+    val transformer = new MorfologikAnalyzerLucene()
+}
+
+/**
+ * A super simple test
+ */
 class DutchAnalyzerLuceneTest
     extends LuceneTransformerTest[DutchAnalyzerLucene] {
     val transformer = new DutchAnalyzerLucene()
@@ -290,6 +306,14 @@ class DutchAnalyzerLuceneTest
 class NorwegianAnalyzerLuceneTest
     extends LuceneStopwordTransformerTest[NorwegianAnalyzerLucene] {
     val transformer = new NorwegianAnalyzerLucene()
+}
+
+/**
+ * A super simple test
+ */
+class PolishAnalyzerLuceneTest
+    extends LuceneStopwordTransformerTest[PolishAnalyzerLucene] {
+    val transformer = new PolishAnalyzerLucene()
 }
 
 /**
@@ -370,4 +394,12 @@ class ThaiAnalyzerLuceneTest
 class TurkishAnalyzerLuceneTest
     extends LuceneStopwordTransformerTest[TurkishAnalyzerLucene] {
     val transformer = new TurkishAnalyzerLucene()
+}
+
+/**
+ * A super simple test
+ */
+class UkrainianMorfologikAnalyzerLuceneTest
+    extends LuceneStopwordTransformerTest[UkrainianMorfologikAnalyzerLucene] {
+    val transformer = new UkrainianMorfologikAnalyzerLucene()
 }

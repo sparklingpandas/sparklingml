@@ -1,13 +1,14 @@
 import ast
+
+from py4j.java_gateway import *
 # Spark imports
 from pyspark.conf import SparkConf
 from pyspark.context import SparkContext
 from pyspark.sql import *
 from pyspark.sql.functions import UserDefinedFunction
-# python bridge imports
-from py4j.java_gateway import *
-# Internal imports
+
 from sparklingml.transformation_functions import *
+
 # Hack to allow people to hook in more easily
 try:
     from user_functions import *

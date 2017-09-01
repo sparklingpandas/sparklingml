@@ -24,6 +24,8 @@ before_install:
   - pip install -r requirements.txt
   - python -m spacy download en
 script:
+  - echo "Print plugins"
+  - ./build/sbt plugins
   - ./build/sbt scalastyle
   - ./build/sbt clean coverage compile package pack test coverageReport
   - bash <(curl -s https://codecov.io/bash) -cF scala || echo "No Scala report uploaded"

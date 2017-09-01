@@ -45,27 +45,33 @@ if 'IS_TEST' not in os.environ and "JARS" not in os.environ:
             os.path.join(my_location, '../target/scala-2.11/'),
             # Also try the present working directory
             os.path.join(os.getcwd(), '../target/scala-2.11/'),
-        os.path.join(os.getcwd(), 'target/scala-2.11/')]
-        prod_jars = [os.path.join(prefix, JAR_FILE) for prefix in local_prefixes]
-        dev_jars = [os.path.join(prefix, DEV_JAR) for prefix in local_prefixes]
+            os.path.join(os.getcwd(), 'target/scala-2.11/')]
+        prod_jars = [os.path.join(prefix, JAR_FILE)
+                     for prefix in local_prefixes]
+        dev_jars = [os.path.join(prefix, DEV_JAR)
+                    for prefix in local_prefixes]
         jars = prod_jars + dev_jars
         try:
             jars.append(os.path.abspath(resource_filename('sparklingml.jar',
                                                           JAR_FILE)))
         except Exception as e:
             print("Could not resolve resource file %s. This is not necessarily"
-                  " (and is expected during development) but should not occur in "
-                  "production if pip installed." % str(e))
+                  " (and is expected during development) but should not occur "
+                  "in production if pip installed." % str(e))
         try:
-            jar = [jar_path for jar_path in jars if os.path.exists(jar_path)][0]
+            jar = [jar_path
+                   for jar_path in jars
+                   if os.path.exists(jar_path)][0]
         except IndexError:
             print("Failed to find jars. Looked at paths %s." % jars)
             if 'SPARKLING_ML_SPECIFIC' not in os.environ:
-                raise IOError("Failed to find jars. Looked at paths %s." % jars)
+                raise IOError("Failed to find jars. Looked at paths %s."
+                              % jars)
             else:
-                print("Failed to find jars, but from JVM so this _should_ be ok")
+                print("Failed to find jars, but launched from the JVM"
+                      "so this _should_ be ok.")
     if jar is not None:
         os.environ["JARS"] = jar
         print("Using backing jar " + jar)
-        os.environ["PYSPARK_SUBMIT_ARGS"] = ("--jars %s --driver-class-path %s" +
-                                             " pyspark-shell") % (jar, jar)
+        os.environ["PYSPARK_SUBMIT_ARGS"] = (
+            "--jars %s --driver-class-path %s pyspark-shell") % (jar, jar)

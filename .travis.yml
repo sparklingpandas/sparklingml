@@ -28,7 +28,9 @@ script:
   - ./build/sbt scalastyle
   - echo "Python style"
   - "pep8 --ignore=E402 sparklingml/"
-  - cd sparklingml; isort -c --skip lucene_analyzers.py; cd ..
+  - cd sparklingml
+  - isort -c --skip lucene_analyzers.py
+  - cd ..
   - echo "Build and test"
   - ./build/sbt clean coverage compile package pack test coverageReport
   - bash <(curl -s https://codecov.io/bash) -cF scala || echo "No Scala report uploaded"

@@ -25,7 +25,7 @@ before_install:
   - python -m spacy download en
 script:
   - ./build/sbt scalastyle
-  - ./build/sbt clean coverage compile pack test coverageReport
+  - ./build/sbt clean coverage compile package pack test coverageReport
   - bash <(curl -s https://codecov.io/bash) -cF scala || echo "No Scala report uploaded"
   - "pep8 --ignore=E402 sparklingml/"
   - "find ./target |grep -i jar"

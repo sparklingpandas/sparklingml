@@ -22,13 +22,13 @@ from __future__ import unicode_literals
 
 from pyspark import keyword_only
 from pyspark.ml.param import *
-from pyspark.ml.param.shared import HasInputCol, HasOutputCol
-# The shared params aren't really intended to be public currently..
 from pyspark.ml.param.shared import *
+# The shared params aren't really intended to be public currently..
+from pyspark.ml.param.shared import HasInputCol, HasOutputCol
 from pyspark.ml.util import *
 
 from sparklingml.java_wrapper_ml import *
-from sparklingml.param.shared import HasStopwords, HasStopwordCase
+from sparklingml.param.shared import HasStopwordCase, HasStopwords
 
 
 class ArabicAnalyzerLucene(

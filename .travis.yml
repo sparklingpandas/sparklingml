@@ -20,7 +20,7 @@ before_install:
   - export PATH=myenv/bin/:$PATH
   - pip install --upgrade pip
   - pip install spacy
-  - pip install nose codecov coverage pep8 pylint sphinx
+  - pip install nose codecov coverage pep8 pylint sphinx isort
   - pip install -r requirements.txt
   - python -m spacy download en
 script:
@@ -30,6 +30,7 @@ script:
   - ./build/sbt clean coverage compile package pack test coverageReport
   - bash <(curl -s https://codecov.io/bash) -cF scala || echo "No Scala report uploaded"
   - "pep8 --ignore=E402 sparklingml/"
+  - isort -c
   - "find ./target |grep -i jar"
   - "nosetests --logging-level=INFO --detailed-errors --verbosity=2 --with-coverage --cover-html-dir=./htmlcov --cover-package=sparklingml --with-doctest --doctest-options=+ELLIPSIS"
   - coverage --combine

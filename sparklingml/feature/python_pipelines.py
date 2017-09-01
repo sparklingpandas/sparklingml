@@ -1,12 +1,11 @@
 from __future__ import unicode_literals
 
 from pyspark import keyword_only
-from pyspark.rdd import ignore_unicode_prefix
 from pyspark.ml import Model
 from pyspark.ml.param import *
-# The shared params aren't really intended to be public currently..
 from pyspark.ml.param.shared import *
 from pyspark.ml.util import *
+from pyspark.rdd import ignore_unicode_prefix
 from pyspark.sql.functions import UserDefinedFunction
 
 from sparklingml.transformation_functions import *

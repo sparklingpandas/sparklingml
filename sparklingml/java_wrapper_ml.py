@@ -1,6 +1,6 @@
 from __future__ import unicode_literals
 
-from pyspark.ml.wrapper import JavaTransformer, JavaModel
+from pyspark.ml.wrapper import JavaModel, JavaTransformer
 
 
 class SparklingJavaTransformer(JavaTransformer):

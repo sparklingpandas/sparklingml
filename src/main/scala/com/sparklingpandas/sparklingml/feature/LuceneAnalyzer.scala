@@ -27,8 +27,8 @@ trait LuceneTransformer[T <:LuceneTransformer[T]]
   }
 
   override def createTransformFunc: String => Array[String] = {
-    val analyzer = buildAnalyzer()
-      (inputText: String) => {
+    (inputText: String) => {
+      val analyzer = buildAnalyzer()
       val inputStream = analyzer.tokenStream($(inputCol), inputText)
       val builder = Array.newBuilder[String]
       val charTermAttr = inputStream.addAttribute(classOf[CharTermAttribute])

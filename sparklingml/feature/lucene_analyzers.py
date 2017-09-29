@@ -776,6 +776,8 @@ class SpanishAnalyzerLucene(
     >>> result = transformer.transform(df)
     >>> result.count()
     2
+    >>> result.head()
+    Row(vals=u'hi boo', out=[u'hi', u'boo'])
     """
     package_name = "com.sparklingpandas.sparklingml.feature"
     class_name = "SpanishAnalyzerLucene"

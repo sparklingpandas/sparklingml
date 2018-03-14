@@ -1,5 +1,5 @@
 coverage
-pyspark>=2.2.0
+pyspark>=2.3.0
 pypandoc
 scipy
 numpy
@@ -8,3 +8,5 @@ unittest2>=1.0.0
 pandas>=0.13
 spacy
 future
+pyarrow==0.8.0
+pep8

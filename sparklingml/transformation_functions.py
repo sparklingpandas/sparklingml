@@ -1,5 +1,8 @@
 from __future__ import unicode_literals
 
+import inspect
+import spacy
+
 from pyspark.rdd import ignore_unicode_prefix
 from pyspark.sql.types import *
 
@@ -114,20 +117,9 @@ class SpacyAdvancedTokenize(TransformationFunction):
     [(u'a', None), (u'lang', '...'), (u'lower_', 'boo'), (u'text', 'boo')]
     """
 
-    default_fields = [
-        'ancestors', 'check_flag', 'children', 'cluster', 'conjuncts', 'dep',
-        'ent_id', 'ent_iob', 'ent_type', 'has_repvec', 'has_vector', 'head',
-        'i', 'idx', 'is_alpha', 'is_ancestor', 'is_ancestor_of', 'is_ascii',
-        'is_bracket', 'is_digit', 'is_left_punct', 'is_lower', 'is_oov',
-        'is_punct', 'is_quote', 'is_right_punct', 'is_space', 'is_stop',
-        'is_title', 'lang', 'lang_', 'left_edge', 'lefts', 'lemma',
-        'lemma_', 'lex_id', 'like_email', 'like_num', 'like_url',
-        'lower', 'lower_', 'n_lefts', 'n_rights', 'nbor', 'norm',
-        'norm_', 'orth', 'orth_', 'pos', 'pos_', 'prefix', 'prefix_',
-        'prob', 'rank', 'repvec', 'right_edge', 'rights', 'sentiment', 'shape',
-        'shape_', 'similarity', 'string', 'subtree', 'suffix', 'suffix_',
-        'tag', 'tag_', 'text', 'text_with_ws', 'vector', 'vector_norm',
-        'vocab', 'whitespace_']
+    default_fields = map(
+        lambda x: x[0],
+        inspect.getmembers(spacy.tokens.Token, lambda x: "<attribute '" in repr(x)))
 
     @classmethod
     def setup(cls, sc, session, *args):

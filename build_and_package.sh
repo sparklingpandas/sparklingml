@@ -5,6 +5,7 @@ set -e
 echo "Installing python requirements"
 
 pip install -r requirements.txt
+python -m spacy download en
 
 echo "Checking scala style issues"
 
@@ -20,7 +21,7 @@ echo "Building JVM code"
 
 echo "Testing Python code"
 
-nosetests --logging-level=INFO --detailed-errors --verbosity=2 --with-coverage --cover-html-dir=./htmlcov --cover-package=sparklingml --with-doctest --doctest-options=+ELLIPSIS
+nosetests --logging-level=INFO --detailed-errors --verbosity=2 --with-coverage --cover-html-dir=./htmlcov --cover-package=sparklingml --with-doctest --doctest-options=+ELLIPSIS,+NORMALIZE_WHITESPACE
 
 
 echo "Testing JVM code"

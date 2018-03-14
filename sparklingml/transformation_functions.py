@@ -56,7 +56,7 @@ class SpacyMagic(object):
     """
     Simple Spacy Magic to minimize loading time.
     >>> SpacyMagic.get("en")
-    <spacy.en.English ...
+    <spacy.lang.en.English ...
     """
     _spacys = {}
 
@@ -109,9 +109,9 @@ class SpacyAdvancedTokenize(TransformationFunction):
     >>> r = spa("Hi boo")
     >>> l = list(map(lambda d: sorted(d.items()), r))
     >>> l[0]
-    [(u'a', None), (u'lang', '5...'), (u'lower_', 'hi'), (u'text', 'Hi')]
+    [(u'a', None), (u'lang', '...'), (u'lower_', 'hi'), (u'text', 'Hi')]
     >>> l[1]
-    [(u'a', None), (u'lang', '5...'), (u'lower_', 'boo'), (u'text', 'boo')]
+    [(u'a', None), (u'lang', '...'), (u'lower_', 'boo'), (u'text', 'boo')]
     """
 
     default_fields = [

@@ -6,7 +6,7 @@ publishMavenStyle := true
 
 version := "0.0.1-SNAPSHOT"
 
-sparkVersion := "2.2.0"
+sparkVersion := "2.3.0"
 
 scalaVersion := "2.11.8"
 
@@ -69,7 +69,9 @@ resolvers ++= Seq(
   "Mesosphere Public Repository" at "http://downloads.mesosphere.io/maven",
   Resolver.sonatypeRepo("public"),
   // restlet has a seperate maven repo because idk
-  "restlet" at "http://maven.restlet.com"
+  "restlet" at "http://maven.restlet.com",
+  // idk why this doesn't seem to be included in DefaultMavenRepository
+  "DefaultMavenRepository" at " https://repo1.maven.org/maven2/"
 )
 
 // publish settings

@@ -2,6 +2,7 @@ from __future__ import unicode_literals
 
 import inspect
 
+import pandas
 import spacy
 from pyspark.rdd import ignore_unicode_prefix
 from pyspark.sql.types import *
@@ -25,6 +26,10 @@ class TransformationFunction(object):
     def func(cls, *args):
         """Returns a function constructed using the args."""
         return None
+
+
+class ScalarVectorizedTransformationFunction(TransformationFunction):
+    """Transformation functions which are Scalar Vectorized UDFS."""
 
 
 @ignore_unicode_prefix
@@ -156,24 +161,31 @@ functions_info["spacyadvancedtokenize"] = SpacyAdvancedTokenize
 
 
 @ignore_unicode_prefix
-class NltkPos(TransformationFunction):
+class NltkPos(ScalarVectorizedTransformationFunction):
     """
     Uses nltk to compute the positive sentiment of the input expression.
+    >>> sentences = pandas.Series(["Boo is happy", "Boo is sad"])
+    >>> myFunc = NltkPos().func()
+    >>> import math
+    >>> myFunc(sentences).apply(math.ceil)
+    0    1.0...
+    1    0.0...
+    dtype: float64
     """
 
     @classmethod
     def func(cls, *args):
-        @pandas_udf(returnType=DoubleType())
         def inner(input_series):
             from nltk.sentiment.vader import SentimentIntensityAnalyzer
-            # Hack until https://github.com/nteract/coffee_boat/issues/47 is fixed
+            # Hack until https://github.com/nteract/coffee_boat/issues/47
             try:
                 sid = SentimentIntensityAnalyzer()
             except LookupError:
                 import nltk
                 nltk.download('vader_lexicon')
                 sid = SentimentIntensityAnalyzer()
-            result = input_series.apply(lambda sentence: sid.polarity_scores(sentence)['pos'])
+            result = input_series.apply(
+                lambda sentence: sid.polarity_scores(sentence)['pos'])
             return result
         return inner
 
@@ -181,6 +193,7 @@ class NltkPos(TransformationFunction):
     def returnType(cls, *args):
         return DoubleType()
 
+functions_info["nltkpos"] = NltkPos
 
 
 if __name__ == '__main__':

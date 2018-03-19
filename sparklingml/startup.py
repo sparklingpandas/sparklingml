@@ -5,7 +5,7 @@ from py4j.java_gateway import *
 from pyspark.conf import SparkConf
 from pyspark.context import SparkContext
 from pyspark.sql import *
-from pyspark.sql.functions import UserDefinedFunction
+from pyspark.sql.functions import UserDefinedFunction, PandasUDFType
 
 from sparklingml.transformation_functions import *
 
@@ -55,7 +55,10 @@ class PythonRegistrationProvider(object):
             ret_type = function_info.returnType()
             self._count = self._count + 1
             registration_name = function_name + str(self._count)
-            udf = UserDefinedFunction(func, ret_type, registration_name)
+            if isinstance(function_info, ScalarVectorizedTransformationFunction):
+                udf = pandas_udf(func, ret_type, PandasUDFType.SCALAR)
+            else:
+                udf = UserDefinedFunction(func, ret_type, registration_name)
             return udf._judf
         else:
             print("Could not find function")

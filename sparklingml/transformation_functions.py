@@ -5,6 +5,7 @@ import inspect
 import spacy
 from pyspark.rdd import ignore_unicode_prefix
 from pyspark.sql.types import *
+from pyspark.sql.functions import pandas_udf
 
 functions_info = dict()
 
@@ -152,6 +153,35 @@ class SpacyAdvancedTokenize(TransformationFunction):
         return ArrayType(MapType(StringType(), StringType()))
 
 functions_info["spacyadvancedtokenize"] = SpacyAdvancedTokenize
+
+
+@ignore_unicode_prefix
+class NltkPos(TransformationFunction):
+    """
+    Uses nltk to compute the positive sentiment of the input expression.
+    """
+
+    @classmethod
+    def func(cls, *args):
+        @pandas_udf(returnType=DoubleType())
+        def inner(input_series):
+            from nltk.sentiment.vader import SentimentIntensityAnalyzer
+            # Hack until https://github.com/nteract/coffee_boat/issues/47 is fixed
+            try:
+                sid = SentimentIntensityAnalyzer()
+            except LookupError:
+                import nltk
+                nltk.download('vader_lexicon')
+                sid = SentimentIntensityAnalyzer()
+            result = input_series.apply(lambda sentence: sid.polarity_scores(sentence)['pos'])
+            return result
+        return inner
+
+    @classmethod
+    def returnType(cls, *args):
+        return DoubleType()
+
+
 
 if __name__ == '__main__':
     import doctest

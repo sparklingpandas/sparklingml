@@ -16,6 +16,7 @@ setup(
     long_description=open('README.md').read(),
     install_requires=[
         'pyspark>=2.3.0',
+        'nltk',
         'numpy', # Requires for PySpark ML
         'pandas',
         'spacy',

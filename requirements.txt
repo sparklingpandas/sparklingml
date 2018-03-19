@@ -10,3 +10,4 @@ spacy
 future
 pyarrow==0.8.0
 pep8
+nltk

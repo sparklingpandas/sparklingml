@@ -59,8 +59,7 @@ class PythonRegistrationProvider(object):
             self._count = self._count + 1
             registration_name = function_name + str(self._count)
             udf = UserDefinedFunction(func, ret_type, registration_name)
-            if issubclass(function_info, ScalarVectorizedTransformationFunction):
-                udf.evalType = PandasUDFType.SCALAR
+            udf.evalType = function_info.evalType()
             judf = udf._judf
             return judf
         else:

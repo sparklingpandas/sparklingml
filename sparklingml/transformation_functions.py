@@ -6,7 +6,7 @@ import pandas
 import spacy
 from pyspark.rdd import ignore_unicode_prefix
 from pyspark.sql.types import *
-from pyspark.sql.functions import pandas_udf
+from pyspark.sql.functions import pandas_udf, PandasUDFType
 
 functions_info = dict()
 
@@ -27,9 +27,20 @@ class TransformationFunction(object):
         """Returns a function constructed using the args."""
         return None
 
+    @classmethod
+    def evalType(cls):
+        """Returns the eval type to be used."""
+        from pyspark.rdd import PythonEvalType
+        return PythonEvalType.SQL_BATCHED_UDF
+
 
 class ScalarVectorizedTransformationFunction(TransformationFunction):
     """Transformation functions which are Scalar Vectorized UDFS."""
+
+    @classmethod
+    def evalType(cls):
+        """Returns the eval type to be used."""
+        return PandasUDFType.SCALAR
 
 
 @ignore_unicode_prefix

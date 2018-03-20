@@ -7,6 +7,27 @@ import org.apache.spark.sql.types._
 
 import com.sparklingpandas.sparklingml.util.python.PythonTransformer
 
+class NltkPosPython(override val uid: String) extends PythonTransformer {
+
+  def this() = this(Identifiable.randomUID("StrLenPlusKPython"))
+
+  override val pythonFunctionName = "nltkpos"
+  override protected def outputDataType = DoubleType
+  override protected def validateInputType(inputType: DataType): Unit = {
+    if (inputType != StringType) {
+      throw new IllegalArgumentException(
+        s"Expected input type StringType instead found ${inputType}")
+    }
+  }
+
+  override def copy(extra: ParamMap) = {
+    defaultCopy(extra)
+  }
+
+  def miniSerializeParams() = ""
+}
+
+
 class StrLenPlusKPython(override val uid: String) extends PythonTransformer {
 
   final val k: IntParam = new IntParam(this, "k", "number to add to strlen")

@@ -23,13 +23,15 @@ trait PythonTransformer extends Transformer with HasInputCol with HasOutputCol {
       PythonRegistration.pythonRegistrationProvider.future
     val registrationProvider =
       Await.result(registrationProviderFuture, 10 seconds)
+    // Call the registration provider from startup.py to get a Python UDF back.
     val pythonUdf = Option(registrationProvider.registerFunction(
       session.sparkContext,
       session,
       pythonFunctionName,
       miniSerializeParams()))
-    pythonUdf.map(_.asInstanceOf[UserDefinedPythonFunction])
+    val castUdf = pythonUdf.map(_.asInstanceOf[UserDefinedPythonFunction])
       .getOrElse(throw new Exception("Failed register PythonFunction."))
+    castUdf
   }
 
   override def transform(dataset: Dataset[_]): DataFrame = {

@@ -33,6 +33,8 @@ class PythonRegistrationProvider(object):
 
     def registerFunction(self, ssc, jsession, function_name, params):
         jvm = self.gateway.jvm
+        # If we don't have a reference to a running SparkContext
+        # Get the SparkContext from the provided SparkSession.
         if not self._sc:
             master = ssc.master()
             jsc = jvm.org.apache.spark.api.java.JavaSparkContext(ssc)
@@ -43,6 +45,7 @@ class PythonRegistrationProvider(object):
                 conf=sparkConf,
                 gateway=self.gateway,
                 jsc=jsc)
+        # If no session, use getOrCreate to get the running session.
         if not self._session:
             self._session = SparkSession.builder.getOrCreate()
         if function_name in functions_info:
@@ -55,11 +58,11 @@ class PythonRegistrationProvider(object):
             ret_type = function_info.returnType()
             self._count = self._count + 1
             registration_name = function_name + str(self._count)
-            if isinstance(function_info, ScalarVectorizedTransformationFunction):
-                udf = pandas_udf(func, ret_type, PandasUDFType.SCALAR)
-            else:
-                udf = UserDefinedFunction(func, ret_type, registration_name)
-            return udf._judf
+            udf = UserDefinedFunction(func, ret_type, registration_name)
+            if issubclass(function_info, ScalarVectorizedTransformationFunction):
+                udf.evalType = PandasUDFType.SCALAR
+            judf = udf._judf
+            return judf
         else:
             print("Could not find function")
             return None

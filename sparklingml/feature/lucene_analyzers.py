@@ -22,13 +22,13 @@ from __future__ import unicode_literals
 
 from pyspark import keyword_only
 from pyspark.ml.param import *
-from pyspark.ml.param.shared import *
-# The shared params aren't really intended to be public currently..
 from pyspark.ml.param.shared import HasInputCol, HasOutputCol
+# The shared params aren't really intended to be public currently..
+from pyspark.ml.param.shared import *
 from pyspark.ml.util import *
 
 from sparklingml.java_wrapper_ml import *
-from sparklingml.param.shared import HasStopwordCase, HasStopwords
+from sparklingml.param.shared import HasStopwords, HasStopwordCase
 
 
 class ArabicAnalyzerLucene(
@@ -776,8 +776,6 @@ class SpanishAnalyzerLucene(
     >>> result = transformer.transform(df)
     >>> result.count()
     2
-    >>> result.head()
-    Row(vals=u'hi boo', out=[u'hi', u'boo'])
     """
     package_name = "com.sparklingpandas.sparklingml.feature"
     class_name = "SpanishAnalyzerLucene"

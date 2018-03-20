@@ -6,7 +6,7 @@ from pyspark.ml.param import *
 from pyspark.ml.param.shared import *
 from pyspark.ml.util import *
 from pyspark.rdd import ignore_unicode_prefix
-from pyspark.sql.functions import UserDefinedFunction
+from pyspark.sql.functions import UserDefinedFunction, PandasUDFType
 
 from sparklingml.transformation_functions import *
 
@@ -68,8 +68,8 @@ class StrLenPlusKTransformer(Model, HasInputCol, HasOutputCol):
 
     def _transform(self, dataset):
         func = StrLenPlusK.func(self.getK())
-        retType = StrLenPlusK.returnType()
-        udf = UserDefinedFunction(func, retType)
+        ret_type = StrLenPlusK.returnType()
+        udf = UserDefinedFunction(func, ret_type)
         return dataset.withColumn(
             self.getOutputCol(), udf(self.getInputCol())
         )
@@ -124,8 +124,8 @@ class SpacyTokenizeTransformer(Model, HasInputCol, HasOutputCol):
     def _transform(self, dataset):
         SpacyTokenize.setup(dataset._sc, dataset.sql_ctx, self.getLang())
         func = SpacyTokenize.func(self.getLang())
-        retType = SpacyTokenize.returnType()
-        udf = UserDefinedFunction(func, retType)
+        ret_type = SpacyTokenize.returnType()
+        udf = UserDefinedFunction(func, ret_type)
         return dataset.withColumn(
             self.getOutputCol(), udf(self.getInputCol())
         )
@@ -212,13 +212,52 @@ class SpacyAdvancedTokenizeTransformer(Model, HasInputCol, HasOutputCol):
             dataset._sc, dataset.sql_ctx, self.getLang())
         func = SpacyAdvancedTokenize.func(self.getLang(),
                                           self.getSpacyFields())
-        retType = SpacyAdvancedTokenize.returnType(
+        ret_type = SpacyAdvancedTokenize.returnType(
             self.getLang(), self.getSpacyFields())
-        udf = UserDefinedFunction(func, retType)
+        udf = UserDefinedFunction(func, ret_type)
         return dataset.withColumn(
             self.getOutputCol(), udf(self.getInputCol())
         )
 
+
+@ignore_unicode_prefix
+class NltkPosTransformer(Model, HasInputCol, HasOutputCol):
+    """
+    Determine the positiveness of the sentence input.
+    >>> from pyspark.sql import SparkSession
+    >>> spark = SparkSession.builder.master("local[2]").getOrCreate()
+    >>> df = spark.createDataFrame([("Boo is happy",), ("Boo is sad",)], ["vals"])
+    >>> tr = NltkPosTransformer(inputCol="vals", outputCol="c")
+    >>> tr.transform(df).show()
+    +------------+-----+
+    |        vals|    c|
+    +------------+-----+
+    |Boo is happy|0.6...|
+    |  Boo is sad|  0.0|
+    +------------+-----+...
+    """
+
+    @keyword_only
+    def __init__(self, inputCol=None, outputCol=None):
+        super(NltkPosTransformer, self).__init__()
+        kwargs = self._input_kwargs
+        self.setParams(**kwargs)
+
+    @keyword_only
+    def setParams(self, inputCol=None, outputCol=None):
+        """
+        setParams(self, inputCol=None, outputCol=None):
+        """
+        kwargs = self._input_kwargs
+        return self._set(**kwargs)
+
+    def _transform(self, dataset):
+        func = NltkPos.func()
+        ret_type = NltkPos.returnType()
+        udf = pandas_udf(func, ret_type, PandasUDFType.SCALAR)
+        return dataset.withColumn(
+            self.getOutputCol(), udf(self.getInputCol())
+        )
 
 if __name__ == '__main__':
     import doctest

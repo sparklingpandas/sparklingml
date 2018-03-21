@@ -1,8 +1,8 @@
 from __future__ import unicode_literals
 
 import inspect
-import spacy
 
+import spacy
 from pyspark.rdd import ignore_unicode_prefix
 from pyspark.sql.types import *
 
@@ -119,7 +119,8 @@ class SpacyAdvancedTokenize(TransformationFunction):
 
     default_fields = map(
         lambda x: x[0],
-        inspect.getmembers(spacy.tokens.Token, lambda x: "<attribute '" in repr(x)))
+        inspect.getmembers(spacy.tokens.Token,
+                           lambda x: "<attribute '" in repr(x)))
 
     @classmethod
     def setup(cls, sc, session, *args):

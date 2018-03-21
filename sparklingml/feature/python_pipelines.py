@@ -226,15 +226,17 @@ class NltkPosTransformer(Model, HasInputCol, HasOutputCol):
     Determine the positiveness of the sentence input.
     >>> from pyspark.sql import SparkSession
     >>> spark = SparkSession.builder.master("local[2]").getOrCreate()
-    >>> df = spark.createDataFrame([("Boo is happy",), ("sad Boo",)], ["vals"])
+    >>> df = spark.createDataFrame([("Boo is happy",), ("sad Boo",),
+    ...                             ("i enjoy rope burn",)], ["vals"])
     >>> tr = NltkPosTransformer(inputCol="vals", outputCol="c")
     >>> tr.transform(df).show()
-    +------------+-----+
-    |        vals|    c|
-    +------------+-----+
-    |Boo is happy|0.6...|
-    |     sad Boo|  0.0|
-    +------------+-----+...
+    +-----------------+-----+
+    |             vals|    c|
+    +-----------------+-----+
+    |     Boo is happy|0.6...|
+    |          sad Boo|  0.0|
+    |i enjoy rope burn|0.6...|
+    +-----------------+-----+...
     """
 
     @keyword_only

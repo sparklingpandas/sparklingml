@@ -14,6 +14,8 @@ jdk:
 scala:
   - 2.11.8
 before_install:
+  - echo "We are at:"
+  - git rev-parse HEAD
   - pip install --user virtualenv
   - if [ ! -d "myenv" ]; then virtualenv myenv && source myenv/bin/activate && pip install --upgrade pip; fi
   - source myenv/bin/activate

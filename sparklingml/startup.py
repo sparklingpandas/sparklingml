@@ -45,8 +45,6 @@ class PythonRegistrationProvider(object):
                 conf=sparkConf,
                 gateway=self.gateway,
                 jsc=jsc)
-        # If no session, use getOrCreate to get the running session.
-        if not self._session:
             self._session = SparkSession.builder.getOrCreate()
         if function_name in functions_info:
             function_info = functions_info[function_name]
@@ -65,6 +63,8 @@ class PythonRegistrationProvider(object):
             return judf
         else:
             print("Could not find function")
+            # We do this rather than raising an exception since Py4J debugging
+            # is rough and we can check it.
             return None
 
     class Java:

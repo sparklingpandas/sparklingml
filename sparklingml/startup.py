@@ -59,6 +59,7 @@ class PythonRegistrationProvider(object):
             self._count = self._count + 1
             registration_name = function_name + str(self._count)
             udf = UserDefinedFunction(func, ret_type, registration_name)
+            # Used to allow non-default (e.g. Arrow) UDFS
             udf.evalType = function_info.evalType()
             judf = udf._judf
             return judf

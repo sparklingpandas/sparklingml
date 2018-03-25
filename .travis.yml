@@ -21,14 +21,14 @@ before_install:
   - source myenv/bin/activate
   - export PATH=myenv/bin/:$PATH
   - pip install spacy
-  - pip install nose codecov coverage pep8 pylint sphinx isort
+  - pip install nose codecov coverage flake8 pylint sphinx isort
   - pip install -r requirements.txt
   - python -m spacy download en
 script:
   - echo "Scala style"
   - ./build/sbt scalastyle
   - echo "Python style"
-  - "pep8 --ignore=E402 sparklingml/"
+  - "flake8 --ignore=E402 sparklingml/"
   - cd sparklingml
   - isort -c --skip lucene_analyzers.py
   - cd ..

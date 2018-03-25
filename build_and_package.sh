@@ -16,7 +16,7 @@ echo "Checking scala style issues"
 
 echo "Checking python style issues"
 
-pep8 --ignore=E402 sparklingml/
+flake8 --ignore=E402 sparklingml/
 
 echo "Building JVM code"
 

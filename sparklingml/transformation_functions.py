@@ -88,15 +88,16 @@ class SpacyMagic(object):
         return cls._spacys[lang]
 
 
-class SpacyTokenize(TransformationFunction):
+class SpacyTokenize(ScalarVectorizedTransformationFunction):
     """
     Tokenize input text using spacy.
     >>> spt = SpacyTokenize()
     >>> sp = spt.func("en")
-    >>> r = sp("hi boo")
+    >>> r = sp(pandas.Series(["hi boo"]))
     ...
     >>> r
-    [u'hi', u'boo']
+    0    [hi, boo]
+    dtype: object
     """
     @classmethod
     def setup(cls, sc, session, *args):
@@ -106,11 +107,15 @@ class SpacyTokenize(TransformationFunction):
     def func(cls, *args):
         lang = args[0]
 
-        def inner(inputString):
+        def inner(inputSeries):
             """Tokenize the inputString using spacy for
             the provided language."""
             nlp = SpacyMagic.get(lang)
-            return list(map(lambda x: x.text, list(nlp(inputString))))
+
+            def tokenizeElem(elem):
+                return list(map(lambda token: token.text, list(nlp(unicode(elem)))))
+
+            return inputSeries.apply(tokenizeElem)
         return inner
 
     @classmethod

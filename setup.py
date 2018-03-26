@@ -9,7 +9,7 @@ setup(
     author_email='holden@pigscanfly.ca',
     # Copy the shell script into somewhere likely to be in the users path
     packages=find_packages(),
-    include_package_data = True,
+    include_package_data=True,
     url='https://github.com/sparklingpandas/sparklingml',
     license='LICENSE',
     description='Add additional ML algorithms to Spark',
@@ -17,7 +17,7 @@ setup(
     install_requires=[
         'pyspark>=2.3.0',
         'nltk',
-        'numpy', # Requires for PySpark ML
+        'numpy',  # Requires for PySpark ML
         'pandas',
         'spacy',
         'future',

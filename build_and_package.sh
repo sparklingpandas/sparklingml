@@ -5,7 +5,10 @@ set -e
 echo "Installing python requirements"
 
 pip install -r requirements.txt
-python -m spacy download en
+
+echo "Checking if spacy 'en' is installed otherwise download it"
+
+python -c "import spacy;spacy.load('en')" || python -m spacy download en
 
 echo "Checking scala style issues"
 

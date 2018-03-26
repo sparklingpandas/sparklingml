@@ -125,7 +125,7 @@ class SpacyTokenizeTransformer(Model, HasInputCol, HasOutputCol):
         SpacyTokenize.setup(dataset._sc, dataset.sql_ctx, self.getLang())
         func = SpacyTokenize.func(self.getLang())
         ret_type = SpacyTokenize.returnType()
-        udf = UserDefinedFunction(func, ret_type)
+        udf = pandas_udf(func, ret_type)
         return dataset.withColumn(
             self.getOutputCol(), udf(self.getInputCol())
         )

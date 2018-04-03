@@ -2,11 +2,10 @@ from __future__ import unicode_literals
 
 import inspect
 
-import pandas
 import spacy
 from pyspark.rdd import ignore_unicode_prefix
 from pyspark.sql.types import *
-from pyspark.sql.functions import pandas_udf, PandasUDFType
+from pyspark.sql.functions import PandasUDFType
 
 functions_info = dict()
 
@@ -113,7 +112,9 @@ class SpacyTokenize(ScalarVectorizedTransformationFunction):
             nlp = SpacyMagic.get(lang)
 
             def tokenizeElem(elem):
-                return list(map(lambda token: token.text, list(nlp(unicode(elem)))))
+                return list(map(lambda token: token.text,
+                                list(nlp(unicode(elem))))
+                            )
 
             return inputSeries.apply(tokenizeElem)
         return inner

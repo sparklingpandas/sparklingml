@@ -25,6 +25,9 @@ The Python component depends on the package listed in requirements.txt (as well 
 
 The script `build_and_package.sh` builds & tests both the Scala and Python code.
 
+
+For now this only works with Spark 2.3.0, it needs some changes to support 2.3.1+.
+
 ### Tests
 
 Are your DocTests failing with

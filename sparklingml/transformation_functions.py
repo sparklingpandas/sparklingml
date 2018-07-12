@@ -67,6 +67,7 @@ class StrLenPlusK(TransformationFunction):
     def returnType(cls, *args):
         return IntegerType()
 
+
 functions_info["strlenplusk"] = StrLenPlusK
 
 
@@ -113,7 +114,9 @@ class SpacyTokenize(ScalarVectorizedTransformationFunction):
             nlp = SpacyMagic.get(lang)
 
             def tokenizeElem(elem):
-                return list(map(lambda token: token.text, list(nlp(unicode(elem)))))
+                result_itr = map(lambda token: token.text,
+                                 list(nlp(unicode(elem))))
+                return list(result_itr)
 
             return inputSeries.apply(tokenizeElem)
         return inner
@@ -121,6 +124,7 @@ class SpacyTokenize(ScalarVectorizedTransformationFunction):
     @classmethod
     def returnType(cls, *args):
         return ArrayType(StringType())
+
 
 functions_info["spacytokenize"] = SpacyTokenize
 
@@ -173,6 +177,7 @@ class SpacyAdvancedTokenize(TransformationFunction):
     def returnType(cls, *args):
         return ArrayType(MapType(StringType(), StringType()))
 
+
 functions_info["spacyadvancedtokenize"] = SpacyAdvancedTokenize
 
 
@@ -208,6 +213,7 @@ class NltkPos(ScalarVectorizedTransformationFunction):
     @classmethod
     def returnType(cls, *args):
         return DoubleType()
+
 
 functions_info["nltkpos"] = NltkPos
 

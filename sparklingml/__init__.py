@@ -53,8 +53,9 @@ if 'IS_TEST' not in os.environ and "JARS" not in os.environ:
 
         jars = prod_jars + dev_jars
         try:
-            jars.append(os.path.abspath(resource_filename('sparklingml',
-                                                          "jar/sparklingml.jar")))
+            jars.append(os.path.abspath(resource_filename(
+                'sparklingml',
+                "jar/sparklingml.jar")))
         except Exception as e:
             print("Could not resolve resource file %s. This is not necessarily"
                   " (and is expected during development) but should not occur "

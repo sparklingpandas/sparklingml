@@ -9,5 +9,5 @@ pandas>=0.13
 spacy
 future
 pyarrow==0.8.0
-flake8
+flake8==3.5.0
 nltk

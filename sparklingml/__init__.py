@@ -75,5 +75,3 @@ if 'IS_TEST' not in os.environ and "JARS" not in os.environ:
         print("Using backing jar " + jar)
         os.environ["PYSPARK_SUBMIT_ARGS"] = (
             "--jars %s --driver-class-path %s pyspark-shell") % (jar, jar)
-
-from sparklingml.transformation_functions import *

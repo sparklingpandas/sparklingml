@@ -21,8 +21,6 @@ Sparkling ML provides additional ML algorithms for Spark.
 from __future__ import print_function
 import glob
 import os
-import sys
-import pyspark
 from pkg_resources import resource_filename
 
 

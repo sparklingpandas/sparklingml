@@ -2,11 +2,11 @@ from __future__ import unicode_literals
 
 import inspect
 
-import pandas
 import spacy
 from pyspark.rdd import ignore_unicode_prefix
 from pyspark.sql.functions import PandasUDFType, pandas_udf
 from pyspark.sql.types import *
+
 
 functions_info = dict()
 

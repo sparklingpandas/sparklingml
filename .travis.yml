@@ -29,7 +29,7 @@ script:
   - echo "Scala style"
   - ./build/sbt scalastyle
   - echo "Python style"
-  - "flake8 --ignore=E305,E402,F401,F403,F405,F999 sparklingml/"
+  - "flake8 --ignore=E305,E402,F403,F405,F999 sparklingml/"
   - cd sparklingml
   - isort -c --skip lucene_analyzers.py
   - cd ..

@@ -16,6 +16,7 @@ scala:
 before_install:
   - echo "We are at:"
   - git rev-parse HEAD
+  - git log -n 5
   - pip install --user virtualenv
   - if [ ! -d "myenv" ]; then virtualenv myenv && source myenv/bin/activate && pip install --upgrade pip; fi
   - source myenv/bin/activate

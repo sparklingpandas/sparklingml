@@ -48,10 +48,12 @@ if 'IS_TEST' not in os.environ and "JARS" not in os.environ:
                      for prefix in local_prefixes]
         dev_jars = [os.path.join(prefix, DEV_JAR)
                     for prefix in local_prefixes]
+
         jars = prod_jars + dev_jars
         try:
-            jars.append(os.path.abspath(resource_filename('sparklingml.jar',
-                                                          JAR_FILE)))
+            jars.append(os.path.abspath(resource_filename(
+                'sparklingml',
+                "jar/sparklingml.jar")))
         except Exception as e:
             print("Could not resolve resource file %s. This is not necessarily"
                   " (and is expected during development) but should not occur "
@@ -73,3 +75,5 @@ if 'IS_TEST' not in os.environ and "JARS" not in os.environ:
         print("Using backing jar " + jar)
         os.environ["PYSPARK_SUBMIT_ARGS"] = (
             "--jars %s --driver-class-path %s pyspark-shell") % (jar, jar)
+
+from sparklingml.transformation_functions import *

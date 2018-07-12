@@ -4,8 +4,9 @@ import inspect
 
 import spacy
 from pyspark.rdd import ignore_unicode_prefix
+from pyspark.sql.functions import PandasUDFType, pandas_udf
 from pyspark.sql.types import *
-from pyspark.sql.functions import PandasUDFType
+
 
 functions_info = dict()
 
@@ -66,6 +67,7 @@ class StrLenPlusK(TransformationFunction):
     def returnType(cls, *args):
         return IntegerType()
 
+
 functions_info["strlenplusk"] = StrLenPlusK
 
 
@@ -112,9 +114,9 @@ class SpacyTokenize(ScalarVectorizedTransformationFunction):
             nlp = SpacyMagic.get(lang)
 
             def tokenizeElem(elem):
-                return list(map(lambda token: token.text,
-                                list(nlp(unicode(elem))))
-                            )
+                result_itr = map(lambda token: token.text,
+                                 list(nlp(unicode(elem))))
+                return list(result_itr)
 
             return inputSeries.apply(tokenizeElem)
         return inner
@@ -122,6 +124,7 @@ class SpacyTokenize(ScalarVectorizedTransformationFunction):
     @classmethod
     def returnType(cls, *args):
         return ArrayType(StringType())
+
 
 functions_info["spacytokenize"] = SpacyTokenize
 
@@ -174,6 +177,7 @@ class SpacyAdvancedTokenize(TransformationFunction):
     def returnType(cls, *args):
         return ArrayType(MapType(StringType(), StringType()))
 
+
 functions_info["spacyadvancedtokenize"] = SpacyAdvancedTokenize
 
 
@@ -210,8 +214,8 @@ class NltkPos(ScalarVectorizedTransformationFunction):
     def returnType(cls, *args):
         return DoubleType()
 
-functions_info["nltkpos"] = NltkPos
 
+functions_info["nltkpos"] = NltkPos
 
 if __name__ == '__main__':
     import doctest

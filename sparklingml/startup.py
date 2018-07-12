@@ -72,6 +72,7 @@ class PythonRegistrationProvider(object):
         className = "PythonRegisterationProvider"
         implements = [package + "." + className]
 
+
 if __name__ == "__main__":
     def spark_jvm_imports(jvm):
         # Import the classes used by PySpark

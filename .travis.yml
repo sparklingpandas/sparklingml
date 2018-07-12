@@ -16,12 +16,13 @@ scala:
 before_install:
   - echo "We are at:"
   - git rev-parse HEAD
+  - git log -n 5
   - pip install --user virtualenv
   - if [ ! -d "myenv" ]; then virtualenv myenv && source myenv/bin/activate && pip install --upgrade pip; fi
   - source myenv/bin/activate
   - export PATH=myenv/bin/:$PATH
   - pip install spacy
-  - pip install nose codecov coverage flake8 pylint sphinx isort
+  - pip install nose codecov coverage sphinx isort
   - pip install -r requirements.txt
   - python -m spacy download en
 script:

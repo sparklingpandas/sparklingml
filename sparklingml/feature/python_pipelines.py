@@ -6,8 +6,8 @@ from pyspark.ml.param import *
 from pyspark.ml.param.shared import *
 from pyspark.ml.util import *
 from pyspark.rdd import ignore_unicode_prefix
-from pyspark.sql.functions import UserDefinedFunction, PandasUDFType, \
-    pandas_udf
+from pyspark.sql.functions import (PandasUDFType, UserDefinedFunction,
+                                   pandas_udf)
 
 from sparklingml.transformation_functions import *
 

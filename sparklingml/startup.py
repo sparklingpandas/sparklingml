@@ -5,7 +5,7 @@ from py4j.java_gateway import *
 from pyspark.conf import SparkConf
 from pyspark.context import SparkContext
 from pyspark.sql import *
-from pyspark.sql.functions import UserDefinedFunction, PandasUDFType
+from pyspark.sql.functions import PandasUDFType, UserDefinedFunction
 
 from sparklingml.transformation_functions import *
 

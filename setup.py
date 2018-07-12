@@ -10,6 +10,9 @@ setup(
     # Copy the shell script into somewhere likely to be in the users path
     packages=find_packages(),
     include_package_data=True,
+    package_data={
+        'sparklingml': ['jar/sparklingml.jar']
+    },
     url='https://github.com/sparklingpandas/sparklingml',
     license='LICENSE',
     description='Add additional ML algorithms to Spark',

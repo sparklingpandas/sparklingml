@@ -1,10 +1,10 @@
 from __future__ import unicode_literals
 
 import inspect
-
-import spacy
 import sys
-import pandas # noqa: F401
+
+import pandas  # noqa: F401
+import spacy
 from pyspark.rdd import ignore_unicode_prefix
 from pyspark.sql.functions import PandasUDFType
 from pyspark.sql.types import *

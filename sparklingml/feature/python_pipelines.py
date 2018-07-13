@@ -170,8 +170,9 @@ class SpacyAdvancedTokenizeTransformer(Model, HasInputCol, HasOutputCol):
         kwargs = self._input_kwargs
         if "spacyFields" not in kwargs:
             kwargs["spacyFields"] = list(SpacyAdvancedTokenize.default_fields)
-        self._setDefault(lang="en",
-                         spacyFields=list(SpacyAdvancedTokenize.default_fields))
+        self._setDefault(
+            lang="en",
+            spacyFields=list(SpacyAdvancedTokenize.default_fields))
         self.setParams(**kwargs)
 
     @keyword_only

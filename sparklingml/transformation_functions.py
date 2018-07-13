@@ -2,6 +2,7 @@ from __future__ import unicode_literals
 
 import inspect
 
+from builtins import str
 import spacy
 import pandas # noqa: F401
 from pyspark.rdd import ignore_unicode_prefix
@@ -115,7 +116,7 @@ class SpacyTokenize(ScalarVectorizedTransformationFunction):
 
             def tokenizeElem(elem):
                 result_itr = map(lambda token: token.text,
-                                 list(nlp(unicode(elem))))
+                                 list(nlp(str(elem))))
                 return list(result_itr)
 
             return inputSeries.apply(tokenizeElem)
@@ -170,7 +171,7 @@ class SpacyAdvancedTokenize(TransformationFunction):
                     except AttributeError:
                         return (field_name, None)
                 return dict(map(lookup_field_or_none, fields))
-            return list(map(spacyTokenToDict, list(nlp(inputString))))
+            return list(map(spacyTokenToDict, list(nlp(str(inputString)))))
         return inner
 
     @classmethod
@@ -185,13 +186,14 @@ functions_info["spacyadvancedtokenize"] = SpacyAdvancedTokenize
 class NltkPos(ScalarVectorizedTransformationFunction):
     """
     Uses nltk to compute the positive sentiment of the input expression.
-    >>> sentences = pandas.Series(["Boo is happy", "Boo is sad"])
+    >>> sentences = pandas.Series(["Boo is happy", "Boo is sad", "confused."])
     >>> myFunc = NltkPos().func()
     >>> import math
     >>> myFunc(sentences).apply(math.ceil)
-    0    1.0...
-    1    0.0...
-    dtype: float64
+    0    1...
+    1    0...
+    2    0...
+    dtype: ...
     """
 
     @classmethod

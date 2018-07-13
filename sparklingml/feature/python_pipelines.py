@@ -167,10 +167,11 @@ class SpacyAdvancedTokenizeTransformer(Model, HasInputCol, HasOutputCol):
                  spacyFields=None,
                  inputCol=None, outputCol=None):
         super(SpacyAdvancedTokenizeTransformer, self).__init__()
-        spacyFields = spacyFields or SpacyAdvancedTokenize.default_fields
-        self._setDefault(lang="en",
-                         spacyFields=SpacyAdvancedTokenize.default_fields)
         kwargs = self._input_kwargs
+        if "spacyFields" not in kwargs:
+            kwargs["spacyFields"] = list(SpacyAdvancedTokenize.default_fields)
+        self._setDefault(lang="en",
+                         spacyFields=list(SpacyAdvancedTokenize.default_fields))
         self.setParams(**kwargs)
 
     @keyword_only
@@ -180,8 +181,9 @@ class SpacyAdvancedTokenizeTransformer(Model, HasInputCol, HasOutputCol):
         setParams(self, lang="en", SpacyAdvancedTokenize.default_fields,
                   inputCol=None, outputCol=None):
         """
-        spacyFields = spacyFields or SpacyAdvancedTokenize.default_fields
         kwargs = self._input_kwargs
+        if "spacyFields" not in kwargs:
+            kwargs["spacyFields"] = list(SpacyAdvancedTokenize.default_fields)
         return self._set(**kwargs)
 
     def setLang(self, value):

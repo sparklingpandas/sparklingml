@@ -3,6 +3,8 @@ Yay! I'm so excited you are interested in contributing to Sparkling ML!
 The first thing you should start of with doing is subscribing to our mailing list, there isn't a lot of traffic yet but we can work on any questions you have their together.
 https://groups.google.com/forum/#!forum/sparklingml-dev
 
+You can also reach out to Holden directly by e-mail (just google her).
+
 Once you've subscribed reach out about what kind of model/algorithm you want to bring into the fold.
 
 If this is your first time getting started adding a new model with Spark's pipeline API there are some resources to get started with:

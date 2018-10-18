@@ -1,12 +1,15 @@
 package com.sparklingpandas.sparklingml.feature
 
 import org.apache.spark.ml.param._
+import org.apache.spark.ml.Pipeline
 import org.apache.spark.ml.util.Identifiable
 import org.apache.spark.sql.types._
 
 import org.scalatest._
 
 import com.holdenkarau.spark.testing.DataFrameSuiteBase
+
+case class BadInputData(input: Double)
 
 class NltkPosPythonSuite extends FunSuite with DataFrameSuiteBase with Matchers {
 
@@ -28,6 +31,20 @@ class NltkPosPythonSuite extends FunSuite with DataFrameSuiteBase with Matchers 
     result(0)(1) shouldBe  0.649
     result(1)(0) shouldBe "Boo is sad"
     result(1)(1) shouldBe 0.0
+  }
+
+  test("verify we validate input types") {
+    import spark.implicits._
+    val transformer = new NltkPosPython()
+    val input = spark.createDataset(
+      List(BadInputData(1.0), BadInputData(2.0)))
+    transformer.setInputCol("input")
+    transformer.setOutputCol("output")
+    val pipeline = new Pipeline().setStages(Array(transformer))
+    // We expect the excepiton here
+    assertThrows[java.lang.IllegalArgumentException] {
+      val model = pipeline.fit(input)
+    }
   }
 
 }

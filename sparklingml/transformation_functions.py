@@ -100,7 +100,9 @@ class SpacyMagic(object):
                     spacy.cli.download(lang)
                     cls._spacys[lang] = spacy.load(lang)
             except Exception as e:
-                raise Exception("Failed to find or download language {0}: {1}".format(lang, e))
+                raise Exception(
+                    "Failed to find or download language {0}: {1}"
+                    .format(lang, e))
 
         return cls._spacys[lang]
 

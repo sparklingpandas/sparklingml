@@ -82,7 +82,8 @@ class SpacyTokenizeTransformer(Model, HasInputCol, HasOutputCol):
     Tokenize the provided input using Spacy.
     >>> from pyspark.sql import SparkSession
     >>> spark = SparkSession.builder.master("local[2]").getOrCreate()
-    >>> df = spark.createDataFrame([("hi boo", 0.0), ("bye boo", 1.0)], ["vals", "label"])
+    >>> df = spark.createDataFrame([("hi boo", 0.0), ("bye boo", 1.0)],
+    ...    ["vals", "label"])
     >>> tr = SpacyTokenizeTransformer(inputCol="vals", outputCol="c")
     >>> str(tr.getLang())
     'en'

@@ -98,7 +98,7 @@ class SpacyMagic(object):
             try:
                 try:
                     cls._spacys[lang] = spacy.load(lang)
-                except OSError:
+                except Exception:
                     spacy.cli.download(lang)
                     cls._spacys[lang] = spacy.load(lang)
             except Exception as e:

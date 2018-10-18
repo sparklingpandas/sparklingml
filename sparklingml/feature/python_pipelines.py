@@ -82,12 +82,19 @@ class SpacyTokenizeTransformer(Model, HasInputCol, HasOutputCol):
     Tokenize the provided input using Spacy.
     >>> from pyspark.sql import SparkSession
     >>> spark = SparkSession.builder.master("local[2]").getOrCreate()
-    >>> df = spark.createDataFrame([("hi boo",), ("bye boo",)], ["vals"])
+    >>> df = spark.createDataFrame([("hi boo", 0.0), ("bye boo", 1.0)], ["vals", "label"])
     >>> tr = SpacyTokenizeTransformer(inputCol="vals", outputCol="c")
     >>> str(tr.getLang())
     'en'
     >>> tr.transform(df).head().c
     [u'hi', u'boo']
+    >>> from pyspark.ml import Pipeline
+    >>> from pyspark.ml.classification import LogisticRegression
+    >>> from pyspark.ml.feature import HashingTF
+    >>> hashingtf = HashingTF(inputCol="c", outputCol="features")
+    >>> lr = LogisticRegression(featuresCol="features")
+    >>> pipeline = Pipeline(stages=[tr, hashingtf, lr])
+    >>> model = pipeline.fit(df)
     """
 
     # We need a parameter to configure k

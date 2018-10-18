@@ -82,6 +82,10 @@ class SpacyMagic(object):
     Simple Spacy Magic to minimize loading time.
     >>> SpacyMagic.get("en")
     <spacy.lang.en.English ...
+    >>> SpacyMagic.get("non-happy-language")
+    Traceback (most recent call last):
+      ...
+    Exception: Failed to find or download language non-happy-language:...
     """
     _spacys = {}
 
@@ -89,7 +93,15 @@ class SpacyMagic(object):
     def get(cls, lang):
         if lang not in cls._spacys:
             import spacy
-            cls._spacys[lang] = spacy.load(lang)
+            try:
+                try:
+                    cls._spacys[lang] = spacy.load(lang)
+                except OSError:
+                    spacy.cli.download(lang)
+                    cls._spacys[lang] = spacy.load(lang)
+            except Exception as e:
+                raise Exception("Failed to find or download language {0}: {1}".format(lang, e))
+
         return cls._spacys[lang]
 
 

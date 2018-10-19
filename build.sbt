@@ -6,7 +6,7 @@ publishMavenStyle := true
 
 version := "0.0.1-SNAPSHOT"
 
-sparkVersion := "2.3.0"
+sparkVersion := "2.3.2"
 
 scalaVersion := "2.11.8"
 

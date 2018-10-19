@@ -21,16 +21,19 @@ class NltkPosPythonSuite extends FunSuite with DataFrameSuiteBase with Matchers 
     import spark.implicits._
     val transformer = new NltkPosPython()
     val input = spark.createDataset(
-      List(InputData("Boo is happy"), InputData("Boo is sad")))
+      List(InputData("Boo is happy"), InputData("Boo is sad"),
+        InputData("Boo says that the Sparking Pink Pandas are the coolest queer scooter club in SF")
+      ))
     transformer.setInputCol("input")
     transformer.setOutputCol("output")
     val result = transformer.transform(input).collect()
-    result.size shouldBe 2
+    result.size shouldBe 3
     result(0)(0) shouldBe "Boo is happy"
     // TODO(Holden): Figure out why the +- 0.1 matcher syntax wasn't working here
     result(0)(1) shouldBe  0.649
     result(1)(0) shouldBe "Boo is sad"
     result(1)(1) shouldBe 0.0
+    result(2)(1) shouldBe 0.0
   }
 
   test("verify we validate input types") {

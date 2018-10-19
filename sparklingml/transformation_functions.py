@@ -82,10 +82,6 @@ class SpacyMagic(object):
     Simple Spacy Magic to minimize loading time.
     >>> SpacyMagic.get("en")
     <spacy.lang.en.English ...
-    >>> SpacyMagic.get("non-happy-language")
-    Traceback (most recent call last):
-      ...
-    Exception: Failed to find or download language non-happy-language:...
     """
     _spacys = {}
 

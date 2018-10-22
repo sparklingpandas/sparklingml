@@ -109,8 +109,8 @@ class SpacyMagic(object):
     def get(self, lang):
         if lang not in self._spacys:
             import spacy
-            # Hack to dynamically download languages on cluster machines, you can
-            # remove if you have the models installed and just do:
+            # Hack to dynamically download languages on cluster machines,
+            # you can remove if you have the models installed and just do:
             # cls._spacys[lang] = spacy.load(lang)
             try:
                 old_exit = sys.exit
@@ -153,7 +153,7 @@ class SpacyMagic(object):
     def __setstate__(self, bcast):
         """Set state, from the broadcast."""
         self = bcast.value
-        
+        self
 
 
 class SpacyTokenize(ScalarVectorizedTransformationFunction):

@@ -2,6 +2,7 @@ from __future__ import unicode_literals
 
 import inspect
 import sys
+import threading
 
 import pandas  # noqa: F401
 import spacy
@@ -80,19 +81,33 @@ functions_info["strlenplusk"] = StrLenPlusK
 class SpacyMagic(object):
     """
     Simple Spacy Magic to minimize loading time.
-    >>> SpacyMagic.get("en")
+    >>> spm = SpacyMagic()
+    >>> spm2 = SpacyMagic()
+    >>> spm == spm2
+    True
+    >>> spm.get("en")
     <spacy.lang.en.English ...
-    >>> SpacyMagic.get("non-happy-language")
+    >>> spm.get("non-happy-language")
     Traceback (most recent call last):
       ...
     Exception: Failed to find or download language non-happy-language:...
-    >>> sc.broadcast(SpacyMagic)
+    >>> spm.broadcast()
+    <pyspark.broadcast.Broadcast ...
     """
     _spacys = {}
+    _broadcast = None
+    _self = None
+    __empty_please = False
+    __lock = threading.Lock()
 
-    @classmethod
-    def get(cls, lang):
-        if lang not in cls._spacys:
+    def __new__(cls):
+        """Not quite a proper singleton but I'm lazy."""
+        if not cls._self:
+            cls._self = super(SpacyMagic, cls).__new__(cls)
+        return SpacyMagic._self
+
+    def get(self, lang):
+        if lang not in self._spacys:
             import spacy
             # Hack to dynamically download languages on cluster machines, you can
             # remove if you have the models installed and just do:
@@ -101,10 +116,10 @@ class SpacyMagic(object):
                 old_exit = sys.exit
                 sys.exit = None
                 try:
-                    cls._spacys[lang] = spacy.load(lang)
+                    self._spacys[lang] = spacy.load(lang)
                 except Exception:
                     spacy.cli.download(lang)
-                    cls._spacys[lang] = spacy.load(lang)
+                    self._spacys[lang] = spacy.load(lang)
             except Exception as e:
                 raise Exception(
                     "Failed to find or download language {0}: {1}"
@@ -112,15 +127,32 @@ class SpacyMagic(object):
             finally:
                 sys.exit = old_exit
 
-        return cls._spacys[lang]
+        return self._spacys[lang]
+
+    def broadcast(self):
+        """Broadcast self to ensure we are shared."""
+        if self._broadcast is None:
+            from pyspark.context import SparkContext
+            sc = SparkContext.getOrCreate()
+            try:
+                SpacyMagic.__lock.acquire()
+                self.__empty_please = True
+                self._broadcast = sc.broadcast(self)
+                self.__empty_please = False
+            finally:
+                SpacyMagic.__lock.release()
+        return self._broadcast
 
     def __getstate__(self):
-        """Get state, return nothing since don't want to send anything on the wire."""
-        return None
+        """Get state, don't serialize anything."""
+        if not self.__empty_please:
+            return self.broadcast()
+        else:
+            return None
 
-    def __setstate__(self, val):
-        """Set state, do nothing."""
-        return self
+    def __setstate__(self, bcast):
+        """Set state, from the broadcast."""
+        self = bcast.value
         
 
 
@@ -142,11 +174,12 @@ class SpacyTokenize(ScalarVectorizedTransformationFunction):
     @classmethod
     def func(cls, *args):
         lang = args[0]
+        spm = SpacyMagic()
 
         def inner(inputSeries):
             """Tokenize the inputString using spacy for
             the provided language."""
-            nlp = SpacyMagic.get(lang)
+            nlp = spm.get(lang)
 
             def tokenizeElem(elem):
                 result_itr = map(lambda token: token.text,
@@ -191,11 +224,12 @@ class SpacyAdvancedTokenize(TransformationFunction):
     def func(cls, *args):
         lang = args[0]
         fields = args[1]
+        spm = SpacyMagic()
 
         def inner(inputString):
             """Tokenize the inputString using spacy for the provided language.
             Keeps the requested fields."""
-            nlp = SpacyMagic.get(lang)
+            nlp = spm.get(lang)
 
             def spacyTokenToDict(token):
                 """Convert the input token into a dictionary"""

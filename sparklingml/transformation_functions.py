@@ -128,8 +128,7 @@ class SpacyTokenize(ScalarVectorizedTransformationFunction):
             nlp = SpacyMagic.get(lang)
 
             def tokenizeElem(elem):
-                result_itr = map(lambda token: token.text,
-                                 list(nlp(unicode(elem))))
+                result_itr = [token.text for token in nlp(unicode(elem))]
                 return list(result_itr)
 
             return inputSeries.apply(tokenizeElem)

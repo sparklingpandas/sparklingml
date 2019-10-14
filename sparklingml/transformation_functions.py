@@ -85,7 +85,7 @@ class SpacyMagic(object):
     >>> spm2 = SpacyMagic()
     >>> spm == spm2
     True
-    >>> spm.get("en")
+    >>> spm.get("en_core_web_sm")
     <spacy.lang.en.English ...
     >>> spm.get("non-happy-language")
     Traceback (most recent call last):
@@ -160,7 +160,7 @@ class SpacyTokenize(ScalarVectorizedTransformationFunction):
     """
     Tokenize input text using spacy.
     >>> spt = SpacyTokenize()
-    >>> sp = spt.func("en")
+    >>> sp = spt.func("en_core_web_sm")
     >>> r = sp(pandas.Series(["hi boo"]))
     ...
     >>> r
@@ -202,7 +202,7 @@ class SpacyAdvancedTokenize(TransformationFunction):
     """
     Tokenize input text using spacy and return the extra information.
     >>> spta = SpacyAdvancedTokenize()
-    >>> spa = spta.func("en", ["lower_", "text", "lang", "a"])
+    >>> spa = spta.func("en_core_web_sm", ["lower_", "text", "lang", "a"])
     >>> r = spa("Hi boo")
     >>> l = list(map(lambda d: sorted(d.items()), r))
     >>> l[0]

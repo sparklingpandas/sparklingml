@@ -86,7 +86,7 @@ class SpacyTokenizePythonSuite extends FunSuite with DataFrameSuiteBase with Mat
   test("verify spacy tokenization works") {
     import spark.implicits._
     val transformer = new SpacyTokenizePython()
-    transformer.setLang("en")
+    transformer.setLang("en_core_web_sm")
     val input = spark.createDataset(
       List(InputData("hi boo"), InputData("boo")))
     transformer.setInputCol("input")

@@ -9,7 +9,7 @@ pip install -r requirements.txt
 
 echo "Checking if spacy 'en' is installed otherwise download it"
 
-python -c "import spacy;spacy.load('en')" || python -m spacy download en
+python -c "import spacy;spacy.load('en_core_web_sm')" || python -m spacy download en_core_web_sm && python -c "import spacy;spacy.load('en_core_web_sm')"
 
 echo "Checking scala style issues"
 

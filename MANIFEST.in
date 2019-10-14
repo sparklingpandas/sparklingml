@@ -1,0 +1,4 @@
+include *.txt
+include *.md
+include sparklingml/jar/*.jar
+recursive-include docs *.md

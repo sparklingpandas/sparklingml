@@ -87,7 +87,7 @@ class SpacyTokenizeTransformer(Model, HasInputCol, HasOutputCol):
     ...    ["vals", "label"])
     >>> tr = SpacyTokenizeTransformer(inputCol="vals", outputCol="c")
     >>> str(tr.getLang())
-    'en'
+    'en_core_web_sm'
     >>> tr.transform(df).head().c
     [u'hi', u'boo']
     >>> from pyspark.ml import Pipeline
@@ -150,7 +150,7 @@ class SpacyAdvancedTokenizeTransformer(Model, HasInputCol, HasOutputCol):
     >>> df = spark.createDataFrame([("hi boo",), ("bye boo",)], ["vals"])
     >>> tr = SpacyAdvancedTokenizeTransformer(inputCol="vals", outputCol="c")
     >>> str(tr.getLang())
-    'en'
+    'en_core_web_sm'
     >>> tr.getSpacyFields()
     ['_', 'ancestors', ...
     >>> tr.setSpacyFields(["text", "lang_"])
@@ -188,7 +188,8 @@ class SpacyAdvancedTokenizeTransformer(Model, HasInputCol, HasOutputCol):
     def setParams(self, lang="en_core_web_sm", spacyFields=None,
                   inputCol=None, outputCol=None):
         """
-        setParams(self, lang="en_core_web_sm", SpacyAdvancedTokenize.default_fields,
+        setParams(self, lang="en_core_web_sm",
+                  SpacyAdvancedTokenize.default_fields,
                   inputCol=None, outputCol=None):
         """
         kwargs = self._input_kwargs

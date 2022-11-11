@@ -1,5 +1,5 @@
 coverage
-pyspark==2.4.4
+pyspark==3.2.2
 pypandoc
 scipy
 numpy
